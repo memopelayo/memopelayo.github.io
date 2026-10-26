@@ -195,3 +195,25 @@ html.js .cats-mode .catp.on{display:block;animation:fadeUp .45s cubic-bezier(.2,
 [data-theme=black] .ow-tag,[data-theme=blue] .ow-tag{background:var(--ink);color:var(--bg)}
 .ow-card .btn{display:inline-block}
 @media (prefers-reduced-motion:reduce){.ow-card{transform:none}}
+/* icon tile variant: work.html?tiles=icon (line icons) */
+.cic{display:none}
+[data-tiles=icon] .cat .cthumb{background:none;border:1px solid var(--line,currentColor);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+[data-tiles=icon] .cat .cthumb img{display:none}
+[data-tiles=icon] .cic{display:block;width:46%;height:auto;overflow:visible;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+[data-tiles=icon] .cic *{vector-effect:non-scaling-stroke}
+[data-tiles=icon] .cat:hover .cthumb{color:var(--bg);border-color:var(--bg)}
+[data-tiles=icon] .cat:hover .cic{transform:translateY(-4px)}
+@media (prefers-reduced-motion:reduce){[data-tiles=icon] .cic{transition:none}}
+@media (max-width:760px){
+[data-tiles=icon] .cats{grid-template-columns:repeat(3,1fr)}
+[data-tiles=icon] .cat{padding:12px 8px 14px}
+[data-tiles=icon] .cat .cthumb{aspect-ratio:1;border:0}
+[data-tiles=icon] .cic{width:78%}
+[data-tiles=icon] .cat .cmeta{padding-top:8px;gap:.25rem;text-align:center}
+[data-tiles=icon] .cat .cmeta span{display:none}
+[data-tiles=icon] .cat .cmeta b{font-size:17px;line-height:1.05;hyphens:none}
+[data-tiles=icon] .cat .cmeta small{font-size:10px}
+}
+/* style C accent (default icon tiles; ?tiles=img for images) */
+.cic .ac{fill:var(--red);stroke:none}.cic .acs{stroke:var(--red)}
+.cat:hover .cic .ac{fill:currentColor}.cat:hover .cic .acs{stroke:currentColor}
