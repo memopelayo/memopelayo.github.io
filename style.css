@@ -290,3 +290,18 @@ html.js .modal:not(.open){display:none}
 .sp .cvd{font-size:13px;border-bottom:1px solid currentColor;padding:6px 0;min-height:32px}
 .navcv{font-family:var(--mono);font-size:12px;letter-spacing:.06em}
 @media (max-width:760px){.sp .acts{width:100%;flex-direction:column-reverse;align-items:stretch;gap:.8rem}.sp .cvd{align-self:center}.navcv{display:none}}
+/* desktop: centered category tiles + bigger service letters */
+@media (min-width:761px){
+.cats{max-width:960px;margin-left:auto;margin-right:auto;gap:50px;border:0}
+.cat{border:1px solid var(--ink)}
+.svc>div>span.mono{font-size:22px;letter-spacing:.04em}
+}
+.sp-foot{font-size:10px;opacity:.6;margin:0;letter-spacing:.04em}
+@media (max-width:760px){.sp-foot{text-align:center}}
+/* ticker: longer lists */
+@keyframes tkf21{0%,0.71%{opacity:0}1.19%,4.05%{opacity:1}4.76%,100%{opacity:0}}
+.tk-fade[style*="--n:21"] span{animation:tkf21 84s infinite}
+.tk:has(.tk-fade[style*="--n:21"]) .tk-run{animation-duration:113s}
+@keyframes tkf22{0%,0.68%{opacity:0}1.14%,3.86%{opacity:1}4.55%,100%{opacity:0}}
+.tk-fade[style*="--n:22"] span{animation:tkf22 88s infinite}
+.tk:has(.tk-fade[style*="--n:22"]) .tk-run{animation-duration:118s}
