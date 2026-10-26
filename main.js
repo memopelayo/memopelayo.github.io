@@ -1,6 +1,6 @@
 (function(){var d=document,r=d.documentElement,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;r.classList.add('js');
 var P='<svg viewBox="0 0 59 18" preserveAspectRatio="none" aria-hidden="true"><path d="M.945.149C12.3 16.142 43.573 22.572 58.785 10.842" pathLength="1"/></svg>';
-d.querySelectorAll('nav a:not(.btn),.links a,dd a,.close').forEach(function(a){a.classList.add('l13');a.insertAdjacentHTML('beforeend',P)});
+d.querySelectorAll('nav a:not(.btn),.links a,dd a,.close,.cpy').forEach(function(a){a.classList.add('l13');a.insertAdjacentHTML('beforeend',P)});
 var native='onpagereveal' in window&&CSS.supports&&CSS.supports('view-transition-name: a');
 if(!native&&!rm)d.addEventListener('click',function(e){var a=e.target.closest('a');if(!a||a.target||e.metaKey||e.ctrlKey)return;var h=a.getAttribute('href')||'';if(!/\.html/.test(h))return;var u=new URL(h,location.href);if(u.pathname===location.pathname)return;e.preventDefault();d.body.classList.add('leaving');if(/index\.html/.test(h))d.body.classList.add('back');setTimeout(function(){location.href=u.href},450)});
 var cs=d.querySelectorAll('.card');if(cs.length&&'IntersectionObserver'in window&&!rm){var io=new IntersectionObserver(function(es){var k=0;es.forEach(function(x){if(x.isIntersecting){var c=x.target;c.style.transitionDelay=(k++*90)+'ms';c.classList.remove('rv');io.unobserve(c);setTimeout(function(){c.style.transitionDelay=''},900)}})},{threshold:.15});cs.forEach(function(c){c.classList.add('rv');io.observe(c)})}
@@ -64,3 +64,9 @@ lb.addEventListener('click',function(e){e.stopPropagation();if(e.target.closest(
 var sx,sy,st,multi=false;lb.addEventListener('touchstart',function(e){multi=e.touches.length>1;var t=e.touches[0];sx=t.clientX;sy=t.clientY;st=Date.now()},{passive:true});
 lb.addEventListener('touchend',function(e){if(multi||(window.visualViewport&&visualViewport.scale>1.05))return;var t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(Date.now()-st>800)return;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))step(dx<0?1:-1);else if(dy>80&&Math.abs(dy)>Math.abs(dx))closeLb()},{passive:true});
 d.addEventListener('keydown',function(e){if(e.key==='Escape'){if(lbOn)closeLb();else if(cur)closeM()}else if(lbOn&&e.key==='ArrowRight')step(1);else if(lbOn&&e.key==='ArrowLeft')step(-1)})})();
+
+/* copy email */
+(function(){document.querySelectorAll('.cpy').forEach(function(b){var st=b.parentNode.querySelector('.cst'),t;
+function ok(){b.classList.add('done');st.textContent='Copied ✓';clearTimeout(t);t=setTimeout(function(){b.classList.remove('done');st.textContent=''},1600)}
+function fb(v){var x=document.createElement('textarea');x.value=v;x.setAttribute('readonly','');x.style.cssText='position:fixed;opacity:0;top:0';document.body.appendChild(x);x.select();var r=false;try{r=document.execCommand('copy')}catch(e){}x.remove();if(r)ok();else{var g=document.createRange();g.selectNodeContents(b.querySelector('.cl'));var s=getSelection();s.removeAllRanges();s.addRange(g);st.textContent='Press Ctrl/Cmd+C to copy'}}
+b.addEventListener('click',function(e){e.preventDefault();var v=b.getAttribute('data-copy');if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(v).then(ok,function(){fb(v)});else fb(v)})})})();
