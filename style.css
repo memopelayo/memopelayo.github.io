@@ -217,3 +217,15 @@ html.js .cats-mode .catp.on{display:block;animation:fadeUp .45s cubic-bezier(.2,
 /* style C accent (default icon tiles; ?tiles=img for images) */
 .cic .ac{fill:var(--red);stroke:none}.cic .acs{stroke:var(--red)}
 .cat:hover .cic .ac{fill:currentColor}.cat:hover .cic .acs{stroke:currentColor}
+/* OW memo: two columns */
+.ow-card{display:grid;grid-template-columns:40% 1fr;gap:0;max-width:640px;padding:0}
+.ow-l{padding:30px 18px 18px;border-right:1.5px dashed var(--ink);display:flex;flex-direction:column;gap:6px}
+.ow-rt{padding:30px 20px 20px;display:flex;flex-direction:column;justify-content:center}
+.ow-rt p{margin:0 0 14px}
+.ow-name{font:clamp(30px,4vw,44px)/.92 Anton,sans-serif;text-transform:uppercase;letter-spacing:.01em}
+.ow-k,.ow-r{font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.ow-r{margin-top:auto;padding-top:6px}
+@media (max-width:760px){.ow-card{grid-template-columns:42% 1fr;font-size:14px}.ow-l{padding:28px 12px 14px}.ow-rt{padding:28px 14px 16px}.ow-name{font-size:28px}.ow-rt .btn{font-size:11px;padding:.5em .7em}}
+@media (max-width:340px){.ow-card{grid-template-columns:1fr}.ow-l{border-right:0;border-bottom:1.5px dashed var(--ink)}}
+.ow-rt .btn{align-self:flex-start}
+.ow-logo{display:block;width:100%;max-width:220px;height:auto;color:var(--ink);margin:4px 0 2px}
