@@ -171,3 +171,27 @@ html.js .modal .close{display:none}
 .lb .lx{top:max(10px,env(safe-area-inset-top));right:10px}.lb .lp{left:10px;top:50%;margin-top:-22px}.lb .ln{right:10px;top:50%;margin-top:-22px}
 .lb .lc{position:absolute;bottom:max(14px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;font:12px var(--mono);color:#fffa}
 @media (prefers-reduced-motion:reduce){.lb.on{animation:none}.lb img{transition:none}}
+/* category landing */
+.cats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+.cat{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:18px;display:block;transition:background .2s,color .2s}
+.cat .cthumb{aspect-ratio:4/3;overflow:hidden;background:var(--line)}
+.cat .cthumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.cat:hover .cthumb img{transform:scale(1.04)}
+.cat .cmeta{display:grid;gap:.3rem;padding-top:14px}.cat .cmeta b{font:clamp(28px,3vw,44px)/1 Anton,sans-serif;text-transform:uppercase}
+.cat .cmeta small,.cat .cmeta span{font-size:12px;opacity:.75}
+.cat:hover{background:var(--ink);color:var(--bg)}
+html.js .cats-mode .catp{display:none}
+html.js .cats-mode.in .cat-home{display:none}
+html.js .cats-mode .catp.on{display:block;animation:fadeUp .45s cubic-bezier(.2,.8,.2,1)}
+.catp{margin-top:3rem}.back{display:inline-block;font-size:13px;padding:10px 0;min-height:44px}
+.catp .sec-h{display:block}.catp .sec-h .lbl{margin:1rem 0 .5rem}
+.cat-intro{font:clamp(18px,1.8vw,24px)/1.3 Inter,sans-serif;max-width:40ch;margin-bottom:2rem}
+@media (max-width:760px){.cats{grid-template-columns:1fr}.cat .cthumb{aspect-ratio:16/9}}
+@media (prefers-reduced-motion:reduce){html.js .cats-mode .catp.on{animation:none}.cat .cthumb img{transition:none}}
+/* Oliver Wyman memo card */
+.ow-card{position:relative;max-width:520px;margin:0 0 2.5rem;padding:26px 22px 20px;border:1.5px dashed var(--ink);background:color-mix(in srgb,var(--bg) 88%,var(--red));transform:rotate(-1deg);font:15px/1.45 Inter,sans-serif}
+.ow-card p{margin:0 0 14px}.ow-card b{font-weight:700}
+.ow-tag{position:absolute;top:-11px;left:16px;background:var(--red);color:#fff;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;transform:rotate(2deg)}
+[data-theme=black] .ow-tag,[data-theme=blue] .ow-tag{background:var(--ink);color:var(--bg)}
+.ow-card .btn{display:inline-block}
+@media (prefers-reduced-motion:reduce){.ow-card{transform:none}}
