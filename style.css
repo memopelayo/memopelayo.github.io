@@ -104,7 +104,7 @@ html:has(body.splash){overflow:hidden;height:100svh}
 
 /* custom cursor */
 #cur{position:fixed;left:0;top:0;z-index:99;pointer-events:none;width:48px;height:48px;margin:-24px 0 0 -24px;display:none}
-html.fine #cur{display:block}
+html.fp #cur{display:block}
 #cur i{position:absolute;inset:0;background:var(--red);transform:scale(.29);transition:transform .35s cubic-bezier(.2,.8,.2,1),clip-path .35s,background .35s;clip-path:polygon(0.0% 0.0%,33.3% 0.0%,66.7% 0.0%,100.0% 0.0%,100.0% 33.3%,100.0% 66.7%,100.0% 100.0%,66.7% 100.0%,33.3% 100.0%,0.0% 100.0%,0.0% 66.7%,0.0% 33.3%)}
 #cur b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:600 11px var(--mono);letter-spacing:.08em;color:var(--bg);opacity:0;transition:opacity .2s}
 #cur.hov i{transform:scale(1)}
@@ -255,3 +255,23 @@ html.js .modal:not(.open){display:none}
 .tg span{font-size:11px}
 [data-theme=blue] li span{opacity:.92}
 [data-theme=blue] .foot{opacity:.95}
+/* laptop/desktop hero (mobile unchanged) */
+@media (min-width:761px){
+.sp{justify-content:center;gap:clamp(18px,4svh,44px);padding:4svh 4vw 3svh}
+.sp .lbl{font-size:12px;margin:0 0 clamp(10px,2.5svh,28px)}
+.sp h1{font-size:min(10.5vw,17svh,220px);line-height:1}
+.sp .row{padding-top:clamp(10px,2svh,20px)}
+.sp .role{font-size:clamp(15px,1.35vw,21px);line-height:1.25;max-width:30ch}
+.enter{width:auto;font-size:clamp(17px,1.6vw,24px);padding:.55em 1.1em;letter-spacing:.02em}
+}
+/* laptop: smaller work blocks + cursor sizes */
+@media (min-width:761px){
+.cases{grid-template-columns:repeat(3,1fr)}
+.case{padding:14px}
+.case .cmeta b{font-size:clamp(18px,1.6vw,24px)}
+.cats{max-width:960px}
+.cat .cthumb{aspect-ratio:16/10}
+.cat .cmeta b{font-size:clamp(22px,2vw,30px)}
+}
+#cur.hov i{transform:scale(.5)}
+#cur.view i{transform:scale(1.25)}
