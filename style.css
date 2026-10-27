@@ -310,3 +310,14 @@ html.js .modal:not(.open){display:none}
 .egg-hint.on{opacity:1;transform:translateY(0) rotate(-1.5deg)}
 .egg-hint::after{content:"";position:absolute;left:50%;bottom:-5px;width:10px;height:10px;background:inherit;transform:translateX(-50%) rotate(45deg)}
 @media (prefers-reduced-motion:reduce){.egg-hint{transition:opacity .2s;transform:none}.egg-hint.on{transform:none}}
+/* cookie notice */
+.ck{position:fixed;left:16px;bottom:44px;z-index:110;max-width:330px;background:var(--bg);color:var(--ink);border:1px solid var(--ink);padding:12px 14px;font-size:11px;line-height:1.45;box-shadow:4px 4px 0 var(--ink);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.ck.on{opacity:1;transform:none}
+.ck p{margin:0 0 10px}
+.ck div{display:flex;gap:8px}
+.ck button{font:inherit;font-size:11px;letter-spacing:.04em;padding:7px 12px;min-height:32px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer}
+.ck button[data-v=denied]{background:none;color:var(--ink)}
+.ck button:hover{opacity:.85}
+body:not(.splash) .ck{bottom:16px}
+@media (max-width:760px){.ck{left:12px;right:12px;max-width:none;bottom:40px}body:not(.splash) .ck{bottom:12px}}
+@media (prefers-reduced-motion:reduce){.ck{transition:none}}

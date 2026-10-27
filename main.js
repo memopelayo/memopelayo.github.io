@@ -26,7 +26,7 @@ var hintEl=null,hintT;function hint(t,x,y){if(!hintEl){hintEl=d.createElement('d
 hintEl.textContent=t;var W=innerWidth,w=Math.min(260,W-24);hintEl.style.maxWidth=w+'px';hintEl.style.left=Math.max(12,Math.min(x-w/2,W-w-12))+'px';hintEl.style.top=Math.max(12,y-64)+'px';
 hintEl.classList.remove('on');void hintEl.offsetWidth;hintEl.classList.add('on');clearTimeout(hintT);hintT=setTimeout(function(){hintEl.classList.remove('on')},2500)}
 var HC={2:'Careful\u2026 keep clicking and this might fall apart.',4:'Seriously, it\u2019s getting wobbly.',6:'One more and it\u2019s on you.'};
-d.addEventListener('click',function(e){if(busy||e.target.closest('a,button,input,label,.card,.case,.modal,.lb,.tg,.egg-dot,.egg-msg,#nm em'))return;var n=Date.now();clicks=clicks.filter(function(t){return n-t<3000});clicks.push(n);if(clicks.length>=7){clicks=[];if(hintEl)hintEl.classList.remove('on');collapse()}else if(HC[clicks.length])hint(HC[clicks.length],e.clientX,e.clientY)});
+d.addEventListener('click',function(e){if(busy||e.target.closest('a,button,input,label,.card,.case,.modal,.lb,.tg,.egg-dot,.egg-msg,#nm em,.ck'))return;var n=Date.now();clicks=clicks.filter(function(t){return n-t<3000});clicks.push(n);if(clicks.length>=7){clicks=[];if(hintEl)hintEl.classList.remove('on');collapse()}else if(HC[clicks.length])hint(HC[clicks.length],e.clientX,e.clientY)});
 function collapse(){busy=true;window.__egg=1;var H=innerHeight,els=[].filter.call(d.querySelectorAll('.ch,#nm em,.sp .lbl span,.role,.enter,.top nav>*,.logo,.tk,h2,.big-t,.card,li,.svc>div,.desc,h4,.sk,.kicker,.links a,.lbl,.bar span'),function(el){var b=el.getBoundingClientRect();return b.bottom>0&&b.top<H&&b.width>0});
 var P=els.map(function(el){return{el:el,y:0,x:0,vy:-Math.random()*6,vx:(Math.random()-.5)*6,a:0,va:(Math.random()-.5)*8,t:Math.random()*400}}),t0=performance.now(),done=false;
 if(!RM)(function f(now){var k=now-t0;P.forEach(function(p){if(k<p.t)return;p.vy+=.6;p.y+=p.vy;p.x+=p.vx;p.a+=p.va;p.el.style.transform='translate('+p.x+'px,'+p.y+'px) rotate('+p.a+'deg)'});if(!done&&k<2600)raf(f)})(t0);
@@ -74,3 +74,10 @@ d.addEventListener('keydown',function(e){if(e.key==='Escape'){if(lbOn)closeLb();
 function ok(){b.classList.add('done');st.textContent='Copied ✓';clearTimeout(t);t=setTimeout(function(){b.classList.remove('done');st.textContent=''},1600)}
 function fb(v){var x=document.createElement('textarea');x.value=v;x.setAttribute('readonly','');x.style.cssText='position:fixed;opacity:0;top:0';document.body.appendChild(x);x.select();var r=false;try{r=document.execCommand('copy')}catch(e){}x.remove();if(r)ok();else{var g=document.createRange();g.selectNodeContents(b.querySelector('.cl'));var s=getSelection();s.removeAllRanges();s.addRange(g);st.textContent='Press Ctrl/Cmd+C to copy'}}
 b.addEventListener('click',function(e){e.preventDefault();var v=b.getAttribute('data-copy');if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(v).then(ok,function(){fb(v)});else fb(v)})})})();
+/* cookie consent (GA4 Consent Mode v2) */
+(function(){var d=document,k='gp-consent',v=null;try{v=localStorage.getItem(k)}catch(e){}if(v)return;
+var b=d.createElement('div');b.className='ck mono';b.setAttribute('role','region');b.setAttribute('aria-label','Cookie notice');
+b.innerHTML='<p>This site uses analytics cookies to see what work gets looked at.</p><div><button type="button" data-v="granted">Accept</button><button type="button" data-v="denied">Decline</button></div>';
+d.body.appendChild(b);requestAnimationFrame(function(){b.classList.add('on')});
+b.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)return;e.stopPropagation();var c=t.getAttribute('data-v');try{localStorage.setItem(k,c)}catch(x){}
+if(c==='granted'&&window.gtag)gtag('consent','update',{analytics_storage:'granted'});b.classList.remove('on');setTimeout(function(){b.remove()},300)})})();
