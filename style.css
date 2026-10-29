@@ -330,3 +330,6 @@ body:not(.splash) .ck{bottom:16px}
 @media (min-width:761px){.ow-card{max-width:none;width:100%;transform:none;grid-template-columns:minmax(260px,32%) 1fr}.ow-rt{display:flex;flex-direction:column;justify-content:center;align-items:flex-start}.cat-intro{max-width:none}}
 /* desktop: name on one line, subtitle flows */
 @media (min-width:761px){.sp .role{max-width:none}}
+/* mobile: same nav on every page (Work · About · CV · Contact) */
+@media(max-width:820px){nav a:not(.btn){display:inline}nav .navcv{display:inline}nav a.nh{display:none}nav{gap:.9rem;font-size:13px}}
+@media(max-width:374px){nav{gap:.65rem;font-size:12px}.tg span{display:none}}
