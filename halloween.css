@@ -1,0 +1,29 @@
+/* Halloween layer (loaded only by halloween.js while active) */
+html.hw{--hwg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Cpath d='M10 0C4.5 0 1 4 1 9.5V22l3-2.4 3 2.4 3-2.4 3 2.4 3-2.4 3 2.4V9.5C19 4 15.5 0 10 0zM6.6 7.2a1.6 2 0 1 1 0 4 1.6 2 0 0 1 0-4zm6.8 0a1.6 2 0 1 1 0 4 1.6 2 0 0 1 0-4z' fill='%23000' fill-rule='evenodd'/%3E%3C/svg%3E")}
+html.hw[data-theme=cream]{--bg:#f2e6d6;--red:#d9480f}
+html.hw[data-theme=white]{--bg:#fffaf3;--red:#d9480f}
+html.hw[data-theme=black]{--bg:#120c18;--ink:#f1e8dc;--red:#ff7a1a}
+html.hw[data-theme=blue]{--bg:#2a1446;--ink:#fff;--red:#ff9a3c}
+/* ghost square: the name's period + the escaped dot */
+html.hw .sp h1 em{color:transparent;position:relative}
+html.hw .sp h1 em::after{content:"";position:absolute;left:8%;bottom:.07em;width:.2em;height:.22em;background:var(--red);-webkit-mask:var(--hwg) center/contain no-repeat;mask:var(--hwg) center/contain no-repeat;animation:hwfloat 3s ease-in-out infinite}
+html.hw .egg-dot{background:var(--red)!important;-webkit-mask:var(--hwg) center/contain no-repeat;mask:var(--hwg) center/contain no-repeat}
+@keyframes hwfloat{50%{transform:translateY(-.03em) rotate(-4deg)}}
+/* ghost cursor */
+html.hw #cur i{clip-path:none!important;-webkit-mask:var(--hwg) center/contain no-repeat;mask:var(--hwg) center/contain no-repeat;transform:scale(.36)}
+html.hw #cur.hov i{transform:scale(.7) rotate(-8deg)}
+html.hw #cur.view i{-webkit-mask:none;mask:none;clip-path:circle(50% at 50% 50%)!important}
+/* banner */
+.hw-ban{position:fixed;left:50%;top:64px;z-index:130;transform:translateX(-50%);display:flex;align-items:center;gap:.8rem;max-width:calc(100vw - 24px);padding:7px 8px 7px 14px;background:var(--ink);color:var(--bg);font:12px/1.35 var(--mono);box-shadow:3px 3px 0 var(--red)}
+.hw-ban button{font:inherit;background:none;color:inherit;border:1px solid currentColor;min-width:30px;min-height:30px;cursor:pointer}
+/* cobwebs + bats */
+.hw-web{position:fixed;width:120px;height:120px;pointer-events:none;z-index:5;opacity:.28;color:var(--ink)}
+.hw-web.tl{left:0;top:56px}.hw-web.br{right:0;bottom:24px;transform:rotate(180deg)}
+.hw-bat{position:fixed;z-index:6;width:26px;height:12px;pointer-events:none;color:var(--ink);opacity:.55;top:var(--y);left:-40px;animation:hwfly var(--t) linear var(--d) infinite}
+.hw-bat svg{width:100%;height:100%;animation:hwflap .28s steps(2) infinite}
+@keyframes hwfly{0%{transform:translate(0,0)}25%{transform:translate(28vw,-18px)}50%{transform:translate(55vw,10px)}75%{transform:translate(80vw,-12px)}100%{transform:translate(calc(100vw + 80px),0)}}
+@keyframes hwflap{50%{transform:scaleY(.45)}}
+@media(max-width:760px){.hw-web{width:72px;height:72px}.hw-ban{top:58px;font-size:11px;width:calc(100vw - 24px)}}
+@media (prefers-reduced-motion:reduce){html.hw .sp h1 em::after{animation:none}.hw-bat{animation:none;left:auto;right:calc(18px + var(--i)*34px);top:calc(70px + var(--i)*8px)}.hw-bat svg{animation:none}}
+@media(max-width:760px){.hw-ban{top:auto;bottom:44px}.hw-web.br{bottom:60px}}
+.hw-ban{top:auto;bottom:44px}body:not(.splash) .hw-ban{bottom:18px}

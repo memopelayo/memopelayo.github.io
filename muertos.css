@@ -1,0 +1,27 @@
+/* Día de Muertos layer (loaded only by muertos.js while active) */
+html.dm{--dmo:#f59e0b;--dmp:#e4007c;--dmf:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg fill='%23000'%3E%3Ccircle cx='10' cy='4.2' r='3.6'/%3E%3Ccircle cx='15.5' cy='8' r='3.6'/%3E%3Ccircle cx='13.4' cy='14.6' r='3.6'/%3E%3Ccircle cx='6.6' cy='14.6' r='3.6'/%3E%3Ccircle cx='4.5' cy='8' r='3.6'/%3E%3Ccircle cx='10' cy='10' r='4.5'/%3E%3C/g%3E%3C/svg%3E")}
+html.dm[data-theme=cream]{--bg:#f6ead8;--red:#c2410c}
+html.dm[data-theme=white]{--bg:#fffaf2;--red:#c2410c}
+html.dm[data-theme=black]{--bg:#140b12;--ink:#f6ead8;--red:#f59e0b}
+html.dm[data-theme=blue]{--bg:#3b0a45;--ink:#fff;--red:#ffb020}
+::selection{background:var(--dmp);color:#fff}
+/* marigold period */
+html.dm .sp h1 em{color:transparent;position:relative}
+html.dm .sp h1 em::after{content:"";position:absolute;left:4%;bottom:.05em;width:.22em;height:.22em;background:radial-gradient(circle at 50% 50%,var(--dmp) 0 18%,var(--red) 19%);-webkit-mask:var(--dmf) center/contain no-repeat;mask:var(--dmf) center/contain no-repeat;animation:dmspin 14s linear infinite}
+html.dm .egg-dot{background:radial-gradient(circle,var(--dmp) 0 18%,var(--red) 19%)!important;-webkit-mask:var(--dmf) center/contain no-repeat;mask:var(--dmf) center/contain no-repeat}
+@keyframes dmspin{to{transform:rotate(360deg)}}
+/* papel picado */
+.dm-pp{position:relative;height:34px;margin-bottom:-34px;z-index:40;pointer-events:none;display:flex;justify-content:space-around;overflow:hidden}
+.dm-pp::before{content:"";position:absolute;left:0;right:0;top:2px;height:1px;background:var(--ink);opacity:.35}
+.dm-pp svg{width:44px;height:30px;transform-origin:50% 0;animation:dmsway 4s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes dmsway{50%{transform:rotate(3deg)}}
+/* petals */
+.dm-pet{position:fixed;top:-14px;left:var(--x);z-index:41;width:9px;height:12px;border-radius:60% 60% 60% 0;background:var(--c);opacity:.8;pointer-events:none;animation:dmfall var(--t) linear forwards}
+@keyframes dmfall{to{transform:translate(var(--dx),105vh) rotate(var(--r));opacity:.2}}
+/* banner */
+.dm-ban{position:fixed;left:50%;bottom:44px;z-index:130;transform:translateX(-50%);display:flex;align-items:center;gap:.8rem;max-width:calc(100vw - 24px);padding:7px 8px 7px 14px;background:var(--ink);color:var(--bg);font:12px/1.35 var(--mono);box-shadow:3px 3px 0 var(--dmp)}
+body:not(.splash) .dm-ban{bottom:18px}
+.dm-ban em{display:block;font-style:italic;opacity:.8;font-size:11px;margin-top:2px}
+.dm-ban button{font:inherit;background:none;color:inherit;border:1px solid currentColor;min-width:30px;min-height:30px;cursor:pointer}
+@media(max-width:760px){.dm-ban{width:calc(100vw - 24px);font-size:11px}.dm-pp svg{width:30px;height:22px}}
+@media (prefers-reduced-motion:reduce){html.dm .sp h1 em::after,.dm-pp svg{animation:none}.dm-pet{display:none}}
