@@ -1,7 +1,7 @@
 /* Día de Muertos layer: active Nov 1–2 2026 (America/Mexico_City). ?muertos=1 forces on, ?muertos=0 off. */
 (function(){var d=document,R=d.documentElement,q=new URLSearchParams(location.search).get('muertos'),on;
 try{var ymd=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Mexico_City',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());on=ymd>='2026-11-01'&&ymd<='2026-11-02'}catch(e){on=false}
-try{if(q==='1')sessionStorage.setItem('gp-dm-force','1');if(q==='0')sessionStorage.removeItem('gp-dm-force');if(sessionStorage.getItem('gp-dm-force')==='1')on=true}catch(e){}if(q==='1')on=true;if(q==='0')on=false;if(!on)return;
+try{var hq=new URLSearchParams(location.search).get('halloween');if(q==='1'){sessionStorage.setItem('gp-dm-force','1');sessionStorage.removeItem('gp-hw-force')}if(hq==='1')sessionStorage.removeItem('gp-dm-force');if(sessionStorage.getItem('gp-hw-force')==='1'&&q!=='1')on=false;if(q==='0')sessionStorage.removeItem('gp-dm-force');if(sessionStorage.getItem('gp-dm-force')==='1')on=true}catch(e){}if(q==='1')on=true;if(q==='0')on=false;if(!on)return;
 R.classList.remove('hw');R.classList.add('dm');var l=d.createElement('link');l.rel='stylesheet';l.href='/muertos.css';d.head.appendChild(l);
 var C=['#E4007C','#FF6B00','#FFC800','#00A651','#00B5D8','#7B2D8E','#E31B23'];
 function flag(c,i){var cut=[ '<path d="M6 12h4v4H6zM14 12h4v4h-4zM24 10l3 3-3 3-3-3zM34 12h4v4h-4z"/>','<path d="M8 12a3 3 0 1 0 6 0 3 3 0 1 0-6 0M24 9l4 7h-8zM32 12a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/>','<path d="M10 10h6v6h-6zM28 10h6v6h-6zM22 14a2 2 0 1 0 0.1 0"/>'][i%3];
