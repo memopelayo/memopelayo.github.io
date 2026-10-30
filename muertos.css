@@ -25,3 +25,4 @@ body:not(.splash) .dm-ban{bottom:18px}
 .dm-ban button{font:inherit;background:none;color:inherit;border:1px solid currentColor;min-width:30px;min-height:30px;cursor:pointer}
 @media(max-width:760px){.dm-ban{width:calc(100vw - 24px);font-size:11px}.dm-pp svg{width:30px;height:22px}}
 @media (prefers-reduced-motion:reduce){html.dm .sp h1 em::after,.dm-pp svg{animation:none}.dm-pet{display:none}}
+@keyframes dmSway{from{transform:rotate(-2.2deg)}to{transform:rotate(2.2deg)}}

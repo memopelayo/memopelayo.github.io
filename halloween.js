@@ -1,7 +1,7 @@
 /* Halloween layer: active through Oct 31 2026 (America/Mexico_City). ?halloween=1 forces on, ?halloween=0 forces off. */
 (function(){var d=document,R=d.documentElement,q=new URLSearchParams(location.search).get('halloween'),on;
 try{var ymd=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Mexico_City',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());on=ymd>='2026-10-24'&&ymd<='2026-10-31'}catch(e){on=false}
-if(q==='1')on=true;if(q==='0')on=false;if(!on)return;
+if(q==='1')on=true;if(q==='0')on=false;try{var mq=new URLSearchParams(location.search).get('muertos');if(mq==='1'||(mq!=='0'&&sessionStorage.getItem('gp-dm-force')==='1'))on=false}catch(e){}if(!on)return;
 R.classList.add('hw');var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function boltSVG(x){var p='M50 0L36 92h18L22 210l38-118H40L58 0z',b1='M40 92L8 150l20-6L14 196',b2='M46 140l30 40-14-2 14 34';
  return '<svg viewBox="0 0 90 220" preserveAspectRatio="none" style="position:absolute;top:0;left:'+x+'px;height:88vh;width:26vh;overflow:visible;filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 28px #cfc4ff) drop-shadow(0 0 60px #a594ff)"><path d="'+b1+'" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/><path d="'+b2+'" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="'+p+'" fill="#fff" stroke="#fff" stroke-width="4" stroke-linejoin="round"/></svg>'}
