@@ -13,7 +13,7 @@ html.dm .egg-dot{background:radial-gradient(circle,var(--dmp) 0 18%,var(--red) 1
 /* papel picado */
 .dm-pp{position:relative;height:34px;margin-bottom:-34px;z-index:40;pointer-events:none;display:flex;justify-content:space-around;overflow:hidden}
 .dm-pp::before{content:"";position:absolute;left:0;right:0;top:2px;height:1px;background:var(--ink);opacity:.35}
-.dm-pp svg{width:44px;height:30px;transform-origin:50% 0;animation:dmsway 4s ease-in-out infinite;animation-delay:var(--d)}
+.dm-pp svg{flex:0 0 auto;width:44px;height:30px;transform-origin:50% 0;animation:dmsway 4s ease-in-out infinite;animation-delay:var(--d)}
 @keyframes dmsway{50%{transform:rotate(3deg)}}
 /* petals */
 .dm-pet{position:fixed;top:-14px;left:var(--x);z-index:41;width:9px;height:12px;border-radius:60% 60% 60% 0;background:var(--c);opacity:.8;pointer-events:none;animation:dmfall var(--t) linear forwards}
@@ -26,3 +26,4 @@ body:not(.splash) .dm-ban{bottom:18px}
 @media(max-width:760px){.dm-ban{width:calc(100vw - 24px);font-size:11px}.dm-pp svg{width:30px;height:22px}}
 @media (prefers-reduced-motion:reduce){html.dm .sp h1 em::after,.dm-pp svg{animation:none}.dm-pet{display:none}}
 @keyframes dmSway{from{transform:rotate(-2.2deg)}to{transform:rotate(2.2deg)}}
+@media(max-width:760px){.dm-xolo svg{width:130px;height:103px}}
