@@ -566,3 +566,8 @@ html.comic,html.comic *{font-family:"Comic Sans MS","Comic Sans","Comic Neue","C
 .cc-bar .m::before{content:"";position:absolute;left:50%;bottom:100%;width:1px;height:18px;background:var(--ink);opacity:.5}
 .cc-bar .v{position:absolute;top:-1.3rem;transform:translateX(-50%);font:11px var(--mono);white-space:nowrap}
 @media(max-width:760px){.dd-dens ol{columns:1}.cc-sims{grid-template-columns:repeat(2,minmax(0,1fr))}.tp-badge{position:static;display:inline-block;margin-bottom:.4rem}}
+
+/* EN/ES toggle */
+.lang-switch{font:10px Silkscreen,var(--mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink);padding:3px 7px;min-height:28px;display:inline-flex;align-items:center;text-decoration:none;color:var(--ink);opacity:.85;margin-left:2px}
+.lang-switch:hover,.lang-switch:focus-visible{opacity:1;background:var(--ink);color:var(--bg)}
+@media(max-width:374px){.lang-switch{padding:3px 5px}}

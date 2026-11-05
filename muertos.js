@@ -21,7 +21,7 @@ function A(el,k,o){return el.animate(k,Object.assign({fill:'forwards',easing:'ea
 function rnd(a,b){return a+Math.random()*(b-a)}
 var MARI='<symbol id="dmMari" viewBox="-50 -50 100 100">'+(function(){var s='',rings=[[44,14,'#b8400b',16],[36,13,'#ea6a0c',14],[27,12,'#f7931e',12],[18,10,'#fbb72a',10],[10,8,'#ffd34d',8]];rings.forEach(function(r,j){for(var i=0;i<r[3];i++){var a=360/r[3]*i+j*11;s+='<ellipse cx="0" cy="'+(-r[0]+r[1])+'" rx="'+(r[1]*.62)+'" ry="'+r[1]+'" fill="'+r[2]+'" stroke="#7a2a06" stroke-width="1.4" transform="rotate('+a+')"/>'}});return s+'<circle r="5" fill="#8a3a07"/>'})()+'</symbol>';
 /* ---------- intros (home only) ---------- */
-(function(){if(!/^\/(index\.html)?$/.test(location.pathname))return;
+(function(){if(!/^\/(es\/)?(index\.html)?$/.test(location.pathname))return;
 var kind=new URLSearchParams(location.search).get('intro')||'papel';if(['petals','papel','catrina','velas'].indexOf(kind)<0)kind='papel';
 var o=d.createElement('div');o.className='dm-in dm-in-'+kind;o.setAttribute('aria-hidden','true');
 o.style.cssText='position:fixed;inset:0;z-index:2000;overflow:hidden;pointer-events:auto;background:#1b0a18';

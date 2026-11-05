@@ -83,7 +83,8 @@ b.addEventListener('click',function(e){e.preventDefault();var v=b.getAttribute('
 /* cookie consent (GA4 Consent Mode v2) */
 (function(){var d=document,k='gp-consent',v=null;try{v=localStorage.getItem(k)}catch(e){}if(v)return;
 var b=d.createElement('div');b.className='ck mono';b.setAttribute('role','region');b.setAttribute('aria-label','Cookie notice');
-b.innerHTML='<p>This site uses analytics cookies to see what work gets looked at.</p><div><button type="button" data-v="granted">Accept</button><button type="button" data-v="denied">Decline</button></div>';
+var es=(document.documentElement.lang||'').toLowerCase().indexOf('es')===0;
+b.innerHTML=es?'<p>Este sitio usa cookies de analítica para ver qué se consulta.</p><div><button type="button" data-v="granted">Aceptar</button><button type="button" data-v="denied">Rechazar</button></div>':'<p>This site uses analytics cookies to see what work gets looked at.</p><div><button type="button" data-v="granted">Accept</button><button type="button" data-v="denied">Decline</button></div>';
 d.body.appendChild(b);requestAnimationFrame(function(){b.classList.add('on')});
 b.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)return;e.stopPropagation();var c=t.getAttribute('data-v');try{localStorage.setItem(k,c)}catch(x){}
 if(c==='granted'&&window.gtag)gtag('consent','update',{analytics_storage:'granted'});b.classList.remove('on');setTimeout(function(){b.remove()},300)})})();
