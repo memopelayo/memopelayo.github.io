@@ -69,34 +69,34 @@ en:{
   scope:'Scope',size:'Size'
 },
 es:{
-  tick:'Marca al menos un s\u00edntoma. (Si tu deck no tiene ninguno: felicidades, enm\u00e1rcalo.)',
+  tick:'Marca al menos un s\u00edntoma. (Si tu <em lang="en">deck</em> no tiene ninguno: felicidades, enm\u00e1rcalo.)',
   diag:'Diagn\u00f3stico',
   symptom:'s\u00edntoma',symptoms:'s\u00edntomas',
   critical:'Cr\u00edtico, pero se puede arreglar',needs:'Necesita un tratamiento de verdad',minor:'Cirug\u00eda menor',
-  testIt:'Pru\u00e9balo.',testItBody:' Mu\u00e9straselo a alguien 10 segundos por slide y pregunta qu\u00e9 dice cada una. Lo que no puedan repetir, hay que trabajarlo.',
-  lastSlide:'Dise\u00f1a la \u00faltima slide.',lastSlideBody:' Cierra con la decisi\u00f3n o el siguiente paso que necesitas, no con \u201cGracias / \u00bfPreguntas?\u201d.',
+  testIt:'Pru\u00e9balo.',testItBody:' Mu\u00e9straselo a alguien 10 segundos por <em lang="en">slide</em> y pregunta qu\u00e9 dice cada una. Lo que no puedan repetir, hay que trabajarlo.',
+  lastSlide:'Dise\u00f1a la \u00faltima <em lang="en">slide</em>.',lastSlideBody:' Cierra con la decisi\u00f3n o el siguiente paso que necesitas, no con \u201cGracias / \u00bfPreguntas?\u201d.',
   before:'Antes',after:'Despu\u00e9s',
   secondOp:'\u00bfSegunda opini\u00f3n? Hablemos \u2192',
   analyzing:'Analizando aqu\u00ed mismo\u2026',
   pdfPlease:'Sube un PDF.',
-  pdfBig:'El archivo pesa m\u00e1s de 20 MB. Compr\u00edmelo o elige un export m\u00e1s chico.',
+  pdfBig:'El archivo pesa m\u00e1s de 20 MB. Compr\u00edmelo o elige un <em lang="en">export</em> m\u00e1s chico.',
   pdfFail:'No pude leer este PDF en el navegador. Intenta exportarlo otra vez desde PowerPoint / Keynote. (',
   pdfScan:'Escaneo PDF',pages:'p\u00e1gina',pagesP:'p\u00e1ginas',firstN:'primeras',analyzed:'analizadas',stays:'se queda en tu navegador',
-  fonts:'Fuentes',sizes:'Tama\u00f1os',images:'Im\u00e1genes',sampled:'Paleta muestreada',charsPer:'Caracteres por slide',
-  pdfNote:'Escaneo heur\u00edstico en el cliente (pdf.js). No es una auditor\u00eda completa de dise\u00f1o: usa la checklist de arriba para el diagn\u00f3stico.',
-  heavyText:'Mucho texto (~',charsAvg:' caracteres/slide en promedio) — deja un titular + 3 puntos.',
-  modText:'Texto moderado (~',watchDense:' caracteres/slide). Cuidado con las slides m\u00e1s densas.',
-  textOk:'La carga de texto se ve manejable (~',charsAvgShort:' caracteres/slide en promedio).',
+  fonts:'Fuentes',sizes:'Tama\u00f1os',images:'Im\u00e1genes',sampled:'Paleta muestreada',charsPer:'Caracteres por <em lang="en">slide</em>',
+  pdfNote:'Escaneo heur\u00edstico en el cliente (pdf.js). No es una auditor\u00eda completa de dise\u00f1o: usa la <em lang="en">checklist</em> de arriba para el diagn\u00f3stico.',
+  heavyText:'Mucho texto (~',charsAvg:' caracteres/<em lang="en">slide</em> en promedio) \u2014 deja un titular + 3 puntos.',
+  modText:'Texto moderado (~',watchDense:' caracteres/<em lang="en">slide</em>). Cuidado con las <em lang="en">slides</em> m\u00e1s densas.',
+  textOk:'La carga de texto se ve manejable (~',charsAvgShort:' caracteres/<em lang="en">slide</em> en promedio).',
   fontMany:' nombres de fuente detectados — mejor 1 o 2 familias.',
   fontDet:' nombre de fuente',fontDets:' nombres de fuente detectados.',
   sizeMany:' tama\u00f1os de texto distintos — m\u00e1ximo 3.',
   colorMany:'Muchos rangos de color (~',buckets:' grupos) — aprieta la paleta.',
   colorOk:'Los rangos de color se ven contenidos (~',bucketsOk:' grupos muestreados).',
   lowRes:' imagen probablemente en baja resoluci\u00f3n',lowResS:' im\u00e1genes probablemente en baja resoluci\u00f3n.',
-  imgOk:' imagen',imgOkS:' im\u00e1genes; sin bitmaps chiquitos a la vista.',
+  imgOk:' imagen',imgOkS:' im\u00e1genes; sin <em lang="en">bitmaps</em> chiquitos a la vista.',
   noImg:'No se detectaron im\u00e1genes embebidas en las p\u00e1ginas escaneadas.',
   contrastFail:'Posible contraste d\u00e9bil en ',page:' p\u00e1gina',pagesOn:' p\u00e1ginas',heuristic:' (heur\u00edstica).',
-  slide:'Slide',
+  slide:'<em lang="en">Slide</em>',
   week:'semana',weeks:'semanas',
   designOnly:'Solo dise\u00f1o',designContent:'Dise\u00f1o + contenido',rush:'Urgente',standard:'Ritmo normal',
   includes:'Incluye',stages:'Etapas',
@@ -118,9 +118,9 @@ es:{
   plainLarge:'Al l\u00edmite — OK solo para texto grande (18pt+ / 14pt bold). Arriesgado en p\u00e1rrafos.',
   plainFail:'No pasa — el contraste es muy bajo para texto. La gente tiene que forzar la vista… o de plano se lo salta.',
   wcagTable:'Tabla WCAG',
-  miniSlide:'Mini preview de la slide',
+  miniSlide:'Mini <em lang="en">preview</em> de la <em lang="en">slide</em>',
   slideH:'Facilita la decisi\u00f3n',
-  slideP:'Un mensaje por slide. La evidencia abajo. Pide el siguiente paso.',
+  slideP:'Un mensaje por <em lang="en">slide</em>. La evidencia abajo. Pide el siguiente paso.',
   nextStep:'Siguiente paso →',
   nearest:'Color cercano que s\u00ed pasa (AA 4.5:1)',
   alreadyPass:'Ya pasa AA. No hace falta cambiarlo.',
@@ -300,26 +300,26 @@ identity:{n:'Brand identity',u:'scope',s:[[1,'Logo only'],[2,'Logo + basic kit']
 social:{n:'Social media kit',u:'pieces',s:[[10,'Up to 10'],[30,'11–30'],[60,'31–60'],[100,'60+ / monthly']],w:[[1,2],[2,3],[2,3],[3,5]],inc:['Visual direction','Editable templates','Post & story designs','Export for each platform']}};
 /* Spanish labels for Deck Doctor symptoms + recs */
 if(LANG==='es'){
-  DD={text:['Demasiado texto','Deja cada slide con un solo mensaje. Mueve los p\u00e1rrafos a notas del presentador o a un ap\u00e9ndice; la slide se queda con un titular de 6–10 palabras y hasta 3 puntos de apoyo.'],
-  story:['Sin historia clara','Escribe primero los titulares, como oraciones, y l\u00e9elos en orden. Si solos no cuentan la historia, arregla el outline antes de tocar layout. Empieza con la respuesta, luego la prueba.'],
-  fonts:['Fuentes / colores inconsistentes','Cierra un mini sistema: 1 tipograf\u00eda (2 pesos), 3 tama\u00f1os, 1 color de acento solo para lo que importa. Reconstruye los masters para que todo jale de ah\u00ed.'],
-  charts:['Gr\u00e1ficas confusas','Una gr\u00e1fica, un punto: pon el takeaway en el titular, resalta la barra o l\u00ednea clave con el acento y apaga el resto. Adi\u00f3s a rejillas, leyendas y 3D.'],
-  many:['Demasiadas slides','Fusiona o mata las que repiten un mensaje. Apunta a una slide por idea y un resumen ejecutivo de 3 slides al frente; lo dem\u00e1s puede vivir en el ap\u00e9ndice.'],
+  DD={text:['Demasiado texto','Deja cada <em lang="en">slide</em> con un solo mensaje. Mueve los p\u00e1rrafos a notas del presentador o a un ap\u00e9ndice; la <em lang="en">slide</em> se queda con un titular de 6\u201310 palabras y hasta 3 puntos de apoyo.'],
+  story:['Sin historia clara','Escribe primero los titulares, como oraciones, y l\u00e9elos en orden. Si solos no cuentan la historia, arregla el <em lang="en">outline</em> antes de tocar <em lang="en">layout</em>. Empieza con la respuesta, luego la prueba.'],
+  fonts:['Fuentes / colores inconsistentes','Cierra un mini sistema: 1 tipograf\u00eda (2 pesos), 3 tama\u00f1os, 1 color de acento solo para lo que importa. Reconstruye los <em lang="en">masters</em> para que todo jale de ah\u00ed.'],
+  charts:['Gr\u00e1ficas confusas','Una gr\u00e1fica, un punto: pon el <em lang="en">takeaway</em> en el titular, resalta la barra o l\u00ednea clave con el acento y apaga el resto. Adi\u00f3s a rejillas, leyendas y 3D.'],
+  many:['Demasiadas <em lang="en">slides</em>','Fusiona o mata las que repiten un mensaje. Apunta a una <em lang="en">slide</em> por idea y un resumen ejecutivo de 3 <em lang="en">slides</em> al frente; lo dem\u00e1s puede vivir en el ap\u00e9ndice.'],
   img:['Im\u00e1genes en baja resoluci\u00f3n','Cambia las pixeladas o estiradas por otras en alta, a su proporci\u00f3n nativa. Menos im\u00e1genes, m\u00e1s grandes, ganan a un collage de chiquitas.'],
-  align:['Nada est\u00e1 alineado','Pon una ret\u00edcula (m\u00e1rgenes + columnas) en el master y pega cada elemento a ella. Solo con m\u00e1rgenes consistentes el deck se ve 2\u00d7 m\u00e1s caro.'],
-  brand:['Plantilla fuera de marca','Reconstruye la plantilla desde la gu\u00eda de marca: zona de logo, tokens de color, estilos de tipo y 6–8 layouts reutilizables, para que el equipo deje de improvisar.']};
-  SC.deck.n='Deck / presentaci\u00f3n';SC.report.n='Reporte anual / corporativo';SC.book.n='Libro / cat\u00e1logo';SC.identity.n='Identidad de marca';SC.social.n='Kit de redes';
-  SC.deck.u='slides';SC.report.u='p\u00e1ginas';SC.book.u='p\u00e1ginas';SC.social.u='piezas';
+  align:['Nada est\u00e1 alineado','Pon una ret\u00edcula (m\u00e1rgenes + columnas) en el <em lang="en">master</em> y pega cada elemento a ella. Solo con m\u00e1rgenes consistentes el <em lang="en">deck</em> se ve 2\u00d7 m\u00e1s caro.'],
+  brand:['Plantilla fuera de marca','Reconstruye la plantilla desde la gu\u00eda de marca: zona de logo, <em lang="en">tokens</em> de color, estilos de tipo y 6\u20138 <em lang="en">layouts</em> reutilizables, para que el equipo deje de improvisar.']};
+  SC.deck.n='<em lang="en">Deck</em> / presentaci\u00f3n';SC.report.n='Reporte anual / corporativo';SC.book.n='Libro / cat\u00e1logo';SC.identity.n='Identidad de marca';SC.social.n='Kit de redes';
+  SC.deck.u='<em lang="en">slides</em>';SC.report.u='p\u00e1ginas';SC.book.u='p\u00e1ginas';SC.social.u='piezas';
   SC.deck.s=[[10,'Hasta 10'],[25,'11–25'],[50,'26–50'],[90,'50+']];
   SC.report.s=[[16,'Hasta 16'],[40,'17–40'],[80,'41–80'],[150,'80+']];
   SC.book.s=[[64,'Hasta 64'],[160,'65–160'],[320,'161–320'],[500,'320+']];
   SC.identity.s=[[1,'Solo logo'],[2,'Logo + kit básico'],[3,'Identidad completa'],[4,'Identidad + manual']];
   SC.social.s=[[10,'Hasta 10'],[30,'11–30'],[60,'31–60'],[100,'60+ / mensual']];
-  SC.deck.inc=['Revisión de historia y outline','Master con layouts','Diseño de slides','Gráficas y diagramas','Archivo editable PowerPoint / Google Slides'];
+  SC.deck.inc=['Revisi\u00f3n de historia y <em lang="en">outline</em>','<em lang="en">Master</em> con <em lang="en">layouts</em>','Dise\u00f1o de <em lang="en">slides</em>','Gráficas y diagramas','Archivo editable PowerPoint / Google Slides'];
   SC.report.inc=['Concepto editorial y retícula','Infografías y visualización de datos','Diagramación y tipografía','PDF para impresión + PDF digital accesible'];
   SC.book.inc=['Concepto de portada','Sistema de diseño interior','Composición e imágenes','Rondas de prueba','Archivos listos para imprenta'];
   SC.identity.inc=['Discovery y referencias','2–3 rutas de logo','Sistema de color y tipo','Aplicaciones clave','Manual de marca (según alcance)'];
-  SC.social.inc=['Dirección visual','Plantillas editables','Diseños de post y story','Export por plataforma'];
+  SC.social.inc=['Dirección visual','Plantillas editables','Diseños de post y story','<em lang="en">Export</em> por plataforma'];
 }
 
 function scope(){var f=$('#sc'),out=$('#sc-out');if(!f)return;var t=$('[name=type]',f),sz=$('[name=size]',f);
@@ -327,11 +327,11 @@ function scope(){var f=$('#sc'),out=$('#sc-out');if(!f)return;var t=$('[name=typ
  t.addEventListener('change',fill);fill();
  f.addEventListener('submit',function(e){e.preventDefault();var c=SC[t.value],i=+sz.value,w=c.w[i].slice(),cont=$('[name=content]:checked',f).value,urg=$('[name=urg]:checked',f).value;
   if(cont=='full'){w[0]+=1;w[1]+=2}if(urg=='rush'){w=[Math.max(1,Math.ceil(w[0]*.6)),Math.max(1,Math.ceil(w[1]*.65))]}
-  var st=LANG==='es'?['Kick-off y brief','Concepto / dirección','Diseño','Rondas de revisión (2 incluidas)','Archivos finales y entrega']:['Kick-off & brief','Concept / direction','Design','Review rounds (2 included)','Final files & handover'];if(cont=='full')st.splice(1,0,LANG==='es'?'Contenido: copy / estructura':'Content: copywriting / structuring');
-  var inc=c.inc.slice();if(cont=='full')inc.push(LANG==='es'?'Soporte de contenido: estructura, edición de copy y titulares':'Content support: structure, copy editing and headlines');if(urg=='rush')inc.push(LANG==='es'?'Prioridad (urgente): menos rondas, feedback más rápido':'Priority slot (rush): fewer review rounds, faster feedback needed');
+  var st=LANG==='es'?['Kick-off y <em lang="en">brief</em>','Concepto / dirección','Diseño','Rondas de revisión (2 incluidas)','Archivos finales y entrega']:['Kick-off & brief','Concept / direction','Design','Review rounds (2 included)','Final files & handover'];if(cont=='full')st.splice(1,0,LANG==='es'?'Contenido: <em lang="en">copy</em> / estructura':'Content: copywriting / structuring');
+  var inc=c.inc.slice();if(cont=='full')inc.push(LANG==='es'?'Soporte de contenido: estructura, edici\u00f3n de <em lang="en">copy</em> y titulares':'Content support: structure, copy editing and headlines');if(urg=='rush')inc.push(LANG==='es'?'Prioridad (urgente): menos rondas, <em lang="en">feedback</em> m\u00e1s r\u00e1pido':'Priority slot (rush): fewer review rounds, faster feedback needed');
   var rng=w[0]==w[1]?w[0]+' '+(w[0]>1?t('weeks'):t('week')):w[0]+'\u2013'+w[1]+' '+t('weeks'),sum=c.n+' · '+c.s[i][1]+(c.u=='scope'?'':' '+c.u)+' · '+(cont=='full'?t('designContent'):t('designOnly'))+' · '+(urg=='rush'?t('rush'):t('standard'));
   var txt='Project: '+sum+'\nEstimated timeline: '+rng+'\n\nIncludes:\n- '+inc.join('\n- ')+'\n\nStages:\n'+st.map(function(s,j){return(j+1)+'. '+s}).join('\n')+'\n\n(Estimate from the scope calculator; final timeline after a short call.)';
-  out.innerHTML='<div class="sc-res"><p class="mono t-tag">'+esc(sum)+'</p><p class="sc-big">'+rng+'<sup class="sc-ref">1</sup></p><div class="sc-cols"><div><h4 class="mono">'+t('includes')+'</h4><ul>'+inc.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ul></div><div><h4 class="mono">'+t('stages')+'</h4><ol>'+st.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ol></div></div><p class="t-note">'+t('scopeNote')+'</p><p class="sc-fn"><sup>1</sup> <i>'+t('scopeFn')+'</i></p><a class="btn" href="mailto:'+MAIL+'?subject='+encodeURIComponent('Project scope: '+c.n)+'&body='+encodeURIComponent('Hi Guillermo,\n\n'+txt+'\n\n')+'">'+t('sendScope')+'</a></div>'})}
+  out.innerHTML='<div class="sc-res"><p class="mono t-tag">'+sum+'</p><p class="sc-big">'+rng+'<sup class="sc-ref">1</sup></p><div class="sc-cols"><div><h4 class="mono">'+t('includes')+'</h4><ul>'+inc.map(function(x){return'<li>'+x+'</li>'}).join('')+'</ul></div><div><h4 class="mono">'+t('stages')+'</h4><ol>'+st.map(function(x){return'<li>'+x+'</li>'}).join('')+'</ol></div></div><p class="t-note">'+t('scopeNote')+'</p><p class="sc-fn"><sup>1</sup> <i>'+t('scopeFn')+'</i></p><a class="btn" href="mailto:'+MAIL+'?subject='+encodeURIComponent('Project scope: '+c.n)+'&body='+encodeURIComponent('Hi Guillermo,\n\n'+txt+'\n\n')+'">'+t('sendScope')+'</a></div>'})}
 
 /* ---------- 3. Palette (unchanged) ---------- */
 function palette(){var inp=$('#pl-c'),file=$('#pl-f'),out=$('#pl-out');if(!inp)return;
