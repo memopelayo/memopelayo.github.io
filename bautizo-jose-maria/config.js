@@ -1,0 +1,30 @@
+/* =========================================================
+   CONFIGURACIÓN — lo único que hay que tocar para conectar
+   (la usan index.html y admin.html). La clave del panel NO va aquí:
+   vive en el Apps Script (Propiedades del script → ADMIN_KEY).
+   ========================================================= */
+window.CONFIG = {
+  // Deja vacío ('') para modo vista previa (simulado, no envía nada).
+  // Google Apps Script: pega la URL del "Web app" (termina en /exec).
+  // Web3Forms: usa 'https://api.web3forms.com/submit' y llena WEB3FORMS_KEY.
+  RSVP_ENDPOINT: '',
+  RSVP_PROVIDER: 'apps-script',      // 'apps-script' | 'web3forms'
+  WEB3FORMS_KEY: '',                 // access key de Web3Forms (si se usa)
+  DESEOS_ENDPOINT: '',               // opcional: mismo esquema para los buenos deseos
+  // Álbum compartido: pega aquí la liga (vacío = "Muy pronto", sin QR)
+  ALBUM_URL: '',
+  // Cartas cápsula: si se deja vacío, se usa RSVP_ENDPOINT (el mismo Apps Script)
+  CARTAS_ENDPOINT: '',
+  // A partir de esta fecha la portada y la sección de confirmación cambian a un mensaje de agradecimiento
+  AGRADECIMIENTO_DESDE: '2026-11-29',
+  // EDITABLE: texto de agradecimiento (EJEMPLO). {nombre} se cambia por la familia si abrieron su liga.
+  TEXTO_AGRADECIMIENTO: 'Gracias de corazón por acompañarnos en el bautizo de José María. Tenerlos cerca en un día tan especial fue el mejor regalo. Si tomaron fotos, nos encantaría que las subieran al álbum, y si quieren dejarle unas palabras para cuando sea grande, la carta cápsula sigue abierta.',
+  MOSTRAR_EJEMPLO_AGRADECIMIENTO: true, // cambiar a false cuando el texto ya sea el definitivo
+  // Mesa: se muestra solo si la familia tiene mesa en guests.txt y a partir de esta fecha ('' = siempre)
+  MOSTRAR_MESA_DESDE: '2026-11-27',
+  // Dirección pública del sitio (para las ligas de WhatsApp del panel)
+  SITIO_URL: 'https://memopelayo.github.io/bautizo-jose-maria/',
+  // Fecha del evento (America/Mexico_City es UTC-6 todo el año desde 2022)
+  INICIO: '2026-11-28T12:00:00-06:00',
+};
+

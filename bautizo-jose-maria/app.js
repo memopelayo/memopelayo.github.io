@@ -1,0 +1,371 @@
+/* La configuración está en config.js */
+
+const EVENTOS = {
+  ceremonia: {
+    titulo: 'Bautizo de José María · Ceremonia',
+    inicio: '2026-11-28T12:00:00-06:00',
+    fin: '2026-11-28T13:00:00-06:00',
+    lugar: 'Exconvento de Santa María Magdalena, Av. Libertad Sur 101, Centro, San Martín Texmelucan, Puebla',
+    geo: '19.282878;-98.437575',
+    detalle: 'La ceremonia comienza puntualmente a las 12:00 h. Te recomendamos encarecidamente llegar al menos 15 minutos antes (11:45 h).\nEstacionamiento recomendado: Plaza La Estación (de pago), Calle Mújica y Osorio, a la vuelta de la iglesia.\nDespués, recepción en Jardín Casa Pelayo a las 13:00 h.',
+  },
+  recepcion: {
+    titulo: 'Bautizo de José María · Recepción',
+    inicio: '2026-11-28T13:00:00-06:00',
+    // Sin hora de término publicada: el calendario usa 4 h de duración solo para que el evento tenga fin
+    fin: new Date(new Date('2026-11-28T13:00:00-06:00').getTime() + 4 * 3600e3).toISOString(),
+    lugar: 'Jardín Casa Pelayo, San Martín Texmelucan, Puebla',
+    geo: '19.305141;-98.439766',
+    detalle: 'Recepción del bautizo de José María. Ubicación: https://www.google.com/maps/search/?api=1&query=19.305141%2C-98.439766',
+  },
+};
+
+/* ---------- Cuenta regresiva ---------- */
+(function cuenta() {
+  const meta = new Date(CONFIG.INICIO).getTime();
+  const el = document.getElementById('countdown');
+  const fin = document.getElementById('countdown-fin');
+  const u = k => el.querySelector(`[data-u="${k}"]`);
+  const pad = n => String(n).padStart(2, '0');
+  function tick() {
+    const diff = meta - Date.now();
+    if (diff <= 0) {
+      el.hidden = true; fin.hidden = false;
+      fin.textContent = diff > -1000 * 60 * 60 * 8 ? '¡Hoy es el gran día!' : '¡Gracias por acompañarnos!';
+      return;
+    }
+    const s = Math.floor(diff / 1000);
+    u('d').textContent = Math.floor(s / 86400);
+    u('h').textContent = pad(Math.floor(s / 3600) % 24);
+    u('m').textContent = pad(Math.floor(s / 60) % 60);
+    u('s').textContent = pad(s % 60);
+    setTimeout(tick, 1000 - (Date.now() % 1000));
+  }
+  tick();
+})();
+
+/* ---------- Calendario (.ics y Google) ---------- */
+const utc = iso => new Date(iso).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+function googleUrl(e) {
+  const p = new URLSearchParams({
+    action: 'TEMPLATE', text: e.titulo, dates: `${utc(e.inicio)}/${utc(e.fin)}`,
+    details: e.detalle, location: e.lugar, ctz: 'America/Mexico_City',
+  });
+  return `https://calendar.google.com/calendar/render?${p}`;
+}
+function icsTexto(id, e) {
+  const esc = s => s.replace(/\\/g, '\\\\').replace(/([,;])/g, '\\$1').replace(/\n/g, '\\n');
+  return [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Bautizo Jose Maria//ES', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    `UID:bautizo-jose-maria-${id}@invitacion`,
+    `DTSTAMP:${utc(new Date().toISOString())}`,
+    `DTSTART:${utc(e.inicio)}`, `DTEND:${utc(e.fin)}`,
+    `SUMMARY:${esc(e.titulo)}`, `LOCATION:${esc(e.lugar)}`, `DESCRIPTION:${esc(e.detalle)}`,
+    ...(e.geo ? [`GEO:${e.geo}`] : []),
+    'BEGIN:VALARM', 'TRIGGER:-P1D', 'ACTION:DISPLAY', 'DESCRIPTION:Mañana es el bautizo de José María', 'END:VALARM',
+    'END:VEVENT', 'END:VCALENDAR', '',
+  ].join('\r\n');
+}
+document.querySelectorAll('[data-cal]').forEach(a => {
+  const id = a.dataset.evento, e = EVENTOS[id];
+  if (a.dataset.cal === 'google') { a.href = googleUrl(e); return; }
+  const blob = new Blob([icsTexto(id, e)], { type: 'text/calendar;charset=utf-8' });
+  a.href = URL.createObjectURL(blob);
+  a.download = `bautizo-jose-maria-${id}.ics`;
+});
+// Cierra el menú de calendario al tocar fuera
+document.addEventListener('click', ev => {
+  document.querySelectorAll('details.cal[open]').forEach(d => { if (!d.contains(ev.target)) d.open = false; });
+});
+
+/* ---------- Envío genérico (simulado o real) ---------- */
+async function enviar(endpoint, datos) {
+  if (!endpoint) { await new Promise(r => setTimeout(r, 600)); return { ok: true, simulado: true }; }
+  if (CONFIG.RSVP_PROVIDER === 'web3forms') {
+    const r = await fetch(endpoint, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ access_key: CONFIG.WEB3FORMS_KEY, subject: 'Bautizo José María: ' + (datos.tipo || 'RSVP'), from_name: 'Invitación bautizo', ...datos }),
+    });
+    return { ok: r.ok };
+  }
+  // Google Apps Script: no-cors (la respuesta es opaca, se asume éxito si no hay error de red)
+  await fetch(endpoint, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(datos) });
+  return { ok: true };
+}
+
+/* ---------- RSVP personalizado por familia ---------- */
+const sha256 = async txt => new Uint8Array(await crypto.subtle.digest('SHA-256', typeof txt === 'string' ? new TextEncoder().encode(txt) : txt));
+const hex = b => Array.from(b, x => x.toString(16).padStart(2, '0')).join('');
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function abrirFamilia(slug) {
+  const datos = window.INVITADOS || {};
+  const id = 'f' + hex(await sha256('id|' + slug)).slice(0, 16);
+  const sobre = datos[id];
+  if (!sobre) return null;
+  const [iv, ct] = sobre.split('.').map(b64);
+  const llave = await sha256('key|' + slug);
+  const plano = new Uint8Array(ct.length);
+  for (let i = 0, bloque = 0; i < ct.length; bloque++) {
+    const sem = new Uint8Array(32 + 16 + 4); sem.set(llave, 0); sem.set(iv, 32);
+    new DataView(sem.buffer).setUint32(48, bloque);
+    const flujo = await sha256(sem);
+    for (let j = 0; j < 32 && i < ct.length; j++, i++) plano[i] = ct[i] ^ flujo[j];
+  }
+  const d = JSON.parse(new TextDecoder().decode(plano));
+  return { id, slug, grupo: d.f, personas: d.p, mesa: d.m };
+}
+
+const desdeFecha = f => (f ? Date.now() >= new Date(f + 'T00:00:00-06:00').getTime() : false);
+const MODO_GRACIAS = desdeFecha(CONFIG.AGRADECIMIENTO_DESDE);
+const familiaPromesa = (async () => {
+  const slug = (new URLSearchParams(location.search).get('f') || '').trim().toLowerCase();
+  try { if (/^[a-z0-9-]{6,60}$/.test(slug)) return await abrirFamilia(slug); } catch (_) {}
+  return null;
+})();
+
+/* ---------- Modo agradecimiento (después del evento) ---------- */
+(async function agradecimiento() {
+  if (!MODO_GRACIAS) return;
+  const $ = id => document.getElementById(id);
+  document.body.classList.add('modo-gracias');
+  $('hero-normal').hidden = true; $('hero-gracias').hidden = false;
+  $('rsvp-t').textContent = 'Gracias';
+  $('rsvp-plazo').hidden = true;
+  const fam = await familiaPromesa;
+  const uno = fam && fam.personas.length === 1;
+  if (fam) $('hero-gracias-para').textContent = `Gracias, ${fam.grupo}`;
+  if (fam) { $('post-titulo').textContent = '¡Gracias,'; $('post-familia').textContent = `${fam.grupo}!`; $('post-familia').hidden = false; }
+  let t = CONFIG.TEXTO_AGRADECIMIENTO;
+  if (uno) t = t.replace('Tenerlos', 'Tenerte').replace('tomaron', 'tomaste').replace('las subieran', 'las subieras').replace('quieren', 'quieres');
+  $('post-texto').textContent = t.replace('{nombre}', fam ? fam.grupo : '');
+  $('post-ejemplo').hidden = !CONFIG.MOSTRAR_EJEMPLO_AGRADECIMIENTO;
+  ['rsvp-cargando', 'rsvp-sinliga', 'rsvp-form', 'rsvp-gracias', 'rsvp-ya', 'rsvp-mesa'].forEach(id => { $(id).hidden = true; });
+  $('rsvp-post').hidden = false;
+})();
+
+(async function rsvp() {
+  if (MODO_GRACIAS) return;
+  const $ = id => document.getElementById(id);
+  const estados = ['rsvp-cargando', 'rsvp-sinliga', 'rsvp-form', 'rsvp-gracias', 'rsvp-ya'];
+  const mostrar = (...ids) => estados.forEach(e => { $(e).hidden = !ids.includes(e); });
+  const fam = await familiaPromesa;
+  if (!fam) { mostrar('rsvp-sinliga'); return; }
+
+  const uno = fam.personas.length === 1;
+  const esFamilia = /^familia\b/i.test(fam.grupo);
+  const plural = (s, p) => (uno ? s : p);
+  $('rsvp-demo').hidden = !!CONFIG.RSVP_ENDPOINT;
+
+  // Saludo en la portada
+  $('hero-para').textContent = `Invitación para ${fam.grupo}`; $('hero-para').hidden = false;
+
+  // Mesa (opcional, a partir de una fecha). Primero la de invitados.js; si hay Apps Script,
+  // se actualiza con la de la hoja (Guillermo la puede cambiar desde el panel).
+  const desde = CONFIG.MOSTRAR_MESA_DESDE ? new Date(CONFIG.MOSTRAR_MESA_DESDE + 'T00:00:00-06:00') : null;
+  const pintarMesa = mesa => {
+    const ver = mesa && (!desde || Date.now() >= desde.getTime());
+    $('mesa-etiqueta').textContent = plural('Tu mesa es la', 'Su mesa es la');
+    $('mesa-numero').textContent = ver ? mesa : '';
+    $('rsvp-mesa').hidden = !ver || !$('rsvp-post').hidden;
+  };
+  pintarMesa(fam.mesa);
+  if (CONFIG.RSVP_ENDPOINT) {
+    const ctl = new AbortController(); setTimeout(() => ctl.abort(), 6000);
+    fetch(`${CONFIG.RSVP_ENDPOINT}?action=mesa&id=${fam.id}`, { signal: ctl.signal })
+      .then(r => r.json()).then(j => { if (j && j.ok) pintarMesa(j.mesa ? String(j.mesa) : null); })
+      .catch(() => {});
+  }
+
+  // Formulario
+  $('rsvp-hola').textContent = `${fam.grupo}!`;
+  $('rsvp-lugares').textContent = uno ? 'Te reservamos 1 lugar' : `Les reservamos ${fam.personas.length} lugares`;
+  $('rsvp-instr').textContent = uno ? 'Si no podrás venir, desmarca tu nombre:' : 'Todos aparecen como “asiste”. Solo desmarca a quien no podrá ir:';
+  const lista = $('rsvp-personas');
+  fam.personas.forEach((n, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<label class="persona"><input type="checkbox" checked name="p${i}"><span class="persona__nombre"></span><span class="persona__estado" aria-hidden="true"></span></label>`;
+    li.querySelector('.persona__nombre').textContent = n;
+    lista.append(li);
+  });
+  const form = $('rsvp-form');
+  const leer = () => {
+    const asisten = [], no = [];
+    fam.personas.forEach((n, i) => (form[`p${i}`].checked ? asisten : no).push(n));
+    return { asisten, no };
+  };
+  function actualizar() {
+    const { asisten, no } = leer();
+    form.querySelectorAll('.persona').forEach(l => {
+      const ok = l.querySelector('input').checked;
+      l.classList.toggle('no', !ok);
+      l.querySelector('.persona__estado').textContent = ok ? 'Asiste' : 'No podrá ir';
+    });
+    $('rsvp-conteo').textContent = asisten.length && uno ? 'Confirmas tu lugar'
+      : asisten.length
+      ? `Confirman ${asisten.length} de ${fam.personas.length} ${fam.personas.length === 1 ? 'lugar' : 'lugares'}`
+      : plural('Nos avisas que no podrás venir', 'Nos avisan que nadie podrá venir');
+    $('rsvp-enviar').textContent = asisten.length ? 'Confirmar' : plural('Confirmar que no podré ir', 'Confirmar que no podremos ir');
+  }
+  form.addEventListener('change', actualizar); actualizar();
+
+  const KEY = 'bautizo-rsvp-' + fam.id;
+  const guardada = () => { try { return JSON.parse(localStorage.getItem(KEY)); } catch (_) { return null; } };
+  const fechaBonita = iso => new Date(iso).toLocaleString('es-MX', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'America/Mexico_City' });
+
+  function pintarGracias(r) {
+    const n = r.asisten.length;
+    $('gracias-titulo').textContent = n ? '¡Gracias!' : 'Gracias por avisarnos';
+    $('gracias-texto').textContent = n
+      ? `Registramos ${n} de ${fam.personas.length} ${fam.personas.length === 1 ? 'lugar' : 'lugares'}. ¡${plural('Te', 'Los')} esperamos el sábado 28 de noviembre! Recuerda llegar a las 11:45 h.`
+      : plural('Te vamos a extrañar. ', 'Los vamos a extrañar. ') + 'Gracias por avisarnos con tiempo.';
+  }
+  function pintarYa(r) {
+    $('ya-titulo').textContent = plural('¡Ya confirmaste!', '¡Ya confirmaron!');
+    $('ya-texto').textContent = `${plural('Recibimos tu respuesta', 'Recibimos su respuesta')} el ${fechaBonita(r.fecha).replace(/\.$/, '')}.`;
+    const ul = $('ya-lista'); ul.replaceChildren();
+    fam.personas.forEach(n => {
+      const li = document.createElement('li'); const ok = r.asisten.includes(n);
+      li.className = ok ? 'si' : 'no'; li.textContent = `${n} · ${ok ? 'asiste' : 'no podrá ir'}`; ul.append(li);
+    });
+  }
+  function editar() {
+    const r = guardada();
+    if (r) { fam.personas.forEach((n, i) => { form[`p${i}`].checked = r.asisten.includes(n); }); form.mensaje.value = r.mensaje || ''; actualizar(); }
+    mostrar('rsvp-form'); form.querySelector('input').focus();
+  }
+  $('ya-cambiar').addEventListener('click', editar);
+  $('gracias-cambiar').addEventListener('click', editar);
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const { asisten, no } = leer();
+    const r = { fecha: new Date().toISOString(), asisten, no, mensaje: form.mensaje.value.trim() };
+    const datos = {
+      id: fam.id, familia: fam.grupo, lugares: fam.personas.length,
+      confirmados: asisten.length, no_asisten_total: no.length,
+      asisten: asisten.join(', '), no_asisten: no.join(', '), mensaje: r.mensaje, enviado: r.fecha,
+    };
+    const btn = $('rsvp-enviar'); btn.disabled = true; btn.textContent = 'Enviando…';
+    try {
+      const res = await enviar(CONFIG.RSVP_ENDPOINT, datos);
+      if (!res.ok) throw new Error('envío');
+      try { localStorage.setItem(KEY, JSON.stringify(r)); } catch (_) {}
+      pintarGracias(r); mostrar('rsvp-gracias'); $('rsvp-gracias').focus();
+    } catch (_) {
+      alert('No pudimos enviar tu confirmación. Revisa tu conexión e inténtalo de nuevo.');
+    } finally { btn.disabled = false; actualizar(); }
+  });
+
+  const r = guardada();
+  if (r) { pintarYa(r); mostrar('rsvp-ya'); } else mostrar('rsvp-form');
+})();
+
+/* ---------- Buenos deseos ---------- */
+(function deseos() {
+  const form = document.getElementById('deseo-form');
+  const lista = document.getElementById('deseos-lista');
+  const KEY = 'bautizo-deseos';
+  const leer = () => { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (_) { return []; } };
+  function pintar() {
+    const items = leer();
+    lista.replaceChildren();
+    if (!items.length) {
+      const li = document.createElement('li'); li.className = 'vacio';
+      li.textContent = 'Aún no hay mensajes. ¡Sé el primero en dejarle uno!'; lista.append(li); return;
+    }
+    items.slice().reverse().forEach(it => {
+      const li = document.createElement('li');
+      const q = document.createElement('blockquote'); q.textContent = it.mensaje;
+      const c = document.createElement('cite'); c.textContent = '— ' + it.nombre;
+      li.append(q, c); lista.append(li);
+    });
+  }
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const nombre = form.nombre.value.trim(), mensaje = form.mensaje.value.trim();
+    const mal = !nombre || !mensaje;
+    document.getElementById('e-deseo').hidden = !mal;
+    form.nombre.classList.toggle('invalido', !nombre); form.mensaje.classList.toggle('invalido', !mensaje);
+    if (mal) return;
+    await enviar(CONFIG.DESEOS_ENDPOINT, { tipo: 'Buen deseo', nombre, mensaje, fecha_envio: new Date().toISOString() });
+    const items = leer(); items.push({ nombre, mensaje });
+    try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (_) {}
+    form.reset(); pintar();
+  });
+  pintar();
+})();
+
+/* ---------- Mapa interactivo (Leaflet + OSM), se carga al acercarse ---------- */
+(function mapa() {
+  const el = document.getElementById('mapa');
+  if (!el) return;
+  const PUNTOS = {
+    iglesia: { lat: 19.282878, lng: -98.437575, titulo: 'Exconvento de Santa María Magdalena', sub: 'Ceremonia · 12:00 h (llega 11:45 h)',
+      url: 'https://www.google.com/maps/search/?api=1&query=Exconvento%20de%20Santa%20Mar%C3%ADa%20Magdalena%2C%20San%20Mart%C3%ADn%20Texmelucan' },
+    estacionamiento: { lat: 19.282709, lng: -98.438242, titulo: 'Estacionamiento recomendado (de pago)', sub: 'Plaza La Estación · Calle Mújica y Osorio',
+      url: 'https://www.google.com/maps/search/?api=1&query=19.282709%2C-98.438242' },
+  };
+  function iniciar() {
+    if (!window.L || el.dataset.listo) return;
+    el.dataset.listo = '1';
+    const m = L.map(el, { scrollWheelZoom: false, tap: true }).setView([19.28282, -98.43790], 18);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; colaboradores de <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(m);
+    const icono = (cls, txt) => L.divIcon({ className: '', html: `<div class="pin ${cls}">${txt}</div>`, iconSize: [34, 34], iconAnchor: [17, 17], popupAnchor: [0, -16] });
+    const pop = p => `<strong>${p.titulo}</strong><br>${p.sub}<br><a href="${p.url}" target="_blank" rel="noopener">Abrir en Google Maps</a>`;
+    L.marker([PUNTOS.iglesia.lat, PUNTOS.iglesia.lng], { icon: icono('pin--iglesia', '✝'), title: 'Iglesia', alt: 'Iglesia' }).addTo(m).bindPopup(pop(PUNTOS.iglesia));
+    L.marker([PUNTOS.estacionamiento.lat, PUNTOS.estacionamiento.lng], { icon: icono('pin--p', 'P'), title: 'Estacionamiento', alt: 'Estacionamiento' }).addTo(m).bindPopup(pop(PUNTOS.estacionamiento));
+    m.fitBounds([[PUNTOS.iglesia.lat, PUNTOS.iglesia.lng], [PUNTOS.estacionamiento.lat, PUNTOS.estacionamiento.lng]], { padding: [70, 70], maxZoom: 18 });
+  }
+  const arrancar = () => { if (window.L) iniciar(); else window.addEventListener('load', iniciar, { once: true }); };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); arrancar(); } }, { rootMargin: '400px' });
+    io.observe(el);
+  } else arrancar();
+})();
+
+/* ---------- Álbum compartido + QR ---------- */
+(function album() {
+  const $ = id => document.getElementById(id);
+  const url = (CONFIG.ALBUM_URL || '').trim();
+  if (!url) return; // se queda "Muy pronto"
+  $('album-pronto').hidden = true;
+  const btn = $('album-btn'); btn.href = url; btn.hidden = false;
+  $('album-nota').hidden = false;
+  if (window.qrcode) {
+    const q = qrcode(0, 'M'); q.addData(url); q.make();
+    const n = q.getModuleCount(); let d = '';
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c},${r}h1v1h-1z`;
+    $('album-qr').innerHTML = `<svg viewBox="-2 -2 ${n + 4} ${n + 4}" role="img" aria-label="Código QR del álbum"><rect x="-2" y="-2" width="${n + 4}" height="${n + 4}" fill="#fff"/><path d="${d}" fill="#5b5e3a" shape-rendering="crispEdges"/></svg>`;
+    $('album-qr').hidden = false;
+  }
+})();
+
+/* ---------- Carta cápsula (privada, nunca se muestra en la página) ---------- */
+(function capsula() {
+  const $ = id => document.getElementById(id);
+  const form = $('capsula-form'), gracias = $('capsula-gracias');
+  const endpoint = CONFIG.CARTAS_ENDPOINT || CONFIG.RSVP_ENDPOINT;
+  $('capsula-demo').hidden = !!endpoint;
+  form.carta.addEventListener('input', () => { $('c-cuenta').textContent = `${form.carta.value.length} / 8000`; });
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const nombre = form.nombre.value.trim(), carta = form.carta.value.trim();
+    const mal = !nombre || !carta;
+    $('e-capsula').hidden = !mal;
+    form.nombre.classList.toggle('invalido', !nombre); form.carta.classList.toggle('invalido', !carta);
+    if (mal) return;
+    const fam = await familiaPromesa;
+    const btn = $('capsula-enviar'); btn.disabled = true; btn.textContent = 'Guardando…';
+    try {
+      const r = await enviar(endpoint, { tipo: 'Carta cápsula', nombre, carta, familia: fam ? fam.grupo : '', id: fam ? fam.id : '', enviado: new Date().toISOString() });
+      if (!r.ok) throw new Error('envío');
+      $('capsula-gracias-texto').textContent = `Gracias, ${nombre.split(' ')[0]}. Tu carta quedó guardada y José María la leerá cuando cumpla 18 años.`;
+      form.reset(); $('c-cuenta').textContent = '0 / 8000';
+      form.hidden = true; gracias.hidden = false; gracias.focus();
+    } catch (_) {
+      alert('No pudimos guardar tu carta. Revisa tu conexión e inténtalo de nuevo.');
+    } finally { btn.disabled = false; btn.textContent = 'Guardar mi carta'; }
+  });
+  $('capsula-otra').addEventListener('click', () => { gracias.hidden = true; form.hidden = false; form.nombre.focus(); });
+})();

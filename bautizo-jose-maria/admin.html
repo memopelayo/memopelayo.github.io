@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Panel · Bautizo de José María</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+<header class="adm-top">
+  <p class="script adm-top__nombre">José María</p>
+  <p class="etiqueta">Panel de invitados</p>
+  <button class="adm-salir" id="salir" type="button" hidden>Salir</button>
+</header>
+
+<main class="adm">
+  <p class="adm-demo" id="demo" hidden>Modo demostración: no hay Apps Script conectado (<code>CONFIG.RSVP_ENDPOINT</code> vacío). Los datos son de ejemplo y los cambios solo se guardan en este navegador.</p>
+
+  <!-- Acceso -->
+  <form class="adm-login rsvp-tarjeta" id="login" hidden>
+    <p class="rsvp-aviso__titulo">Entrar al panel</p>
+    <div class="campo" style="width:100%">
+      <label for="clave">Clave del panel</label>
+      <input id="clave" type="password" autocomplete="current-password" required>
+    </div>
+    <p class="error" id="login-error" hidden></p>
+    <button class="btn btn--solido btn--ancho" type="submit">Entrar</button>
+    <p class="ayuda">La clave se revisa en tu Apps Script y se recuerda en este teléfono.</p>
+  </form>
+
+  <!-- Panel -->
+  <section id="panel" hidden>
+    <div class="adm-totales" id="totales"></div>
+    <div class="adm-filtros">
+      <input id="buscar" type="search" placeholder="Buscar familia o persona…" aria-label="Buscar">
+      <div class="adm-chips" role="tablist" id="chips">
+        <button type="button" data-f="todas" class="on">Todas</button>
+        <button type="button" data-f="pendiente">Pendientes</button>
+        <button type="button" data-f="confirmó">Confirmaron</button>
+        <button type="button" data-f="parcial">Parcial</button>
+        <button type="button" data-f="no asisten">No asisten</button>
+      </div>
+    </div>
+    <p class="adm-actualizado" id="actualizado"></p>
+    <ul class="adm-lista" id="lista"></ul>
+  </section>
+</main>
+
+<div class="adm-toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<svg class="croquis-svg" viewBox="0 0 600 517" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="croquis-title croquis-desc">
+<title id="croquis-title">Croquis: iglesia y estacionamiento recomendado</title>
+<desc id="croquis-desc">El Exconvento de Santa María Magdalena está sobre la Avenida Libertad Sur, en la esquina con la Calle Mújica y Osorio. Plaza La Estación, con estacionamiento de pago, está sobre Mújica y Osorio, a unos 100 metros al poniente de la iglesia.</desc>
+<defs><clipPath id="cq-clip"><rect x="0" y="0" width="600" height="517" rx="18"/></clipPath>
+<pattern id="cq-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#a7ad8c" stroke-width="1.2"/></pattern></defs>
+<rect x="0" y="0" width="600" height="517" rx="18" fill="#fffefa"/>
+<g clip-path="url(#cq-clip)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M894.8,29.6 L1010.5,47.9 L1075.8,57.3 L1129.8,65.1 L1171.8,71.2 L1261.4,84.7" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M707.4,169.3 L691.9,269.1 L665.7,438.8 L629.5,638.1" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M869.4,193.0 L894.8,29.6 L934.6,-194.5 L1056.8,-882.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M522.8,-181.0 L538.3,-306.4 L562.0,-458.6 L586.6,-610.3 L613.0,-757.3 L635.4,-907.3 L645.0,-997.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M1146.3,-881.1 L1010.5,47.9 L984.8,208.8" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M478.0,233.4 L691.9,269.1 L854.7,291.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M974.4,309.2 L945.0,480.5" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M854.7,291.2 L974.4,309.2 L1133.5,339.5 L1349.0,379.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M448.6,-189.1 L522.8,-181.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M866.2,-884.4 L839.4,-721.8 L819.0,-574.8 L791.1,-427.5 L769.6,-274.2 L752.3,-148.2 L732.0,0.2 L721.8,69.9 L707.4,169.3" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M622.2,1680.7 L689.4,1300.2 L718.9,1085.0 L741.8,965.2 L749.5,927.2 L775.9,775.9 L796.9,673.6 L806.2,603.8 L814.5,546.4 L826.6,462.8 L854.7,291.2 L869.4,193.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-631.8,1012.5 L-571.1,809.7 L-515.1,580.1 L-473.7,420.9 L-395.6,121.6 L-326.4,-154.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-49.1,-142.3 L-233.8,-528.2 L-234.2,-539.7 L-229.1,-549.3" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-424.3,914.2 L-421.0,899.8 L-389.6,759.9 L-353.5,617.0 L-315.3,462.1 L-243.0,163.0 L-196.5,-32.6" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-389.6,759.9 L-187.5,656.7" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-5.6,116.6 L-109.0,511.9 L-149.9,664.3 L-176.1,760.1 L-174.4,774.8" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-689.7,541.5 L-515.1,580.1 L-353.5,617.0 L-187.5,656.7 L-149.9,664.3" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-395.6,121.6 L-243.0,163.0 L-181.5,175.3 L-128.3,185.9 L-119.1,185.1 L-112.0,180.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M2605.3,458.9 L2447.7,436.9 L2232.2,400.9 L2125.5,384.2 L2017.2,369.5 L1804.5,334.6 L1589.5,298.8 L1476.0,282.2 L1366.4,266.1 L1145.8,233.4 L984.8,208.8 L869.4,193.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M1547.0,573.0 L1323.6,541.0 L1109.5,508.3 L945.0,480.5 L826.6,462.8" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M57.0,131.9 L-5.6,116.6 L-42.2,104.1 L-78.7,82.3 L-108.1,53.9 L-139.7,23.3 L-196.5,-32.6 L-326.4,-154.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-473.7,420.9 L-315.3,462.1 L-109.0,511.9" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M275.2,-197.4 L307.8,-339.7 L340.8,-491.6 L365.9,-642.7 L390.9,-793.0 L345.2,-865.7" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M67.8,-347.9 L-49.1,-142.3 L-57.6,-124.0 L-59.0,-121.5 L-139.7,23.3" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-112.0,180.2 L-78.7,82.3" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-49.1,-142.3 L0.0,-45.2 L28.5,11.2 L73.3,83.8 L110.3,143.8" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M483.2,501.0 L316.5,503.7 L307.4,504.5 L297.4,505.7 L288.3,507.8 L278.3,510.8 L216.6,536.9 L206.6,543.2 L-24.4,688.6 L-115.5,742.9 L-157.0,759.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M401.4,-40.5 L732.0,0.2 L805.2,13.4 L894.8,29.6" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M752.3,-148.2 L522.8,-181.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M806.2,603.8 L972.5,612.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M629.5,638.1 L560.7,875.5 L559.3,877.9 L548.9,916.1 L513.8,1039.9 L501.4,1113.3 L493.7,1159.0 L478.0,1252.3" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M190.3,822.3 L206.6,543.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M522.3,568.8 L512.9,578.8 L466.8,636.8 L346.3,618.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M955.9,794.7 L960.5,746.5 L939.8,743.2 L937.5,744.3 L936.0,746.2 L933.3,750.9 L912.5,800.0 L893.5,841.5" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-33.2,768.0 L-24.4,688.6" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-115.5,742.9 L-33.2,768.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-273.5,-210.1 L-326.4,-154.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-273.5,-210.1 L-223.3,-270.5 L-220.0,-274.6 L-217.5,-278.6 L-216.8,-282.0 L-216.7,-285.1 L-225.7,-301.5 L-228.3,-303.5 L-231.2,-305.1 L-233.9,-305.2 L-236.9,-304.5 L-298.0,-253.8 L-299.0,-251.7 L-299.5,-249.5 L-299.0,-247.3 L-298.3,-244.8 L-273.5,-210.1" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M796.9,673.6 L1073.2,717.8" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M397.3,-47.2 L466.3,-83.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M721.8,69.9 L648.5,57.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M674.0,703.4 L657.2,725.4 L651.2,736.4 L647.4,760.9" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M225.2,149.1 L231.2,106.7 L221.3,105.2 L226.5,72.4 L272.1,80.4" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M222.9,160.4 L225.2,149.1" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M177.7,-247.8 L149.9,-196.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M149.9,-196.0 L135.7,-173.6" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M238.0,-230.5 L200.1,-193.2 L230.6,-158.3 L275.2,-197.4" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M271.0,384.5 L268.9,401.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M280.3,301.6 L271.0,384.5" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-59.1,19.0 L-108.1,53.9" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-181.5,175.3 L-191.1,123.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M13.5,-59.0 L0.0,-45.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M88.2,59.9 L73.3,83.8" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M171.2,-73.2 L88.2,59.9" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M53.9,-103.2 L13.5,-59.0" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M805.2,13.4 L803.7,25.5" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M778.7,112.3 L755.7,109.0 L751.1,140.4 L773.4,143.4" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M790.8,40.6 L778.7,112.3 L773.4,143.4" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M803.7,25.5 L802.5,32.9 L798.8,38.1 L790.8,40.6 L750.0,33.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M821.1,547.6 L814.5,546.4" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M906.0,561.2 L821.1,547.6" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M752.7,561.8 L763.6,594.5 L806.2,603.8" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M934.6,-194.5 L861.8,-209.9 L854.2,-176.0 L880.4,-170.3" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M685.1,689.4 L674.0,703.4" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M-326.4,-154.2 L-357.7,-190.2" stroke="#e4e6d8" stroke-width="4"/>
+<path d="M478.6,196.6 L478.0,233.4 L466.6,404.1 L468.3,424.1 L483.2,501.0" stroke="#7a7c58" stroke-width="11.4"/>
+<path d="M629.5,638.1 L607.0,621.8 L547.0,586.3 L522.3,568.8 L500.0,537.1 L483.2,501.0" stroke="#7a7c58" stroke-width="11.4"/>
+<path d="M1427.8,1137.5 L1236.9,1040.2 L1222.5,1032.3 L1081.1,947.5 L1039.4,922.9 L893.5,841.5 L830.9,806.6 L775.9,775.9 L753.2,758.2 L685.1,689.4 L647.9,651.8 L629.5,638.1" stroke="#7a7c58" stroke-width="11.4"/>
+<path d="M478.6,196.6 L472.8,130.8 L461.7,82.5 L440.6,26.1 L401.4,-40.5 L397.3,-47.2 L377.9,-77.0 L340.0,-129.4 L275.2,-197.4 L238.0,-230.5 L191.2,-269.1 L67.8,-347.9 L-85.8,-444.2 L-229.1,-549.3 L-263.5,-583.5 L-499.9,-780.6 L-702.6,-928.8 L-802.1,-1001.0 L-818.4,-1013.8" stroke="#7a7c58" stroke-width="11.4"/>
+<path d="M478.6,196.6 L222.9,160.4 L110.3,143.8 L57.0,131.9" stroke="#7a7c58" stroke-width="8.4"/>
+<path d="M468.3,424.1 L268.9,401.2 L203.9,395.7" stroke="#7a7c58" stroke-width="8.4"/>
+<path d="M826.6,462.8 L665.7,438.8 L466.6,404.1" stroke="#7a7c58" stroke-width="8.4"/>
+<path d="M187.9,483.2 L203.9,395.7 L110.3,143.8" stroke="#7a7c58" stroke-width="6.4"/>
+<path d="M216.6,536.9 L187.9,483.2 L57.0,131.9" stroke="#7a7c58" stroke-width="7.4"/>
+<path d="M869.4,193.0 L707.4,169.3 L472.8,130.8" stroke="#7a7c58" stroke-width="8.4"/>
+<path d="M-1539.8,-2248.3 L-988.0,-1469.4 L-805.3,-1206.1 L-727.8,-1118.2 L-585.0,-905.4 L-499.9,-780.6 L-59.0,-121.5 L57.0,131.9" stroke="#7a7c58" stroke-width="7.4"/>
+<path d="M216.6,536.9 L259.9,617.4 L284.3,655.6 L294.2,667.9 L333.3,715.3 L371.6,754.6 L391.7,773.6 L412.1,791.3 L451.4,820.2 L472.8,834.0 L494.2,844.8 L560.7,875.5 L749.5,927.2 L1027.4,1000.7 L1194.6,1041.6 L1222.5,1032.3" stroke="#7a7c58" stroke-width="7.4"/>
+<path d="M478.6,196.6 L478.0,233.4 L466.6,404.1 L468.3,424.1 L483.2,501.0" stroke="#fffefa" stroke-width="9"/>
+<path d="M629.5,638.1 L607.0,621.8 L547.0,586.3 L522.3,568.8 L500.0,537.1 L483.2,501.0" stroke="#fffefa" stroke-width="9"/>
+<path d="M1427.8,1137.5 L1236.9,1040.2 L1222.5,1032.3 L1081.1,947.5 L1039.4,922.9 L893.5,841.5 L830.9,806.6 L775.9,775.9 L753.2,758.2 L685.1,689.4 L647.9,651.8 L629.5,638.1" stroke="#fffefa" stroke-width="9"/>
+<path d="M478.6,196.6 L472.8,130.8 L461.7,82.5 L440.6,26.1 L401.4,-40.5 L397.3,-47.2 L377.9,-77.0 L340.0,-129.4 L275.2,-197.4 L238.0,-230.5 L191.2,-269.1 L67.8,-347.9 L-85.8,-444.2 L-229.1,-549.3 L-263.5,-583.5 L-499.9,-780.6 L-702.6,-928.8 L-802.1,-1001.0 L-818.4,-1013.8" stroke="#fffefa" stroke-width="9"/>
+<path d="M478.6,196.6 L222.9,160.4 L110.3,143.8 L57.0,131.9" stroke="#fffefa" stroke-width="6"/>
+<path d="M468.3,424.1 L268.9,401.2 L203.9,395.7" stroke="#fffefa" stroke-width="6"/>
+<path d="M826.6,462.8 L665.7,438.8 L466.6,404.1" stroke="#fffefa" stroke-width="6"/>
+<path d="M187.9,483.2 L203.9,395.7 L110.3,143.8" stroke="#fffefa" stroke-width="4"/>
+<path d="M216.6,536.9 L187.9,483.2 L57.0,131.9" stroke="#fffefa" stroke-width="5"/>
+<path d="M869.4,193.0 L707.4,169.3 L472.8,130.8" stroke="#fffefa" stroke-width="6"/>
+<path d="M-1539.8,-2248.3 L-988.0,-1469.4 L-805.3,-1206.1 L-727.8,-1118.2 L-585.0,-905.4 L-499.9,-780.6 L-59.0,-121.5 L57.0,131.9" stroke="#fffefa" stroke-width="5"/>
+<path d="M216.6,536.9 L259.9,617.4 L284.3,655.6 L294.2,667.9 L333.3,715.3 L371.6,754.6 L391.7,773.6 L412.1,791.3 L451.4,820.2 L472.8,834.0 L494.2,844.8 L560.7,875.5 L749.5,927.2 L1027.4,1000.7 L1194.6,1041.6 L1222.5,1032.3" stroke="#fffefa" stroke-width="5"/>
+<path d="M134.3,170.9 L284.3,191.1 L264.3,384.6 L236.9,382.7 L238.3,366.5 L209.1,365.1 L134.3,170.9 Z" fill="url(#cq-hatch)" stroke="#5b5e3a" stroke-width="1.6" stroke-dasharray="5 4"/>
+<path d="M159.1,364.4 L182.8,356.1 L106.0,150.6 L61.9,138.7 L159.1,364.4 Z" fill="url(#cq-hatch)" stroke="#5b5e3a" stroke-width="1.2" stroke-dasharray="4 4"/>
+<path d="M473.5,201.4 L323.4,182.4 L312.7,267.7 L462.7,286.6 L473.5,201.4 Z" fill="#e9ecdc" stroke="#5b5e3a" stroke-width="2"/>
+<path d="M223.7,176.7 L478.0,196.1 L478.0,232.7" stroke="#7d93b7" stroke-width="3" stroke-dasharray="1 7"/>
+</g>
+<path d="M140.3,62.3 Q167.5,82.3 207.5,253.8" fill="none" stroke="#5b5e3a" stroke-width="1.3" stroke-dasharray="3 4"/>
+<g transform="translate(392.5,234.9)"><circle r="20" fill="#5b5e3a"/><path d="M0,-12 V12 M-8,-4 H8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></g>
+<g transform="translate(207.5,275.8)"><circle r="20" fill="#fff" stroke="#5b5e3a" stroke-width="2.4"/><text y="7" text-anchor="middle" class="cq-p">P</text></g>
+<text class="cq-calle" text-anchor="middle" transform="translate(526.5,377.1) rotate(-86.0)">Av. Libertad Sur</text>
+<text class="cq-calle" text-anchor="middle" transform="translate(481.8,81.9) rotate(73.9)">Av. Libertad Nte.</text>
+<text class="cq-calle" text-anchor="middle" transform="translate(325.4,156.1) rotate(8.2)">Calle Mújica y Osorio</text>
+<text class="cq-calle" text-anchor="middle" transform="translate(335.6,432.6) rotate(6.8)">José Ma. Morelos Pte.</text>
+<text class="cq-calle" text-anchor="middle" transform="translate(77.5,437.0) rotate(69.7)">Patio Estación</text>
+<text class="cq-lugar" text-anchor="middle" transform="translate(392.5,323.4) rotate(0.0)">Iglesia</text>
+<text class="cq-sub" text-anchor="middle" transform="translate(392.5,342.4) rotate(0.0)">Exconvento de Sta. Ma. Magdalena</text>
+<text class="cq-lugar cq-lugar--p" text-anchor="start" transform="translate(20.3,32.3) rotate(0.0)">Estacionamiento recomendado</text>
+<text class="cq-sub" text-anchor="start" transform="translate(20.3,51.3) rotate(0.0)">(de pago) · Plaza La Estación</text>
+<g transform="translate(562,40)" class="cq-norte"><circle r="20" fill="#fff" stroke="#a7ad8c"/><path d="M0,-14 L5,4 L0,0 L-5,4 Z" fill="#5b5e3a"/><text y="15" text-anchor="middle">N</text></g>
+<text class="cq-osm" x="588" y="507" text-anchor="end">Trazo basado en © colaboradores de OpenStreetMap</text>
+</svg>
