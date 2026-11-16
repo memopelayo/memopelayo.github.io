@@ -3,7 +3,7 @@
   --olivo-suave:#7a7c58;
   --salvia:#a7ad8c;
   --linea:#d9dccb;
-  --azul:#7d93b7;         /* nomeolvides */
+  --azul:#9ca88c;         /* ya no se usa azul; foco y avisos en salvia servilleta */
   --crema:#fbfaf5;
   --blanco:#fff;
   --error:#9b3d32;
@@ -91,7 +91,7 @@ legend{margin-bottom:6px}
 .opcional,.ayuda{color:var(--olivo-suave);font-size:.82rem}
 input[type=text],input[type=number],textarea{width:100%;font:inherit;font-variant-numeric:lining-nums;color:var(--olivo);background:#fff;border:1px solid var(--linea);border-radius:12px;padding:12px 14px;min-height:48px}
 textarea{resize:vertical}
-input:focus,textarea:focus{border-color:var(--olivo-suave);outline:none;box-shadow:0 0 0 3px rgba(125,147,183,.25)}
+input:focus,textarea:focus{border-color:var(--olivo-suave);outline:none;box-shadow:0 0 0 3px rgba(156,168,140,.35)}
 input::placeholder,textarea::placeholder{color:#a9ab95}
 .fila{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .opciones{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -316,7 +316,7 @@ input::placeholder,textarea::placeholder{color:#a9ab95}
 .galeria__item{break-inside:avoid;margin:0 0 8px;opacity:0;transition:opacity .8s ease,transform .8s ease}
 .galeria__item.cargada{opacity:1}
 .galeria__item.es-nueva{transform:scale(.96)}
-.galeria__item.es-nueva.cargada{transform:none;box-shadow:0 0 0 3px rgba(125,147,183,.35);border-radius:12px}
+.galeria__item.es-nueva.cargada{transform:none;box-shadow:0 0 0 3px rgba(156,168,140,.45);border-radius:12px}
 .galeria__item.sin-img{display:none}
 .galeria__item button{font:inherit;position:relative;display:block;width:100%;padding:0;border:0;background:var(--crema);border-radius:12px;overflow:hidden;cursor:zoom-in}
 .galeria__item img{width:100%;height:auto;display:block}
@@ -413,3 +413,78 @@ input::placeholder,textarea::placeholder{color:#a9ab95}
 @media (max-width:899px){body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}}
 @media (min-width:900px){.barra{display:none!important}}
 @media (min-width:768px){.accesos{max-width:720px}}
+
+/* ---------- Paleta flores y barro + separadores e iconos ---------- */
+:root{
+  --barro:#b4582f;
+  --barro-tenue:#f7ece4;
+  --salvia-servilleta:#9ca88c;
+  --yute:#d9c6a5;
+  --fondo-a:#ffffff;
+  --fondo-b:#f3f4ec;
+  --fondo-barro:#f7ece4;
+  --rombo:#b4582f;
+}
+.seccion--a,.seccion--crema{background:var(--fondo-a)}
+.seccion--b{background:var(--fondo-b)}
+.seccion--barro,.pagina-fotos{background:var(--fondo-barro)}
+.cuenta.seccion--b{border-top:0;border-bottom:0;margin:0;padding:0 20px 44px}
+.pie{border-top:0;padding:0 20px 56px;background:var(--fondo-a)}
+.seccion{padding:0 20px 56px}
+.seccion--familia{padding-top:0}
+
+.separador{display:flex;align-items:center;justify-content:center;gap:12px;padding:28px 0 10px;pointer-events:none}
+.separador--pie{padding-top:36px}
+.separador__linea{display:block;width:48px;height:1px;background:var(--salvia-servilleta);flex:none}
+.separador__rombo{display:block;width:6px;height:6px;background:var(--rombo);transform:rotate(45deg);flex:none}
+
+.encabezado{margin:0 auto 24px;max-width:34rem}
+.encabezado .titulo-seccion,.encabezado .etiqueta{margin-bottom:0}
+.encabezado--cuenta{margin-bottom:16px}
+
+.icono-seccion,.tarjeta__icono,.ruta__icono,.mesa__icono{
+  display:flex;justify-content:center;align-items:center;
+  margin:0 auto 10px;color:var(--olivo)
+}
+.icono-seccion svg,.tarjeta__icono svg,.ruta__icono svg,.mesa__icono svg{
+  display:block;width:22px;height:22px;
+  fill:none;stroke:currentColor;stroke-width:1.25;
+  stroke-linecap:round;stroke-linejoin:round
+}
+.icono-seccion svg{width:26px;height:26px;stroke-width:1.2}
+.tarjeta__icono{margin-bottom:12px}
+.tarjeta__icono svg{width:28px;height:28px;stroke-width:1.2}
+.ruta__icono{margin:0 auto 8px;justify-content:center}
+.ruta__icono svg{width:20px;height:20px}
+.mesa__icono{margin:0 auto 6px}
+.mesa__icono svg{width:26px;height:26px}
+.tarjeta__icono--barro,.ruta__icono--barro{color:var(--barro)}
+.cuenta__grid span{color:var(--barro)}
+
+.adorno{display:block;width:48px;height:12px;margin:12px auto 0;color:var(--salvia-servilleta)}
+.adorno svg{display:block;width:100%;height:100%;fill:currentColor}
+
+.tarjeta--recepcion{background:var(--fondo-barro)}
+.tarjeta,.ruta,.rsvp-aviso,.rsvp-tarjeta,.album__qr,.croquis-svg{border-color:var(--yute)}
+.cal__menu{border-color:var(--yute)}
+.cal__menu a+a{border-top-color:var(--yute)}
+.cal__boton{border-color:var(--yute)}
+
+.aviso-llegada__icono{color:var(--salvia-servilleta)}
+
+@media (min-width:768px){
+  .seccion{padding:0 40px 80px}
+  .cuenta.seccion--b{padding:0 20px 56px;max-width:none}
+  .cuenta .encabezado,.cuenta .cuenta__grid,.cuenta .aviso-llegada--cuenta,.cuenta .cuenta__fin{max-width:900px;margin-left:auto;margin-right:auto}
+  .cuenta .cuenta__grid{margin-top:16px}
+  .pie{padding:0 40px 64px}
+  .separador{padding-top:40px}
+  .ruta{grid-template-columns:auto 1fr auto;align-items:center}
+  .ruta__icono{margin:0 10px 0 0}
+}
+
+/* Accesos y barra: círculos y trazo en olivo (ya lo estaban; se confirma) */
+.acceso__icono{border-color:var(--olivo);background:#fff}
+.acceso,.barra__item{color:var(--olivo)}
+.barra__item{color:var(--olivo-suave)}
+.barra__item.activo{color:var(--olivo)}

@@ -50,8 +50,13 @@
 </nav>
 
 <main>
-  <section class="cuenta" aria-labelledby="cuenta-t">
-    <h2 id="cuenta-t" class="etiqueta">Faltan</h2>
+  <section class="cuenta seccion--b" aria-labelledby="cuenta-t">
+    <div class="separador" aria-hidden="true"><span class="separador__linea"></span><span class="separador__rombo"></span><span class="separador__linea"></span></div>
+    <div class="encabezado encabezado--cuenta">
+      <span class="icono-seccion" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12.2" r="8"/><path d="M12 12.2V7.4M12 12.2l3.8 2.4"/><path d="M12 4.2v1M12 19.4v1M4.2 12.2h1M18.8 12.2h1"/></svg></span>
+      <h2 id="cuenta-t" class="etiqueta">Faltan</h2>
+      <span class="adorno" aria-hidden="true"><svg viewBox="0 0 48 12" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="6" r="1.6"/><circle cx="24" cy="2.6" r="1.4"/><circle cx="24" cy="9.4" r="1.4"/><circle cx="20.6" cy="6" r="1.4"/><circle cx="27.4" cy="6" r="1.4"/><rect x="4" y="5.6" width="11" height="0.8" rx="0.4"/><rect x="33" y="5.6" width="11" height="0.8" rx="0.4"/></svg></span>
+    </div>
     <div class="cuenta__grid" id="countdown" role="timer" aria-live="off">
       <div><span data-u="d">--</span><small>días</small></div>
       <div><span data-u="h">--</span><small>horas</small></div>
@@ -62,10 +67,16 @@
     <p class="aviso-llegada aviso-llegada--cuenta" role="note"><span class="aviso-llegada__icono" aria-hidden="true">✦</span> La ceremonia comienza <strong>puntualmente a las 12:00 h</strong>. Te recomendamos encarecidamente llegar al menos 15 minutos antes (a las 11:45 h).</p>
   </section>
 
-  <section class="seccion" id="evento" aria-labelledby="evento-t">
-    <h2 id="evento-t" class="titulo-seccion">¿Cuándo y dónde?</h2>
+  <section class="seccion seccion--a" id="evento" aria-labelledby="evento-t">
+    <div class="separador" aria-hidden="true"><span class="separador__linea"></span><span class="separador__rombo"></span><span class="separador__linea"></span></div>
+    <div class="encabezado">
+      <span class="icono-seccion" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.2" rx="2"/><path d="M3.5 9.6h17M8 2.8v4M16 2.8v4"/><path d="M8.2 13h.1M12 13h.1M15.8 13h.1M8.2 16.2h.1M12 16.2h.1"/></svg></span>
+      <h2 id="evento-t" class="titulo-seccion">¿Cuándo y dónde?</h2>
+      <span class="adorno" aria-hidden="true"><svg viewBox="0 0 48 12" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="6" r="1.6"/><circle cx="24" cy="2.6" r="1.4"/><circle cx="24" cy="9.4" r="1.4"/><circle cx="20.6" cy="6" r="1.4"/><circle cx="27.4" cy="6" r="1.4"/><rect x="4" y="5.6" width="11" height="0.8" rx="0.4"/><rect x="33" y="5.6" width="11" height="0.8" rx="0.4"/></svg></span>
+    </div>
     <div class="tarjetas">
       <article class="tarjeta">
+        <span class="tarjeta__icono" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1.4v2.5M10.35 2.4h3.3"/><path d="M12 3.9v1.3"/><path d="M3.6 11.6 12 5.2 20.4 11.6"/><path d="M6 11.6V21h12v-9.4"/><path d="M10.05 21v-4.3a1.95 1.95 0 0 1 3.9 0V21"/><path d="M8.15 14.4v2.7M15.85 14.4v2.7"/></svg></span>
         <p class="etiqueta">Ceremonia religiosa</p>
         <p class="tarjeta__hora">12:00 h</p>
         <h3 class="tarjeta__lugar">Exconvento de Santa María Magdalena</h3>
@@ -75,7 +86,8 @@
           <a class="btn btn--solido" href="#llegar">Cómo llegar</a>
         </div>
       </article>
-      <article class="tarjeta">
+      <article class="tarjeta tarjeta--recepcion">
+        <span class="tarjeta__icono tarjeta__icono--barro" aria-hidden="true"><svg viewBox="0 0 24 24"><g transform="rotate(10 8 12)"><path d="M5.5 3.4h5"/><path d="M5.5 3.4C5.7 8 6.6 11 8 11.2C9.4 11 10.3 8 10.5 3.4"/><path d="M8 11.2v6.6"/><path d="M6.2 18.2h3.6"/></g><g transform="rotate(-10 16 12)"><path d="M13.5 3.4h5"/><path d="M13.5 3.4C13.7 8 14.6 11 16 11.2C17.4 11 18.3 8 18.5 3.4"/><path d="M16 11.2v6.6"/><path d="M14.2 18.2h3.6"/></g><path d="M12 1.8v1.8M11.1 2.7h1.8"/></svg></span>
         <p class="etiqueta">Recepción</p>
         <p class="tarjeta__hora">13:00 h</p>
         <h3 class="tarjeta__lugar">Jardín Casa Pelayo</h3>
@@ -95,8 +107,13 @@
   </section>
 
 
-  <section class="seccion seccion--crema" id="llegar" aria-labelledby="llegar-t">
-    <h2 id="llegar-t" class="titulo-seccion">Cómo llegar y<br>dónde estacionarte</h2>
+  <section class="seccion seccion--b" id="llegar" aria-labelledby="llegar-t">
+    <div class="separador" aria-hidden="true"><span class="separador__linea"></span><span class="separador__rombo"></span><span class="separador__linea"></span></div>
+    <div class="encabezado">
+      <span class="icono-seccion" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-6.6-6.5-11a6.5 6.5 0 1 1 13 0c0 4.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.15"/></svg></span>
+      <h2 id="llegar-t" class="titulo-seccion">Cómo llegar y<br>dónde estacionarte</h2>
+      <span class="adorno" aria-hidden="true"><svg viewBox="0 0 48 12" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="6" r="1.6"/><circle cx="24" cy="2.6" r="1.4"/><circle cx="24" cy="9.4" r="1.4"/><circle cx="20.6" cy="6" r="1.4"/><circle cx="27.4" cy="6" r="1.4"/><rect x="4" y="5.6" width="11" height="0.8" rx="0.4"/><rect x="33" y="5.6" width="11" height="0.8" rx="0.4"/></svg></span>
+    </div>
     <p class="intro intro--ancha">Te recomendamos dejar tu coche en el estacionamiento de <strong>Plaza La Estación</strong> (de pago), a la vuelta de la iglesia.</p>
     <p class="aviso-llegada" role="note"><span class="aviso-llegada__icono" aria-hidden="true">✦</span> La ceremonia comienza <strong>puntualmente a las 12:00 h</strong>. Te recomendamos encarecidamente llegar al menos 15 minutos antes (a las 11:45 h).</p>
     <figure class="croquis">
@@ -200,7 +217,7 @@
 <path d="M134.3,170.9 L284.3,191.1 L264.3,384.6 L236.9,382.7 L238.3,366.5 L209.1,365.1 L134.3,170.9 Z" fill="url(#cq-hatch)" stroke="#5b5e3a" stroke-width="1.6" stroke-dasharray="5 4"/>
 <path d="M159.1,364.4 L182.8,356.1 L106.0,150.6 L61.9,138.7 L159.1,364.4 Z" fill="url(#cq-hatch)" stroke="#5b5e3a" stroke-width="1.2" stroke-dasharray="4 4"/>
 <path d="M473.5,201.4 L323.4,182.4 L312.7,267.7 L462.7,286.6 L473.5,201.4 Z" fill="#e9ecdc" stroke="#5b5e3a" stroke-width="2"/>
-<path d="M223.7,176.7 L478.0,196.1 L478.0,232.7" stroke="#7d93b7" stroke-width="3" stroke-dasharray="1 7"/>
+<path d="M223.7,176.7 L478.0,196.1 L478.0,232.7" stroke="#9ca88c" stroke-width="3" stroke-dasharray="1 7"/>
 </g>
 <path d="M140.3,62.3 Q167.5,82.3 207.5,253.8" fill="none" stroke="#5b5e3a" stroke-width="1.3" stroke-dasharray="3 4"/>
 <g transform="translate(392.5,234.9)"><circle r="20" fill="#5b5e3a"/><path d="M0,-12 V12 M-8,-4 H8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></g>
@@ -221,6 +238,7 @@
     </figure>
     <ul class="rutas" aria-label="Abrir la ruta en Google Maps o Waze">
       <li class="ruta">
+        <span class="ruta__icono" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1.4v2.5M10.35 2.4h3.3"/><path d="M12 3.9v1.3"/><path d="M3.6 11.6 12 5.2 20.4 11.6"/><path d="M6 11.6V21h12v-9.4"/><path d="M10.05 21v-4.3a1.95 1.95 0 0 1 3.9 0V21"/><path d="M8.15 14.4v2.7M15.85 14.4v2.7"/></svg></span>
         <div class="ruta__txt"><p class="etiqueta">Ceremonia · 12:00 h</p><p class="ruta__lugar">Exconvento de Santa María Magdalena</p><p class="ruta__det">Av. Libertad Sur 101, Centro</p></div>
         <div class="ruta__btns">
           <a class="btn btn--solido btn--chico" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=19.282878%2C-98.437575">Google Maps</a>
@@ -228,6 +246,7 @@
         </div>
       </li>
       <li class="ruta">
+        <span class="ruta__icono" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13.2 6.3 9.5A1.6 1.6 0 0 1 7.8 8.5h8.4a1.6 1.6 0 0 1 1.5 1l1.3 3.7"/><path d="M3.7 13.2h16.6v3.8H3.7z"/><circle cx="7.3" cy="17.4" r="1.45"/><circle cx="16.7" cy="17.4" r="1.45"/><path d="M10.5 17.4h3"/></svg></span>
         <div class="ruta__txt"><p class="etiqueta">Estacionamiento</p><p class="ruta__lugar">Gran Plaza La Estación</p><p class="ruta__det">De pago · a la vuelta de la iglesia</p></div>
         <div class="ruta__btns">
           <a class="btn btn--solido btn--chico" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=19.282709%2C-98.438242">Google Maps</a>
@@ -235,6 +254,7 @@
         </div>
       </li>
       <li class="ruta" id="llegar-recepcion">
+        <span class="ruta__icono ruta__icono--barro" aria-hidden="true"><svg viewBox="0 0 24 24"><g transform="rotate(10 8 12)"><path d="M5.5 3.4h5"/><path d="M5.5 3.4C5.7 8 6.6 11 8 11.2C9.4 11 10.3 8 10.5 3.4"/><path d="M8 11.2v6.6"/><path d="M6.2 18.2h3.6"/></g><g transform="rotate(-10 16 12)"><path d="M13.5 3.4h5"/><path d="M13.5 3.4C13.7 8 14.6 11 16 11.2C17.4 11 18.3 8 18.5 3.4"/><path d="M16 11.2v6.6"/><path d="M14.2 18.2h3.6"/></g><path d="M12 1.8v1.8M11.1 2.7h1.8"/></svg></span>
         <div class="ruta__txt"><p class="etiqueta">Recepción · 13:00 h</p><p class="ruta__lugar">Jardín Casa Pelayo</p><p class="ruta__det">San Martín Texmelucan</p></div>
         <div class="ruta__btns">
           <a class="btn btn--solido btn--chico" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=19.305141%2C-98.439766">Google Maps</a>
@@ -248,9 +268,13 @@
     <p class="mapa__credito">Mapa interactivo: © colaboradores de OpenStreetMap</p>
   </section>
 
-  <section class="seccion seccion--familia" id="familia" aria-labelledby="familia-t">
-    <img class="ramita ramita--centro" src="assets/ramita-top.webp" width="249" height="215" alt="" loading="lazy">
-    <h2 id="familia-t" class="titulo-seccion">Con la bendición de Dios<br>y en compañía de</h2>
+  <section class="seccion seccion--familia seccion--a" id="familia" aria-labelledby="familia-t">
+    <div class="separador" aria-hidden="true"><span class="separador__linea"></span><span class="separador__rombo"></span><span class="separador__linea"></span></div>
+    <div class="encabezado">
+      <span class="icono-seccion" aria-hidden="true"><svg viewBox="0 0 24 24"><g transform="translate(-0.6,0.4) scale(0.92)"><path d="M3.5 15.5 8 13.2c2.2-1 5-1 8 .6 1.6.9 3.4 1.4 4.8 1.4"/><path d="M9.5 12.6C8 7.5 11.5 3.8 17.2 3.2c-1.8 2.8-1.4 5.6.6 7.8"/><path d="M20 10.2c.8-.6 2-.6 2.8.2"/><path d="M22.6 10.1 24.2 9.6"/><circle cx="21.2" cy="9.5" r=".35" fill="currentColor" stroke="none"/><path d="M3.5 15.5c-1.2.8-2 2.2-2.2 3.6"/><path d="M4.2 15.8c-1 1-1.7 2.4-1.8 3.8"/><path d="M23.8 9.4c.55-.7 1.35-.9 1.8-.4"/></g></svg></span>
+      <h2 id="familia-t" class="titulo-seccion">Con la bendición de Dios<br>y en compañía de</h2>
+      <span class="adorno" aria-hidden="true"><svg viewBox="0 0 48 12" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="6" r="1.6"/><circle cx="24" cy="2.6" r="1.4"/><circle cx="24" cy="9.4" r="1.4"/><circle cx="20.6" cy="6" r="1.4"/><circle cx="27.4" cy="6" r="1.4"/><rect x="4" y="5.6" width="11" height="0.8" rx="0.4"/><rect x="33" y="5.6" width="11" height="0.8" rx="0.4"/></svg></span>
+    </div>
     <div class="familia">
       <div>
         <p class="etiqueta">Mis padres</p>
@@ -263,8 +287,13 @@
     </div>
   </section>
 
-  <section class="seccion seccion--crema" id="rsvp" aria-labelledby="rsvp-t" hidden>
-    <h2 id="rsvp-t" class="titulo-seccion">Confirma tu asistencia</h2>
+  <section class="seccion seccion--b" id="rsvp" aria-labelledby="rsvp-t" hidden>
+    <div class="separador" aria-hidden="true"><span class="separador__linea"></span><span class="separador__rombo"></span><span class="separador__linea"></span></div>
+    <div class="encabezado">
+      <span class="icono-seccion" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.2" y="6.2" width="17.6" height="12.1" rx="1.5"/><path d="M3.7 7.5 12 13.3l8.3-5.8"/></svg></span>
+      <h2 id="rsvp-t" class="titulo-seccion">Confirma tu asistencia</h2>
+      <span class="adorno" aria-hidden="true"><svg viewBox="0 0 48 12" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="6" r="1.6"/><circle cx="24" cy="2.6" r="1.4"/><circle cx="24" cy="9.4" r="1.4"/><circle cx="20.6" cy="6" r="1.4"/><circle cx="27.4" cy="6" r="1.4"/><rect x="4" y="5.6" width="11" height="0.8" rx="0.4"/><rect x="33" y="5.6" width="11" height="0.8" rx="0.4"/></svg></span>
+    </div>
     <p class="intro" id="rsvp-plazo">Confirma a más tardar el <strong>miércoles 18 de noviembre</strong>.</p>
 
     <!-- Estado: agradecimiento después del evento -->
@@ -290,6 +319,7 @@
       <p class="script rsvp-tarjeta__titulo" id="ya-titulo">¡Ya confirmaron!</p>
       <p id="ya-texto"></p>
       <div class="mesa mesa--en-tarjeta" id="rsvp-mesa" hidden>
+        <span class="mesa__icono" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12.2" r="5.55"/><circle cx="12" cy="12.2" r="3.35"/><path d="M3.35 5.3v3.9M2.25 5.3v3.25M4.45 5.3v3.25"/><path d="M3.35 9.2v10"/><path d="M20.3 5.5c.25 3.1-.85 5.3-1.6 5.45V19.2"/><path d="M18.7 5.85c1.55 2.5 1.7 4.7.05 5.1"/></svg></span>
         <p class="etiqueta" id="mesa-etiqueta">Su mesa es la</p>
         <p class="mesa__numero" id="mesa-numero"></p>
         <p class="mesa__nota">en la recepción, Jardín Casa Pelayo</p>
@@ -319,8 +349,13 @@
 
   </section>
 
-  <section class="seccion" id="deseos" aria-labelledby="deseos-t">
-    <h2 id="deseos-t" class="titulo-seccion">Deja un buen deseo<br>para <span class="script script--inline">José María</span></h2>
+  <section class="seccion seccion--a" id="deseos" aria-labelledby="deseos-t">
+    <div class="separador" aria-hidden="true"><span class="separador__linea"></span><span class="separador__rombo"></span><span class="separador__linea"></span></div>
+    <div class="encabezado">
+      <span class="icono-seccion" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19.2S4.6 14.7 4.6 9.8A3.65 3.65 0 0 1 12 8.15a3.65 3.65 0 0 1 7.4 1.65c0 4.9-7.4 9.4-7.4 9.4z"/><path d="M16.7 5.35c1.45-1.9 3.5-2.15 3.9-.85.4 1.25-1.05 2.5-2.7 3.15"/></svg></span>
+      <h2 id="deseos-t" class="titulo-seccion">Deja un buen deseo<br>para <span class="script script--inline">José María</span></h2>
+      <span class="adorno" aria-hidden="true"><svg viewBox="0 0 48 12" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="6" r="1.6"/><circle cx="24" cy="2.6" r="1.4"/><circle cx="24" cy="9.4" r="1.4"/><circle cx="20.6" cy="6" r="1.4"/><circle cx="27.4" cy="6" r="1.4"/><rect x="4" y="5.6" width="11" height="0.8" rx="0.4"/><rect x="33" y="5.6" width="11" height="0.8" rx="0.4"/></svg></span>
+    </div>
     <p class="intro">Guardaremos sus mensajes para que los lea cuando sea grande.</p>
     <form class="form form--deseo" id="deseo-form" novalidate>
       <div class="campo">
@@ -338,8 +373,13 @@
     <ul class="deseos" id="deseos-lista" aria-live="polite"></ul>
   </section>
 
-  <section class="seccion seccion--crema" id="fotos" aria-labelledby="fotos-t">
-    <h2 id="fotos-t" class="titulo-seccion">Comparte tus fotos</h2>
+  <section class="seccion seccion--barro" id="fotos" aria-labelledby="fotos-t">
+    <div class="separador" aria-hidden="true"><span class="separador__linea"></span><span class="separador__rombo"></span><span class="separador__linea"></span></div>
+    <div class="encabezado">
+      <span class="icono-seccion" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8.1 7.3 9.4 5.1h5.2l1.3 2.2"/><rect x="3.3" y="7.3" width="17.4" height="11.5" rx="2"/><circle cx="12" cy="13.2" r="3.45"/><circle cx="12" cy="13.2" r="1.7"/><circle cx="17.65" cy="9.7" r=".55"/></svg></span>
+      <h2 id="fotos-t" class="titulo-seccion">Comparte tus fotos</h2>
+      <span class="adorno" aria-hidden="true"><svg viewBox="0 0 48 12" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="6" r="1.6"/><circle cx="24" cy="2.6" r="1.4"/><circle cx="24" cy="9.4" r="1.4"/><circle cx="20.6" cy="6" r="1.4"/><circle cx="27.4" cy="6" r="1.4"/><rect x="4" y="5.6" width="11" height="0.8" rx="0.4"/><rect x="33" y="5.6" width="11" height="0.8" rx="0.4"/></svg></span>
+    </div>
     <p class="intro intro--ancha">Sube las fotos que tomes y mira en vivo las de todos. Así guardamos juntos este día.</p>
 
     <!-- Álbum integrado (por defecto) -->
@@ -384,9 +424,13 @@
     <button type="button" class="visor__cerrar" id="visor-cerrar" aria-label="Cerrar">×</button>
   </dialog>
 
-  <section class="seccion" id="capsula" aria-labelledby="capsula-t">
-    <img class="ramita ramita--centro" src="assets/ramita-top.webp" width="249" height="215" alt="" loading="lazy">
-    <h2 id="capsula-t" class="titulo-seccion">Carta cápsula</h2>
+  <section class="seccion seccion--a" id="capsula" aria-labelledby="capsula-t">
+    <div class="separador" aria-hidden="true"><span class="separador__linea"></span><span class="separador__rombo"></span><span class="separador__linea"></span></div>
+    <div class="encabezado">
+      <span class="icono-seccion" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.2" y="6.2" width="17.6" height="12.1" rx="1.5"/><path d="M3.7 7.5 12 13.3l8.3-5.8"/><circle cx="12" cy="13.3" r="2.45"/><path d="M12 12.15v2.3M10.85 13.3h2.3"/></svg></span>
+      <h2 id="capsula-t" class="titulo-seccion">Carta cápsula</h2>
+      <span class="adorno" aria-hidden="true"><svg viewBox="0 0 48 12" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="6" r="1.6"/><circle cx="24" cy="2.6" r="1.4"/><circle cx="24" cy="9.4" r="1.4"/><circle cx="20.6" cy="6" r="1.4"/><circle cx="27.4" cy="6" r="1.4"/><rect x="4" y="5.6" width="11" height="0.8" rx="0.4"/><rect x="33" y="5.6" width="11" height="0.8" rx="0.4"/></svg></span>
+    </div>
     <p class="intro intro--ancha">Escríbele una carta a <span class="script script--inline">José María</span> para cuando cumpla 18 años. La guardaremos cerrada hasta el 2044.</p>
     <form class="form capsula" id="capsula-form" novalidate>
       <div class="campo">
@@ -418,6 +462,7 @@
 </nav>
 
 <footer class="pie">
+  <div class="separador separador--pie" aria-hidden="true"><span class="separador__linea"></span><span class="separador__rombo"></span><span class="separador__linea"></span></div>
   <img src="assets/ramita.webp" width="230" height="188" alt="" loading="lazy">
   <p class="script pie__nombre">José María</p>
   <p class="pie__fecha">28 · XI · 2026</p>
