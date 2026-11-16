@@ -5,7 +5,12 @@ body.admin{background:#fbfaf5}
 .adm{max-width:760px;margin:0 auto;padding:6px 14px 60px}
 .adm-demo{background:#fff3d6;border:1px dashed #c9a24a;color:#7a5f22;border-radius:12px;padding:10px 14px;font-size:.85rem;margin-bottom:14px}
 .adm-login{margin-top:20px}
-.adm-totales{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.adm-totales{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.adm-total{grid-column:span 2}
+.adm-total--ancho{grid-column:span 3}
+.adm-total--si b{color:#4b5a2a}
+.adm-total--pend{background:#fffaf0;border-color:#ead9b4}
+@media (min-width:700px){.adm-totales{grid-template-columns:repeat(5,1fr)}.adm-total,.adm-total--ancho{grid-column:auto}}
 .adm-total{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:12px 8px;text-align:center}
 .adm-total b{display:block;font-family:var(--caps);font-weight:400;font-size:2.1rem;line-height:1;font-variant-numeric:lining-nums}
 .adm-total span{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--olivo-suave)}
@@ -66,3 +71,21 @@ body.admin{background:#fbfaf5}
 .adm-foto__btn{margin:6px 8px 8px;font:inherit;font-size:.8rem;border:1px solid var(--olivo);border-radius:999px;background:#fff;color:var(--olivo);padding:7px 0;cursor:pointer}
 .adm-foto.oculta .adm-foto__btn{background:var(--olivo);color:#fff}
 .adm-foto__marca{position:absolute;top:8px;left:8px;background:var(--error);color:#fff;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:3px 8px}
+
+/* Sin responder */
+.adm-pend{margin:12px 0 4px;background:#fff;border:1px solid var(--linea);border-radius:16px;padding:0 14px}
+.adm-pend summary{cursor:pointer;list-style:none;padding:12px 0;font-family:var(--caps);font-size:1.15rem;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.adm-pend summary::-webkit-details-marker{display:none}
+.adm-pend summary::after{content:'›';margin-left:auto;transition:transform .2s;font-size:1.3rem;line-height:1}
+.adm-pend[open] summary::after{transform:rotate(90deg)}
+.adm-pend summary small{flex-basis:100%;font-family:var(--serif);font-size:.75rem;color:var(--olivo-suave)}
+.adm-pend__n{font-family:var(--serif);font-size:.8rem;background:#fff3d6;color:#7a5b16;border-radius:999px;padding:1px 9px}
+.adm-pend__lista{list-style:none;margin:0;padding:0 0 10px;display:grid}
+.pend{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--linea)}
+.pend__txt{flex:1;min-width:0;display:grid}
+.pend__nombre{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pend__txt small{font-size:.75rem;color:var(--olivo-suave)}
+.pend__wa{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:.8rem;padding:8px 14px;border-radius:999px;flex:none}
+.pend__wa{background:#1f7a4d;color:#fff;border:1px solid #1f7a4d}
+.adm-pend summary{position:relative;padding-right:22px}
+.adm-pend summary::after{position:absolute;right:0;top:12px}

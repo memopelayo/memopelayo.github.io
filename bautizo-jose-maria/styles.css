@@ -372,3 +372,22 @@ input::placeholder,textarea::placeholder{color:#a9ab95}
 .album__pronto .script{font-size:3.3rem}
 .gracias-post__firma .script{font-size:2.8rem}
 .fotos-top__nombre{font-size:clamp(3.2rem,15vw,5.4rem);line-height:1.2;padding-left:.1em}
+
+/* ---------- Agregar al calendario (uno solo, bajo las tarjetas) ---------- */
+.cal--evento{max-width:320px;margin:26px auto 0;text-align:center}
+.cal__boton{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-family:var(--serif);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--olivo);padding:10px 18px;border:1px solid var(--linea);border-radius:999px;background:#fff;transition:border-color .2s}
+.cal__boton:hover{border-color:var(--olivo)}
+.cal--evento[open] .cal__boton{border-color:var(--olivo)}
+.cal__icono{display:inline-flex}
+.cal--evento .cal__menu{text-align:center}
+
+/* ---------- Rutas: Google Maps / Waze ---------- */
+.rutas{list-style:none;margin:24px auto 0;padding:0;max-width:560px;display:grid;gap:10px}
+.ruta{display:grid;gap:10px;background:#fff;border:1px solid var(--linea);border-radius:16px;padding:14px 16px;text-align:left;scroll-margin-top:20px}
+.ruta .etiqueta{margin:0;font-size:.66rem}
+.ruta__lugar{font-family:var(--caps);font-size:1.25rem;line-height:1.2;margin-top:2px}
+.ruta__det{font-size:.85rem;color:var(--olivo-suave)}
+.ruta__btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ruta__btns .btn{font-size:.72rem;padding:10px 8px;min-height:0;letter-spacing:.1em}
+@media (min-width:768px){.ruta{grid-template-columns:1fr auto;align-items:center}.ruta__btns{grid-template-columns:auto auto}.ruta__btns .btn{padding:10px 18px}}
+.cal--evento .cal__boton{width:auto}

@@ -1,23 +1,20 @@
 /* La configuración está en config.js */
 
-const EVENTOS = {
-  ceremonia: {
-    titulo: 'Bautizo de José María · Ceremonia',
-    inicio: '2026-11-28T12:00:00-06:00',
-    fin: '2026-11-28T13:00:00-06:00',
-    lugar: 'Exconvento de Santa María Magdalena, Av. Libertad Sur 101, Centro, San Martín Texmelucan, Puebla',
-    geo: '19.282878;-98.437575',
-    detalle: 'La ceremonia comienza puntualmente a las 12:00 h. Te recomendamos encarecidamente llegar al menos 15 minutos antes (11:45 h).\nEstacionamiento recomendado: Plaza La Estación (de pago), Calle Mújica y Osorio, a la vuelta de la iglesia.\nDespués, recepción en Jardín Casa Pelayo a las 13:00 h.',
-  },
-  recepcion: {
-    titulo: 'Bautizo de José María · Recepción',
-    inicio: '2026-11-28T13:00:00-06:00',
-    // Sin hora de término publicada: el calendario usa 4 h de duración solo para que el evento tenga fin
-    fin: new Date(new Date('2026-11-28T13:00:00-06:00').getTime() + 4 * 3600e3).toISOString(),
-    lugar: 'Jardín Casa Pelayo, San Martín Texmelucan, Puebla',
-    geo: '19.305141;-98.439766',
-    detalle: 'Recepción del bautizo de José María. Ubicación: https://www.google.com/maps/search/?api=1&query=19.305141%2C-98.439766',
-  },
+// Un solo evento para el calendario. La hora de fin NO se muestra en la página;
+// el calendario necesita una, así que se usan 5 h internas (12:00–17:00).
+const EVENTO = {
+  titulo: 'Bautizo de José María',
+  inicio: '2026-11-28T12:00:00-06:00',
+  fin: '2026-11-28T17:00:00-06:00',
+  lugar: 'Exconvento de Santa María Magdalena, Av. Libertad Sur 101, Centro, San Martín Texmelucan, Puebla',
+  geo: '19.282878;-98.437575',
+  detalle: liga => [
+    'Ceremonia: 12:00 h en el Exconvento de Santa María Magdalena. Empieza puntual: te recomendamos llegar a las 11:45 h.',
+    'Estacionamiento: Gran Plaza La Estación (de pago), a la vuelta de la iglesia.',
+    'Recepción: 13:00 h en Jardín Casa Pelayo · https://tinyurl.com/casapelayo',
+    '',
+    'Invitación: ' + liga,
+  ].join('\n'),
 };
 
 /* ---------- Cuenta regresiva ---------- */
@@ -65,15 +62,24 @@ function icsTexto(id, e) {
     ...(e.geo ? [`GEO:${e.geo}`] : []),
     'BEGIN:VALARM', 'TRIGGER:-P1D', 'ACTION:DISPLAY', 'DESCRIPTION:Mañana es el bautizo de José María', 'END:VALARM',
     'END:VEVENT', 'END:VCALENDAR', '',
-  ].join('\r\n');
+  ].map(plegar).join('\r\n');
 }
-document.querySelectorAll('[data-cal]').forEach(a => {
-  const id = a.dataset.evento, e = EVENTOS[id];
-  if (a.dataset.cal === 'google') { a.href = googleUrl(e); return; }
-  const blob = new Blob([icsTexto(id, e)], { type: 'text/calendar;charset=utf-8' });
-  a.href = URL.createObjectURL(blob);
-  a.download = `bautizo-jose-maria-${id}.ics`;
-});
+// RFC 5545: líneas de máximo 75 bytes (continuación con espacio)
+function plegar(l) {
+  const enc = new TextEncoder(); if (enc.encode(l).length <= 75) return l;
+  const out = []; let cur = '', n = 0;
+  for (const ch of l) { const b = enc.encode(ch).length; if (n + b > (out.length ? 74 : 75)) { out.push(cur); cur = ''; n = 0; } cur += ch; n += b; }
+  out.push(cur); return out.join('\r\n ');
+}
+function pintarCalendario(liga) {
+  const e = { ...EVENTO, detalle: EVENTO.detalle(liga) };
+  document.querySelectorAll('[data-cal]').forEach(a => {
+    if (a.dataset.cal === 'google') { a.href = googleUrl(e); return; }
+    if (a.dataset.url) URL.revokeObjectURL(a.dataset.url);
+    a.href = a.dataset.url = URL.createObjectURL(new Blob([icsTexto('evento', e)], { type: 'text/calendar;charset=utf-8' }));
+    a.download = 'bautizo-jose-maria.ics';
+  });
+}
 // Cierra el menú de calendario al tocar fuera
 document.addEventListener('click', ev => {
   document.querySelectorAll('details.cal[open]').forEach(d => { if (!d.contains(ev.target)) d.open = false; });
@@ -133,6 +139,10 @@ const familiaPromesa = (async () => {
   } catch (_) {}
   return null;
 })();
+
+// Calendario: con la liga general y, si abrieron su liga personal, con esa
+pintarCalendario(CONFIG.SITIO_URL);
+familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.slug}`); });
 
 /* ---------- Modo agradecimiento (después del evento) ---------- */
 (async function agradecimiento() {

@@ -98,11 +98,22 @@
   }
 
   function pintarTotales() {
-    const t = datos.totales;
+    const t = datos.totales, fams = datos.familias;
+    const pend = fams.filter(f => !f.respuesta);
+    const pl = (n, s, p) => `${n} ${n === 1 ? s : p}`;
     $('totales').innerHTML = `
-      <div class="adm-total"><b>${t.confirmados}</b><span>Confirmados</span><small>de ${t.lugares} lugares</small></div>
+      <div class="adm-total adm-total--ancho"><b>${fams.length}</b><span>Invitaciones</span><small>familias o grupos</small></div>
+      <div class="adm-total adm-total--ancho"><b>${t.lugares}</b><span>Personas invitadas</span></div>
+      <div class="adm-total adm-total--si"><b>${t.confirmados}</b><span>Asisten</span></div>
       <div class="adm-total"><b>${t.noAsisten}</b><span>No asisten</span></div>
-      <div class="adm-total"><b>${t.pendientes}</b><span>Pendientes</span><small>${t.familiasPendientes} ${t.familiasPendientes === 1 ? 'familia' : 'familias'}</small></div>`;
+      <div class="adm-total adm-total--pend"><b>${t.familiasPendientes}</b><span>Sin responder</span><small>${pl(t.pendientes, 'persona', 'personas')}</small></div>`;
+    $('pendientes').hidden = !pend.length;
+    $('pendientes-n').textContent = pend.length;
+    $('pendientes-lista').innerHTML = pend.map(f => `
+      <li class="pend">
+        <div class="pend__txt"><span class="pend__nombre">${esc(f.familia)}</span><small>${pl(f.lugares, 'lugar', 'lugares')}${f.telefono ? '' : ' · sin teléfono'}</small></div>
+        ${f.telefono ? `<a class="wa pend__wa" href="${waUrl(f, 'recordatorio')}" target="_blank" rel="noopener" aria-label="Recordar por WhatsApp a ${esc(f.familia)}"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Recordar</a>` : ''}
+      </li>`).join('');
     $('actualizado').textContent = 'Actualizado ' + fechaCorta(datos.generado);
   }
 
