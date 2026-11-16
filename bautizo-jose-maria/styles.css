@@ -9,7 +9,7 @@
   --error:#9b3d32;
   --serif:'Sorts Mill Goudy', 'Goudy Old Style', Georgia, serif;
   --caps:'Cormorant Garamond', 'Times New Roman', serif;
-  --script:'WindSong', 'Brush Script MT', cursive;
+  --script:'Pinyon Script', 'Brush Script MT', cursive;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -360,3 +360,15 @@ input::placeholder,textarea::placeholder{color:#a9ab95}
 .subir__boton--grande{font-size:1.05rem;min-height:64px;padding:18px 24px}
 .fotos-pie{text-align:center;padding:24px 20px 40px}
 .fotos-pie__liga{font-size:.85rem;color:var(--olivo-suave);text-underline-offset:3px}
+
+/* ---------- Pinyon Script: se ve más chica que la fuente anterior al mismo tamaño; estos tamaños la igualan ---------- */
+.cuenta__fin{font-size:3.3rem}
+.pie__nombre{font-size:3.5rem}
+.script--inline{font-size:1.85em;line-height:.9}
+.hero__nombre{font-size:4.7rem;line-height:1.02;padding-left:.12em}
+@media (min-width:768px){.hero__nombre{font-size:6.3rem}}
+.rsvp-tarjeta__titulo{font-size:3.2rem;line-height:1.12}
+.rsvp-saludo__hola .script{font-size:3.5rem;line-height:1.12}
+.album__pronto .script{font-size:3.3rem}
+.gracias-post__firma .script{font-size:2.8rem}
+.fotos-top__nombre{font-size:clamp(3.2rem,15vw,5.4rem);line-height:1.2;padding-left:.1em}
