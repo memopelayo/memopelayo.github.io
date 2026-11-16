@@ -286,3 +286,53 @@ input::placeholder,textarea::placeholder{color:#a9ab95}
 .script--inline{margin:0 .12em}
 .gracias-post .rsvp-saludo__familia{margin-top:-6px}
 .gracias-post__botones .btn{letter-spacing:.08em}
+
+/* ---------- FOTOS: SUBIDA ---------- */
+.subir{max-width:460px;margin:0 auto;display:grid;gap:12px;text-align:left}
+.subir__boton{cursor:pointer;font-size:.9rem}
+.subir__boton:focus-within,.subir input[type=file]:focus-visible+*{outline:2px solid var(--azul)}
+.subir__ayuda{text-align:center}
+.cola{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.cola__item{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--linea);border-radius:14px;padding:8px 10px;transition:opacity .5s,transform .5s}
+.cola__item img{width:46px;height:46px;object-fit:cover;border-radius:10px;flex:none;background:var(--crema)}
+.cola__txt{flex:1;min-width:0}
+.cola__nombre{font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cola__estado{font-size:.78rem;color:var(--olivo-suave);font-style:italic}
+.cola__barra{height:4px;border-radius:4px;background:#eceee2;margin-top:5px;overflow:hidden}
+.cola__barra span{display:block;height:100%;width:0;background:var(--olivo);transition:width .3s}
+.cola__item.reintento .cola__estado{color:#8a6d2a}
+.cola__item.reintento .cola__barra span{background:#c9a24a}
+.cola__item.lista .cola__barra span{background:#6f8f4e}
+.cola__item.lista .cola__estado{color:#4b5a2a;font-style:normal}
+.cola__item.fallo{border-color:#e3c4bf}
+.cola__item.fallo .cola__estado{color:var(--error);font-style:normal}
+.cola__item.se-va{opacity:0;transform:translateY(-6px)}
+.cola__reintentar{flex:none;font:inherit;font-size:.78rem;border:1px solid var(--olivo);border-radius:999px;background:#fff;color:var(--olivo);padding:6px 10px;cursor:pointer}
+
+/* ---------- FOTOS: GALERÍA ---------- */
+.galeria-cab{display:flex;justify-content:space-between;align-items:baseline;max-width:980px;margin:34px auto 10px;padding:0 2px}
+.galeria-cab__cuenta{font-size:.82rem;color:var(--olivo-suave);font-style:italic}
+.galeria{list-style:none;margin:0 auto;padding:0;max-width:980px;columns:2;column-gap:8px}
+.galeria__item{break-inside:avoid;margin:0 0 8px;opacity:0;transition:opacity .8s ease,transform .8s ease}
+.galeria__item.cargada{opacity:1}
+.galeria__item.es-nueva{transform:scale(.96)}
+.galeria__item.es-nueva.cargada{transform:none;box-shadow:0 0 0 3px rgba(125,147,183,.35);border-radius:12px}
+.galeria__item.sin-img{display:none}
+.galeria__item button{font:inherit;position:relative;display:block;width:100%;padding:0;border:0;background:var(--crema);border-radius:12px;overflow:hidden;cursor:zoom-in}
+.galeria__item img{width:100%;height:auto;display:block}
+.galeria__tuya{position:absolute;top:8px;left:8px;background:var(--olivo);color:#fff;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:3px 9px}
+.galeria__autor{position:absolute;left:0;right:0;bottom:0;padding:18px 10px 7px;font-size:.75rem;color:#fff;text-align:left;background:linear-gradient(transparent,rgba(40,42,25,.55))}
+.galeria__vacia{color:var(--olivo-suave);font-style:italic;margin-top:10px}
+@media (min-width:768px){.galeria{columns:3;column-gap:12px}.galeria__item{margin-bottom:12px}}
+@media (min-width:1100px){.galeria{columns:4}}
+
+/* ---------- VISOR ---------- */
+.visor{border:0;padding:0;margin:0;width:100vw;height:100dvh;max-width:none;max-height:none;background:rgba(28,29,18,.94);color:#fff}
+.visor::backdrop{background:rgba(28,29,18,.94)}
+.visor[open]{display:flex;flex-direction:column;justify-content:center;align-items:center}
+.visor img{max-width:100%;max-height:calc(100dvh - 110px);object-fit:contain;display:block}
+.visor__barra{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:8px;padding:12px 12px calc(12px + env(safe-area-inset-bottom))}
+.visor__info{flex:1;text-align:center;font-size:.85rem;opacity:.85}
+.visor__btn{min-width:46px;min-height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);color:#fff;font:inherit;font-size:1.4rem;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer}
+.visor__descargar{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;padding:0 14px}
+.visor__cerrar{position:absolute;top:calc(10px + env(safe-area-inset-top));right:10px;width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:1.8rem;cursor:pointer}

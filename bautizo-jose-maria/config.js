@@ -11,8 +11,14 @@ window.CONFIG = {
   RSVP_PROVIDER: 'apps-script',      // 'apps-script' | 'web3forms'
   WEB3FORMS_KEY: '',                 // access key de Web3Forms (si se usa)
   DESEOS_ENDPOINT: '',               // opcional: mismo esquema para los buenos deseos
-  // Álbum compartido: pega aquí la liga (vacío = "Muy pronto", sin QR)
+  // Álbum de fotos: 'integrado' = fotos en tu Google Drive vía el Apps Script, con galería en vivo (por defecto)
+  //                 'externo'   = botón + QR hacia otro servicio (EventPics, Google Fotos…) usando ALBUM_URL
+  ALBUM_MODO: 'integrado',
   ALBUM_URL: '',
+  FOTOS_POR_LOTE: 20,          // máximo de fotos por envío
+  FOTOS_LADO_MAX: 1600,        // px del lado más largo después de comprimir
+  FOTOS_CALIDAD: 0.8,          // calidad JPEG
+  GALERIA_CADA_SEG: 15,        // cada cuánto se buscan fotos nuevas (solo con la pestaña visible)
   // Cartas cápsula: si se deja vacío, se usa RSVP_ENDPOINT (el mismo Apps Script)
   CARTAS_ENDPOINT: '',
   // A partir de esta fecha la portada y la sección de confirmación cambian a un mensaje de agradecimiento

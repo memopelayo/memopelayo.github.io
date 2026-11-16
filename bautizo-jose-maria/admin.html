@@ -2,6 +2,7 @@
 <html lang="es-MX">
 <head>
 <meta charset="utf-8">
+<link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="referrer" content="no-referrer">
@@ -34,6 +35,11 @@
 
   <!-- Panel -->
   <section id="panel" hidden>
+    <div class="adm-tabs" role="tablist">
+      <button type="button" role="tab" id="tab-btn-familias" aria-selected="true" data-tab="familias" class="on">Familias</button>
+      <button type="button" role="tab" id="tab-btn-fotos" aria-selected="false" data-tab="fotos">Fotos</button>
+    </div>
+    <div id="tab-familias">
     <div class="adm-totales" id="totales"></div>
     <div class="adm-filtros">
       <input id="buscar" type="search" placeholder="Buscar familia o persona…" aria-label="Buscar">
@@ -47,6 +53,15 @@
     </div>
     <p class="adm-actualizado" id="actualizado"></p>
     <ul class="adm-lista" id="lista"></ul>
+    </div>
+    <div id="tab-fotos" hidden>
+      <div class="adm-fotos-cab">
+        <p class="adm-actualizado" id="fotos-cuenta"></p>
+        <a class="btn btn--chico" id="fotos-carpeta" href="#" target="_blank" rel="noopener" hidden>Abrir carpeta de Drive</a>
+      </div>
+      <p class="ayuda">Toca <strong>Ocultar</strong> si alguna foto no debe aparecer en la página. No se borra: sigue en tu carpeta de Drive y puedes volver a mostrarla.</p>
+      <ul class="adm-fotos" id="fotos-lista"></ul>
+    </div>
   </section>
 </main>
 

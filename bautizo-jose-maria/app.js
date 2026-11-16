@@ -324,23 +324,6 @@ const familiaPromesa = (async () => {
   } else arrancar();
 })();
 
-/* ---------- Álbum compartido + QR ---------- */
-(function album() {
-  const $ = id => document.getElementById(id);
-  const url = (CONFIG.ALBUM_URL || '').trim();
-  if (!url) return; // se queda "Muy pronto"
-  $('album-pronto').hidden = true;
-  const btn = $('album-btn'); btn.href = url; btn.hidden = false;
-  $('album-nota').hidden = false;
-  if (window.qrcode) {
-    const q = qrcode(0, 'M'); q.addData(url); q.make();
-    const n = q.getModuleCount(); let d = '';
-    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c},${r}h1v1h-1z`;
-    $('album-qr').innerHTML = `<svg viewBox="-2 -2 ${n + 4} ${n + 4}" role="img" aria-label="Código QR del álbum"><rect x="-2" y="-2" width="${n + 4}" height="${n + 4}" fill="#fff"/><path d="${d}" fill="#5b5e3a" shape-rendering="crispEdges"/></svg>`;
-    $('album-qr').hidden = false;
-  }
-})();
-
 /* ---------- Carta cápsula (privada, nunca se muestra en la página) ---------- */
 (function capsula() {
   const $ = id => document.getElementById(id);

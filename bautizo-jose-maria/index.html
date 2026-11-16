@@ -2,6 +2,7 @@
 <html lang="es-MX">
 <head>
 <meta charset="utf-8">
+<link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bautizo de José María · 28 de noviembre de 2026</title>
 <meta name="description" content="Acompáñanos a celebrar el bautizo de José María el sábado 28 de noviembre de 2026 en San Martín Texmelucan. Confirma tu asistencia aquí.">
@@ -257,7 +258,7 @@
       <p class="gracias-post__firma">Con cariño,<br><span class="script">Viridiana y Guillermo</span></p>
       <span class="ejemplo-inline" id="post-ejemplo">EJEMPLO · texto editable en app.js (TEXTO_AGRADECIMIENTO)</span>
       <div class="gracias-post__botones">
-        <a class="btn btn--solido" href="#album">Ver y subir fotos</a>
+        <a class="btn btn--solido" href="#fotos">Ver y subir fotos</a>
         <a class="btn btn--linea" href="#capsula">Escribir carta cápsula</a>
       </div>
     </div>
@@ -334,19 +335,50 @@
     <ul class="deseos" id="deseos-lista" aria-live="polite"></ul>
   </section>
 
-  <section class="seccion seccion--crema" id="album" aria-labelledby="album-t">
-    <h2 id="album-t" class="titulo-seccion">Álbum de fotos</h2>
-    <p class="intro">Ayúdanos a guardar este día: sube las fotos y videos que tomes. Todas quedarán juntas en un solo álbum.</p>
-    <div class="album">
+  <section class="seccion seccion--crema" id="fotos" aria-labelledby="fotos-t">
+    <h2 id="fotos-t" class="titulo-seccion">Comparte tus fotos</h2>
+    <p class="intro intro--ancha">Sube las fotos que tomes y mira en vivo las de todos. Así guardamos juntos este día.</p>
+
+    <!-- Álbum integrado (por defecto) -->
+    <div class="subir" id="subir">
+      <div class="campo subir__nombre">
+        <label for="f-nombre">Tu nombre <span class="opcional">(opcional)</span></label>
+        <input id="f-nombre" type="text" autocomplete="name" maxlength="60" placeholder="Para saber quién tomó la foto">
+      </div>
+      <label class="btn btn--solido btn--ancho subir__boton" for="f-archivos">
+        <span aria-hidden="true">📷</span>&nbsp; Elegir o tomar fotos
+      </label>
+      <input class="oculto" id="f-archivos" type="file" accept="image/*" multiple>
+      <p class="ayuda subir__ayuda" id="f-ayuda">Hasta 20 fotos por vez. Las hacemos más ligeras y les quitamos la ubicación antes de subirlas.</p>
+      <ul class="cola" id="f-cola" aria-live="polite"></ul>
+      <p class="aviso-demo" id="f-demo">Vista previa: las fotos solo se ven en este navegador.</p>
+    </div>
+
+    <div class="galeria-cab">
+      <p class="etiqueta">Álbum en vivo</p>
+      <p class="galeria-cab__cuenta" id="g-cuenta"></p>
+    </div>
+    <ul class="galeria" id="galeria" aria-label="Fotos del bautizo"></ul>
+    <p class="galeria__vacia" id="g-vacia" hidden>Aún no hay fotos. ¡Sube la primera!</p>
+
+    <!-- Álbum externo (opcional: CONFIG.ALBUM_MODO = 'externo') -->
+    <div class="album" id="album-externo" hidden>
       <div class="album__qr" id="album-qr" hidden aria-hidden="true"></div>
-      <p class="album__pronto" id="album-pronto">
-        <span class="script">Muy pronto</span>
-        Aquí aparecerá la liga del álbum compartido.
-      </p>
+      <p class="album__pronto" id="album-pronto"><span class="script">Muy pronto</span> Aquí aparecerá la liga del álbum compartido.</p>
       <a class="btn btn--solido" id="album-btn" href="#" target="_blank" rel="noopener" hidden>Sube tus fotos</a>
-      <p class="album__nota" id="album-nota" hidden>También encontrarás este código en las mesas de la recepción.</p>
     </div>
   </section>
+
+  <dialog class="visor" id="visor" aria-label="Foto ampliada">
+    <img id="visor-img" alt="">
+    <div class="visor__barra">
+      <button type="button" class="visor__btn" id="visor-prev" aria-label="Foto anterior">‹</button>
+      <p class="visor__info" id="visor-info"></p>
+      <a class="visor__btn visor__descargar" id="visor-descargar" href="#" download target="_blank" rel="noopener">Descargar</a>
+      <button type="button" class="visor__btn" id="visor-next" aria-label="Foto siguiente">›</button>
+    </div>
+    <button type="button" class="visor__cerrar" id="visor-cerrar" aria-label="Cerrar">×</button>
+  </dialog>
 
   <section class="seccion" id="capsula" aria-labelledby="capsula-t">
     <img class="ramita ramita--centro" src="assets/ramita-top.webp" width="249" height="215" alt="" loading="lazy">
@@ -387,5 +419,6 @@
 <script src="assets/invitados.js" defer></script>
 <script src="config.js" defer></script>
 <script src="app.js" defer></script>
+<script src="fotos.js" defer></script>
 </body>
 </html>

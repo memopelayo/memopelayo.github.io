@@ -38,12 +38,22 @@
   }
   async function demoApi(action, d) {
     await new Promise(r => setTimeout(r, 250));
+    if (action === 'listFotosAdmin' || action === 'setFotoVisible') return demoFotos(d);
     const fams = demoCargar();
     const f = fams.find(x => x.id === d.id);
     if (action === 'saveAdmin' && f) f.respuesta = { asisten: d.asisten, mensaje: d.nota, origen: 'admin', fecha: new Date().toISOString() };
     if (action === 'setMesa' && f) f.mesa = d.mesa;
     localStorage.setItem('bautizo-admin-demo', JSON.stringify(fams));
     return demoCalcular(fams);
+  }
+
+  const FOTOS_DEMO_LS = 'bautizo-admin-fotos-demo';
+  function demoFotos(d) {
+    let vis = {}; try { vis = JSON.parse(localStorage.getItem(FOTOS_DEMO_LS)) || {}; } catch (_) {}
+    if (d && d.fileId) { vis[d.fileId] = !!d.visible; localStorage.setItem(FOTOS_DEMO_LS, JSON.stringify(vis)); }
+    const autores = ['EJEMPLO Tía Lupita', 'EJEMPLO Carlos', '', 'EJEMPLO Ana', 'EJEMPLO Juan', '', 'EJEMPLO Marta', 'EJEMPLO Luis'];
+    const fotos = autores.map((n, i) => ({ f: 'demo-' + (i + 1), n, fa: n ? 'Familia Ejemplo' : '', src: `assets/demo-fotos/ejemplo-${i + 1}.jpg`, t: new Date(Date.now() - i * 7 * 60000).toISOString(), visible: vis['demo-' + (i + 1)] !== false }));
+    return { ok: true, fotos, carpeta: 'https://drive.google.com/drive/my-drive' };
   }
 
   /* ---------------- API ---------------- */
@@ -189,6 +199,40 @@
       }
       abierto = {}; pintar();
     } catch (err) { toast('No se pudo guardar: ' + err.message); btn.disabled = false; btn.textContent = txt; }
+  });
+
+  /* ---------------- Fotos (moderación) ---------------- */
+  let fotosDatos = null;
+  const miniatura = f => f.src || `https://drive.google.com/thumbnail?id=${encodeURIComponent(f.f)}&sz=w400`;
+  function pintarFotos() {
+    const fs = fotosDatos.fotos, ocultas = fs.filter(f => !f.visible).length;
+    $('fotos-cuenta').textContent = `${fs.length} ${fs.length === 1 ? 'foto' : 'fotos'}${ocultas ? ` · ${ocultas} oculta${ocultas > 1 ? 's' : ''}` : ''}`;
+    if (fotosDatos.carpeta) { $('fotos-carpeta').href = fotosDatos.carpeta; $('fotos-carpeta').hidden = false; }
+    $('fotos-lista').innerHTML = fs.length ? fs.map(f => `
+      <li class="adm-foto${f.visible ? '' : ' oculta'}" data-f="${esc(f.f)}">
+        <img src="${esc(miniatura(f))}" alt="" loading="lazy" onerror="if(!this.dataset.r){this.dataset.r=1;this.src='https://lh3.googleusercontent.com/d/${esc(f.f)}=w400'}">
+        <div class="adm-foto__info"><span>${esc(f.n || 'Sin nombre')}</span><small>${esc([f.fa, f.t ? fechaCorta(f.t) : ''].filter(Boolean).join(' · '))}</small></div>
+        <button type="button" class="adm-foto__btn" data-vis="${f.visible ? 0 : 1}">${f.visible ? 'Ocultar' : 'Mostrar'}</button>
+        ${f.visible ? '' : '<span class="adm-foto__marca">Oculta</span>'}
+      </li>`).join('') : '<li class="adm-vacio">Todavía nadie ha subido fotos.</li>';
+  }
+  async function cargarFotos() {
+    $('fotos-lista').innerHTML = '<li class="adm-vacio">Cargando…</li>';
+    try { fotosDatos = await api('listFotosAdmin'); pintarFotos(); } catch (e) { toast('No se pudieron cargar las fotos: ' + e.message); }
+  }
+  document.querySelector('.adm-tabs').addEventListener('click', e => {
+    const b = e.target.closest('[data-tab]'); if (!b) return;
+    document.querySelectorAll('.adm-tabs button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', x === b); });
+    $('tab-familias').hidden = b.dataset.tab !== 'familias';
+    $('tab-fotos').hidden = b.dataset.tab !== 'fotos';
+    if (b.dataset.tab === 'fotos') cargarFotos();
+  });
+  $('fotos-lista').addEventListener('click', async e => {
+    const b = e.target.closest('[data-vis]'); if (!b) return;
+    const fileId = b.closest('.adm-foto').dataset.f, visible = b.dataset.vis === '1';
+    b.disabled = true; b.textContent = 'Guardando…';
+    try { fotosDatos = await api('setFotoVisible', { fileId, visible }); pintarFotos(); toast(visible ? 'La foto vuelve a verse en la página' : 'Foto oculta de la página'); }
+    catch (err) { toast('No se pudo cambiar: ' + err.message); b.disabled = false; }
   });
 
   /* ---------------- Inicio ---------------- */
