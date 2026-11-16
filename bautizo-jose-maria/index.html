@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<a class="skip" href="#rsvp">Ir a confirmar asistencia</a>
+<a class="skip" id="skip" href="#evento">Ir a los detalles del evento</a>
 
 <header class="hero" id="inicio">
   <picture class="hero__cruz">
@@ -39,7 +39,7 @@
       <span class="script hero__nombre"><span>José</span> <span>María</span></span></h1>
     <p class="hero__para" id="hero-para" hidden></p>
     <p class="hero__fecha">Sábado 28 de noviembre de 2026<br>12:00 h · San Martín Texmelucan</p>
-    <a class="btn btn--solido hero__cta" href="#rsvp">Confirmar asistencia</a>
+    <a class="btn btn--solido hero__cta" id="hero-cta" href="#evento">Ver detalles</a>
   </div>
 </header>
 
@@ -245,7 +245,7 @@
     </div>
   </section>
 
-  <section class="seccion seccion--crema" id="rsvp" aria-labelledby="rsvp-t">
+  <section class="seccion seccion--crema" id="rsvp" aria-labelledby="rsvp-t" hidden>
     <h2 id="rsvp-t" class="titulo-seccion">Confirma tu asistencia</h2>
     <p class="intro" id="rsvp-plazo">Confirma a más tardar el <strong>miércoles 18 de noviembre</strong>.</p>
 
@@ -266,26 +266,18 @@
     <!-- Estado: cargando -->
     <p class="rsvp-cargando" id="rsvp-cargando" aria-live="polite">Buscando tu invitación…</p>
 
-    <!-- Estado: sin liga personal o liga desconocida -->
-    <div class="rsvp-aviso" id="rsvp-sinliga" hidden>
+    <!-- Estado: ya confirmaron / confirmación cerrada (sin formulario) -->
+    <div class="rsvp-tarjeta rsvp-listo" id="rsvp-ya" hidden tabindex="-1">
       <img src="assets/ramita.webp" width="230" height="188" alt="" loading="lazy">
-      <p class="rsvp-aviso__titulo">Para confirmar, usa la liga personal que te enviamos por WhatsApp.</p>
-      <p>Así ya aparecen los nombres de tu familia y solo tienes que tocar un botón. Si no la encuentras, escríbenos y con gusto te la reenviamos.</p>
-    </div>
-
-    <!-- Estado: mesa asignada (opcional) -->
-    <div class="mesa" id="rsvp-mesa" hidden>
-      <p class="etiqueta" id="mesa-etiqueta">Su mesa es la</p>
-      <p class="mesa__numero" id="mesa-numero"></p>
-      <p class="mesa__nota">en la recepción, Jardín Casa Pelayo</p>
-    </div>
-
-    <!-- Estado: ya habían confirmado (desde este teléfono) -->
-    <div class="rsvp-tarjeta" id="rsvp-ya" hidden tabindex="-1">
       <p class="script rsvp-tarjeta__titulo" id="ya-titulo">¡Ya confirmaron!</p>
       <p id="ya-texto"></p>
-      <ul class="rsvp-resumen" id="ya-lista"></ul>
-      <button class="btn btn--linea" type="button" id="ya-cambiar">Cambiar mi respuesta</button>
+      <div class="mesa mesa--en-tarjeta" id="rsvp-mesa" hidden>
+        <p class="etiqueta" id="mesa-etiqueta">Su mesa es la</p>
+        <p class="mesa__numero" id="mesa-numero"></p>
+        <p class="mesa__nota">en la recepción, Jardín Casa Pelayo</p>
+      </div>
+      <p class="rsvp-listo__pronto" id="mesa-pronto" hidden></p>
+      <p class="rsvp-listo__ayuda" id="ya-ayuda">¿Necesitas cambiar algo? Escríbenos por WhatsApp.</p>
     </div>
 
     <!-- Estado: formulario personalizado -->
@@ -307,13 +299,6 @@
       <p class="aviso-demo" id="rsvp-demo">Vista previa: por ahora las respuestas no se envían a ningún lado.</p>
     </form>
 
-    <!-- Estado: gracias -->
-    <div class="rsvp-tarjeta" id="rsvp-gracias" hidden tabindex="-1">
-      <img src="assets/ramita.webp" width="230" height="188" alt="" loading="lazy">
-      <p class="script rsvp-tarjeta__titulo" id="gracias-titulo">¡Gracias!</p>
-      <p id="gracias-texto"></p>
-      <button class="btn btn--linea" type="button" id="gracias-cambiar">Cambiar mi respuesta</button>
-    </div>
   </section>
 
   <section class="seccion" id="deseos" aria-labelledby="deseos-t">

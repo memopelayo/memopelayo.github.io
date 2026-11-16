@@ -140,44 +140,87 @@ const familiaPromesa = (async () => {
   if (uno) t = t.replace('Tenerlos', 'Tenerte').replace('tomaron', 'tomaste').replace('las subieran', 'las subieras').replace('quieren', 'quieres');
   $('post-texto').textContent = t.replace('{nombre}', fam ? fam.grupo : '');
   $('post-ejemplo').hidden = !CONFIG.MOSTRAR_EJEMPLO_AGRADECIMIENTO;
-  ['rsvp-cargando', 'rsvp-sinliga', 'rsvp-form', 'rsvp-gracias', 'rsvp-ya', 'rsvp-mesa'].forEach(id => { $(id).hidden = true; });
-  $('rsvp-post').hidden = false;
+  ['rsvp-cargando', 'rsvp-form', 'rsvp-ya'].forEach(id => { $(id).hidden = true; });
+  $('rsvp-post').hidden = false; $('rsvp').hidden = false;
 })();
 
 (async function rsvp() {
   if (MODO_GRACIAS) return;
   const $ = id => document.getElementById(id);
-  const estados = ['rsvp-cargando', 'rsvp-sinliga', 'rsvp-form', 'rsvp-gracias', 'rsvp-ya'];
-  const mostrar = (...ids) => estados.forEach(e => { $(e).hidden = !ids.includes(e); });
   const fam = await familiaPromesa;
-  if (!fam) { mostrar('rsvp-sinliga'); return; }
+  // Sin liga personal (o liga inválida): solo información general; la sección de confirmación no existe.
+  if (!fam) return;
 
+  const estados = ['rsvp-cargando', 'rsvp-form', 'rsvp-ya'];
+  const mostrar = id => estados.forEach(e => { $(e).hidden = e !== id; });
+  $('rsvp').hidden = false; mostrar('rsvp-cargando');
   const uno = fam.personas.length === 1;
-  const esFamilia = /^familia\b/i.test(fam.grupo);
   const plural = (s, p) => (uno ? s : p);
   $('rsvp-demo').hidden = !!CONFIG.RSVP_ENDPOINT;
-
-  // Saludo en la portada
   $('hero-para').textContent = `Invitación para ${fam.grupo}`; $('hero-para').hidden = false;
+  $('skip').href = '#rsvp'; $('skip').textContent = 'Ir a tu invitación';
 
-  // Mesa (opcional, a partir de una fecha). Primero la de invitados.js; si hay Apps Script,
-  // se actualiza con la de la hoja (Guillermo la puede cambiar desde el panel).
-  const desde = CONFIG.MOSTRAR_MESA_DESDE ? new Date(CONFIG.MOSTRAR_MESA_DESDE + 'T00:00:00-06:00') : null;
-  const pintarMesa = mesa => {
-    const ver = mesa && (!desde || Date.now() >= desde.getTime());
-    $('mesa-etiqueta').textContent = plural('Tu mesa es la', 'Su mesa es la');
-    $('mesa-numero').textContent = ver ? mesa : '';
-    $('rsvp-mesa').hidden = !ver || !$('rsvp-post').hidden;
-  };
-  pintarMesa(fam.mesa);
+  // Parámetros de prueba (solo sin Apps Script): &demo=confirmado, &demo=mesa, &demo=cerrado (se pueden combinar con comas)
+  const demo = CONFIG.RSVP_ENDPOINT ? [] : (new URLSearchParams(location.search).get('demo') || '').split(',').map(s => s.trim());
+  const verMesa = demo.includes('mesa') || desdeFecha(CONFIG.MOSTRAR_MESA_DESDE) || !CONFIG.MOSTRAR_MESA_DESDE;
+  const cerrado = demo.includes('cerrado') || desdeFecha(CONFIG.CIERRE_CONFIRMACION);
+
+  const KEY = 'bautizo-rsvp-' + fam.id;
+  const guardada = () => { try { return JSON.parse(localStorage.getItem(KEY)); } catch (_) { return null; } };
+
+  // Estado en el servidor (también ve lo registrado desde el panel). Máximo 6 s; si falla, se usa lo de este teléfono.
+  let servidor = null;
   if (CONFIG.RSVP_ENDPOINT) {
-    const ctl = new AbortController(); setTimeout(() => ctl.abort(), 6000);
-    fetch(`${CONFIG.RSVP_ENDPOINT}?action=mesa&id=${fam.id}`, { signal: ctl.signal })
-      .then(r => r.json()).then(j => { if (j && j.ok) pintarMesa(j.mesa ? String(j.mesa) : null); })
-      .catch(() => {});
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 6000);
+    try {
+      const j = await (await fetch(`${CONFIG.RSVP_ENDPOINT}?action=estado&id=${fam.id}`, { signal: ctl.signal })).json();
+      if (j && j.ok) servidor = j;
+    } catch (_) {} finally { clearTimeout(t); }
+  } else if (demo.includes('confirmado') || (demo.includes('mesa') && !demo.includes('cerrado'))) {
+    servidor = { ok: true, confirmado: true, confirmados: fam.personas.length, mesa: fam.mesa || '' };
+  }
+  const mesa = servidor && servidor.mesa != null && servidor.mesa !== '' ? String(servidor.mesa) : (fam.mesa || '');
+
+  function pintarListo(tipo, asistenN) {
+    // tipo: 'confirmado' | 'cerrado'
+    const nadie = tipo === 'confirmado' && asistenN === 0;
+    $('rsvp-t').textContent = tipo === 'cerrado' ? 'Confirmación' : plural('Tu confirmación', 'Su confirmación');
+    $('rsvp-plazo').hidden = true;
+    if (tipo === 'cerrado') {
+      $('ya-titulo').textContent = '¡Hola!';
+      $('ya-texto').textContent = 'La confirmación ya cerró. Si tienes dudas, escríbenos por WhatsApp.';
+    } else if (nadie) {
+      $('ya-titulo').textContent = 'Gracias por avisarnos';
+      $('ya-texto').textContent = plural('Te vamos a extrañar.', 'Los vamos a extrañar.');
+    } else {
+      $('ya-titulo').textContent = plural('¡Ya confirmaste! Gracias', '¡Ya confirmaron! Gracias');
+      $('ya-texto').textContent = `${plural('Te', 'Los')} esperamos el sábado 28 de noviembre. Recuerda llegar a las 11:45 h.`;
+    }
+    const conMesa = !nadie && verMesa && !!mesa;
+    $('mesa-etiqueta').textContent = plural('Tu mesa es la', 'Su mesa es la');
+    $('mesa-numero').textContent = conMesa ? mesa : '';
+    $('rsvp-mesa').hidden = !conMesa;
+    const pronto = tipo === 'confirmado' && !nadie && !conMesa;
+    $('mesa-pronto').textContent = verMesa
+      ? plural('Tu número de mesa aparecerá aquí muy pronto.', 'Su número de mesa aparecerá aquí muy pronto.')
+      : plural('Tu número de mesa aparecerá aquí a partir del viernes 27 de noviembre.', 'Su número de mesa aparecerá aquí a partir del viernes 27 de noviembre.');
+    $('mesa-pronto').hidden = !pronto;
+    $('ya-ayuda').hidden = tipo === 'cerrado';
+    $('hero-cta').textContent = conMesa ? plural('Ver mi mesa', 'Ver su mesa') : 'Ver mi invitación';
+    $('hero-cta').href = '#rsvp';
+    mostrar('rsvp-ya');
   }
 
+  const local = guardada();
+  if ((servidor && servidor.confirmado) || local) {
+    const n = servidor && servidor.confirmado ? Number(servidor.confirmados) : local.asisten.length;
+    pintarListo('confirmado', isNaN(n) ? 1 : n);
+    return;
+  }
+  if (cerrado) { pintarListo('cerrado'); return; }
+
   // Formulario
+  $('hero-cta').textContent = 'Confirmar asistencia'; $('hero-cta').href = '#rsvp';
   $('rsvp-hola').textContent = `${fam.grupo}!`;
   $('rsvp-lugares').textContent = uno ? 'Te reservamos 1 lugar' : `Les reservamos ${fam.personas.length} lugares`;
   $('rsvp-instr').textContent = uno ? 'Si no podrás venir, desmarca tu nombre:' : 'Todos aparecen como “asiste”. Solo desmarca a quien no podrá ir:';
@@ -195,7 +238,7 @@ const familiaPromesa = (async () => {
     return { asisten, no };
   };
   function actualizar() {
-    const { asisten, no } = leer();
+    const { asisten } = leer();
     form.querySelectorAll('.persona').forEach(l => {
       const ok = l.querySelector('input').checked;
       l.classList.toggle('no', !ok);
@@ -208,34 +251,6 @@ const familiaPromesa = (async () => {
     $('rsvp-enviar').textContent = asisten.length ? 'Confirmar' : plural('Confirmar que no podré ir', 'Confirmar que no podremos ir');
   }
   form.addEventListener('change', actualizar); actualizar();
-
-  const KEY = 'bautizo-rsvp-' + fam.id;
-  const guardada = () => { try { return JSON.parse(localStorage.getItem(KEY)); } catch (_) { return null; } };
-  const fechaBonita = iso => new Date(iso).toLocaleString('es-MX', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'America/Mexico_City' });
-
-  function pintarGracias(r) {
-    const n = r.asisten.length;
-    $('gracias-titulo').textContent = n ? '¡Gracias!' : 'Gracias por avisarnos';
-    $('gracias-texto').textContent = n
-      ? `Registramos ${n} de ${fam.personas.length} ${fam.personas.length === 1 ? 'lugar' : 'lugares'}. ¡${plural('Te', 'Los')} esperamos el sábado 28 de noviembre! Recuerda llegar a las 11:45 h.`
-      : plural('Te vamos a extrañar. ', 'Los vamos a extrañar. ') + 'Gracias por avisarnos con tiempo.';
-  }
-  function pintarYa(r) {
-    $('ya-titulo').textContent = plural('¡Ya confirmaste!', '¡Ya confirmaron!');
-    $('ya-texto').textContent = `${plural('Recibimos tu respuesta', 'Recibimos su respuesta')} el ${fechaBonita(r.fecha).replace(/\.$/, '')}.`;
-    const ul = $('ya-lista'); ul.replaceChildren();
-    fam.personas.forEach(n => {
-      const li = document.createElement('li'); const ok = r.asisten.includes(n);
-      li.className = ok ? 'si' : 'no'; li.textContent = `${n} · ${ok ? 'asiste' : 'no podrá ir'}`; ul.append(li);
-    });
-  }
-  function editar() {
-    const r = guardada();
-    if (r) { fam.personas.forEach((n, i) => { form[`p${i}`].checked = r.asisten.includes(n); }); form.mensaje.value = r.mensaje || ''; actualizar(); }
-    mostrar('rsvp-form'); form.querySelector('input').focus();
-  }
-  $('ya-cambiar').addEventListener('click', editar);
-  $('gracias-cambiar').addEventListener('click', editar);
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
@@ -251,14 +266,13 @@ const familiaPromesa = (async () => {
       const res = await enviar(CONFIG.RSVP_ENDPOINT, datos);
       if (!res.ok) throw new Error('envío');
       try { localStorage.setItem(KEY, JSON.stringify(r)); } catch (_) {}
-      pintarGracias(r); mostrar('rsvp-gracias'); $('rsvp-gracias').focus();
+      pintarListo('confirmado', asisten.length); $('rsvp-ya').focus();
     } catch (_) {
       alert('No pudimos enviar tu confirmación. Revisa tu conexión e inténtalo de nuevo.');
-    } finally { btn.disabled = false; actualizar(); }
+      btn.disabled = false; actualizar();
+    }
   });
-
-  const r = guardada();
-  if (r) { pintarYa(r); mostrar('rsvp-ya'); } else mostrar('rsvp-form');
+  mostrar('rsvp-form');
 })();
 
 /* ---------- Buenos deseos ---------- */

@@ -336,3 +336,9 @@ input::placeholder,textarea::placeholder{color:#a9ab95}
 .visor__btn{min-width:46px;min-height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);color:#fff;font:inherit;font-size:1.4rem;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer}
 .visor__descargar{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;padding:0 14px}
 .visor__cerrar{position:absolute;top:calc(10px + env(safe-area-inset-top));right:10px;width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:1.8rem;cursor:pointer}
+
+/* ---------- RSVP: ya confirmaron / cerrado ---------- */
+.rsvp-listo{text-align:center}
+.rsvp-listo .mesa--en-tarjeta{margin:6px auto 2px;width:100%;max-width:260px}
+.rsvp-listo__pronto{font-style:italic;color:var(--olivo);background:var(--crema);border-radius:12px;padding:10px 14px}
+.rsvp-listo__ayuda{font-size:.82rem;color:var(--olivo-suave);margin-top:4px}
