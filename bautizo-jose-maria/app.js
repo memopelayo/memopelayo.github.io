@@ -386,3 +386,46 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
   });
   $('capsula-otra').addEventListener('click', () => { gracias.hidden = true; form.hidden = false; form.nombre.focus(); });
 })();
+
+/* ---------- Accesos rápidos: barra inferior en móvil ---------- */
+(function accesos() {
+  const barra = document.getElementById('barra');
+  const hero = document.getElementById('inicio');
+  const visor = document.getElementById('visor');
+  let pasoPortada = false, escribiendo = false;
+  const pintar = () => { barra.hidden = !pasoPortada || escribiendo || (visor && visor.open); };
+  new IntersectionObserver(es => { pasoPortada = !es[0].isIntersecting; pintar(); }, { threshold: 0, rootMargin: '-60% 0px 0px 0px' }).observe(hero);
+  // con el teclado abierto (input con foco) la barra se esconde
+  const esCampo = el => el && el.matches && el.matches('input:not([type=checkbox]):not([type=radio]):not([type=file]), textarea, select');
+  document.addEventListener('focusin', e => { if (esCampo(e.target)) { escribiendo = true; pintar(); } });
+  document.addEventListener('focusout', e => { if (esCampo(e.target)) { escribiendo = false; setTimeout(pintar, 120); } });
+  // lightbox de fotos
+  if (visor) {
+    new MutationObserver(pintar).observe(visor, { attributes: true, attributeFilter: ['open'] });
+    visor.addEventListener('close', pintar);
+  }
+  // resaltar la sección que se está viendo
+  const items = [...barra.querySelectorAll('[data-sec]')];
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const it = items.find(i => i.dataset.sec === e.target.id);
+    if (it) it.classList.toggle('activo', e.isIntersecting);
+  }), { rootMargin: '-45% 0px -45% 0px' });
+  items.forEach(i => { const s = document.getElementById(i.dataset.sec); if (s) io.observe(s); });
+
+  // Al tocar un acceso: bajar a la sección y corregir si las fotos (que cargan al pasar) movieron la página
+  document.querySelectorAll('.accesos a, .barra a').forEach(a => a.addEventListener('click', ev => {
+    const id = a.getAttribute('href').slice(1), dest = document.getElementById(id);
+    if (!dest) return;
+    ev.preventDefault();
+    history.pushState(null, '', '#' + id);
+    dest.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    let tocado = false; const parar = () => { tocado = true; };
+    ['touchstart', 'wheel', 'keydown', 'focusin'].forEach(t => window.addEventListener(t, parar, { once: true, passive: true }));
+    [900, 1600, 2400].forEach(ms => setTimeout(() => {
+      if (tocado) return;
+      const top = dest.getBoundingClientRect().top;
+      const alFinal = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (Math.abs(top) > 8 && !(top > 0 && alFinal)) dest.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }, ms));
+  }));
+})();
