@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fotos · Bautizo de José María</title>
+<meta name="description" content="Sube tus fotos del bautizo de José María y mira en vivo las de todos.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:title" content="Fotos del bautizo de José María">
+<meta property="og:description" content="Sube tus fotos y mira en vivo las de todos · 28 de noviembre de 2026">
+<meta property="og:type" content="website">
+<link rel="preload" href="../assets/fonts/WindSong-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<script>window.RAIZ = '../';</script>
+</head>
+<body class="pagina-fotos">
+<header class="fotos-top">
+  <img src="../assets/ramita-top.webp" alt="" class="fotos-top__flor" width="249" height="215">
+  <p class="fotos-top__de">Bautizo de</p>
+  <h1 class="script fotos-top__nombre">José María</h1>
+  <p class="fotos-top__fecha">28 · XI · 2026</p>
+</header>
+
+<main>
+  <section class="seccion fotos-pagina" id="fotos" aria-labelledby="fotos-t">
+    <h2 id="fotos-t" class="titulo-seccion">Comparte tus fotos</h2>
+    <p class="intro intro--ancha">Sube las que tomes hoy y mira en vivo las de todos.</p>
+
+    <!-- Álbum integrado (por defecto) -->
+    <div class="subir" id="subir">
+      <label class="btn btn--solido btn--ancho subir__boton subir__boton--grande" for="f-archivos">
+        <span aria-hidden="true">📷</span>&nbsp; Subir fotos
+      </label>
+      <div class="campo subir__nombre" id="f-campo-nombre">
+        <label for="f-nombre">¿Quién eres? <span class="opcional">(opcional)</span></label>
+        <input id="f-nombre" type="text" autocomplete="name" maxlength="60" placeholder="Para saber quién tomó la foto">
+      </div>
+      <input class="oculto" id="f-archivos" type="file" accept="image/*" multiple>
+      <p class="subir__como" id="f-como" hidden>Subiendo como <strong id="f-como-nombre"></strong> · <button type="button" class="enlace" id="f-no-soy">¿No eres tú?</button></p>
+      <p class="ayuda subir__ayuda" id="f-ayuda">Hasta 20 fotos por vez. Las hacemos más ligeras y les quitamos la ubicación antes de subirlas.</p>
+      <ul class="cola" id="f-cola" aria-live="polite"></ul>
+      <p class="aviso-demo" id="f-demo">Vista previa: las fotos solo se ven en este navegador.</p>
+    </div>
+
+    <div class="galeria-cab">
+      <p class="etiqueta">Álbum en vivo</p>
+      <p class="galeria-cab__cuenta" id="g-cuenta"></p>
+    </div>
+    <ul class="galeria" id="galeria" aria-label="Fotos del bautizo"></ul>
+    <p class="galeria__vacia" id="g-vacia" hidden>Aún no hay fotos. ¡Sube la primera!</p>
+
+    <!-- Álbum externo (opcional: CONFIG.ALBUM_MODO = 'externo') -->
+    <div class="album" id="album-externo" hidden>
+      <div class="album__qr" id="album-qr" hidden aria-hidden="true"></div>
+      <p class="album__pronto" id="album-pronto"><span class="script">Muy pronto</span> Aquí aparecerá la liga del álbum compartido.</p>
+      <a class="btn btn--solido" id="album-btn" href="#" target="_blank" rel="noopener" hidden>Sube tus fotos</a>
+    </div>
+  </section>
+</main>
+
+<footer class="fotos-pie">
+  <a class="fotos-pie__liga" id="ver-invitacion" href="../">Ver la invitación</a>
+</footer>
+  <dialog class="visor" id="visor" aria-label="Foto ampliada">
+    <img id="visor-img" alt="">
+    <div class="visor__barra">
+      <button type="button" class="visor__btn" id="visor-prev" aria-label="Foto anterior">‹</button>
+      <p class="visor__info" id="visor-info"></p>
+      <a class="visor__btn visor__descargar" id="visor-descargar" href="#" download target="_blank" rel="noopener">Descargar</a>
+      <button type="button" class="visor__btn" id="visor-next" aria-label="Foto siguiente">›</button>
+    </div>
+    <button type="button" class="visor__cerrar" id="visor-cerrar" aria-label="Cerrar">×</button>
+  </dialog>
+
+<script src="../assets/vendor/qrcode.js" defer></script>
+<script src="../config.js" defer></script>
+<script src="../fotos.js" defer></script>
+</body>
+</html>

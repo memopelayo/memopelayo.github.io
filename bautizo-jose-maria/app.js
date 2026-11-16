@@ -120,7 +120,17 @@ const desdeFecha = f => (f ? Date.now() >= new Date(f + 'T00:00:00-06:00').getTi
 const MODO_GRACIAS = desdeFecha(CONFIG.AGRADECIMIENTO_DESDE);
 const familiaPromesa = (async () => {
   const slug = (new URLSearchParams(location.search).get('f') || '').trim().toLowerCase();
-  try { if (/^[a-z0-9-]{6,60}$/.test(slug)) return await abrirFamilia(slug); } catch (_) {}
+  try {
+    if (/^[a-z0-9-]{6,60}$/.test(slug)) {
+      const fam = await abrirFamilia(slug);
+      // Recordar a la familia en este teléfono (para etiquetar sus fotos, también en /fotos/)
+      if (fam) try {
+        localStorage.setItem('bautizo-familia', JSON.stringify({ id: fam.id, slug: fam.slug, grupo: fam.grupo }));
+        localStorage.removeItem('bautizo-familia-no');
+      } catch (_) {}
+      return fam;
+    }
+  } catch (_) {}
   return null;
 })();
 

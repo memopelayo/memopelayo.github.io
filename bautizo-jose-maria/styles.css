@@ -342,3 +342,21 @@ input::placeholder,textarea::placeholder{color:#a9ab95}
 .rsvp-listo .mesa--en-tarjeta{margin:6px auto 2px;width:100%;max-width:260px}
 .rsvp-listo__pronto{font-style:italic;color:var(--olivo);background:var(--crema);border-radius:12px;padding:10px 14px}
 .rsvp-listo__ayuda{font-size:.82rem;color:var(--olivo-suave);margin-top:4px}
+
+/* ---------- Quién sube ---------- */
+.subir__como{text-align:center;font-size:.85rem;color:var(--olivo-suave)}
+.subir__como strong{color:var(--olivo);font-weight:normal;font-style:italic}
+.enlace{font:inherit;background:none;border:0;padding:0;color:var(--olivo);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+/* ---------- Página de fotos (/fotos/) ---------- */
+.fotos-top{text-align:center;padding:18px 20px 0}
+.fotos-top__flor{width:min(150px,40vw);height:auto;display:block;margin:0 auto -8px}
+.fotos-top__de{font-family:var(--caps);letter-spacing:.32em;text-transform:uppercase;font-size:.8rem;color:var(--olivo)}
+.fotos-top__nombre{font-size:clamp(2.5rem,11.5vw,4.2rem);line-height:1.15;margin:4px 0 0;font-weight:400;color:var(--olivo);white-space:nowrap}
+.fotos-top__fecha{letter-spacing:.22em;font-size:.8rem;color:var(--olivo-suave);margin-top:2px}
+.fotos-pagina{padding-top:14px}
+.fotos-pagina .intro{margin-bottom:18px}
+.fotos-pagina .titulo-seccion{font-size:1.7rem}
+.subir__boton--grande{font-size:1.05rem;min-height:64px;padding:18px 24px}
+.fotos-pie{text-align:center;padding:24px 20px 40px}
+.fotos-pie__liga{font-size:.85rem;color:var(--olivo-suave);text-underline-offset:3px}

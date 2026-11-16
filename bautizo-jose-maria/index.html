@@ -326,14 +326,15 @@
 
     <!-- Álbum integrado (por defecto) -->
     <div class="subir" id="subir">
-      <div class="campo subir__nombre">
-        <label for="f-nombre">Tu nombre <span class="opcional">(opcional)</span></label>
+      <div class="campo subir__nombre" id="f-campo-nombre">
+        <label for="f-nombre">¿Quién eres? <span class="opcional">(opcional)</span></label>
         <input id="f-nombre" type="text" autocomplete="name" maxlength="60" placeholder="Para saber quién tomó la foto">
       </div>
       <label class="btn btn--solido btn--ancho subir__boton" for="f-archivos">
         <span aria-hidden="true">📷</span>&nbsp; Elegir o tomar fotos
       </label>
       <input class="oculto" id="f-archivos" type="file" accept="image/*" multiple>
+      <p class="subir__como" id="f-como" hidden>Subiendo como <strong id="f-como-nombre"></strong> · <button type="button" class="enlace" id="f-no-soy">¿No eres tú?</button></p>
       <p class="ayuda subir__ayuda" id="f-ayuda">Hasta 20 fotos por vez. Las hacemos más ligeras y les quitamos la ubicación antes de subirlas.</p>
       <ul class="cola" id="f-cola" aria-live="polite"></ul>
       <p class="aviso-demo" id="f-demo">Vista previa: las fotos solo se ven en este navegador.</p>

@@ -31,6 +31,37 @@
   }
 
   $('f-demo').hidden = !DEMO;
+  const RAIZ = window.RAIZ || '';   // '../' en /fotos/
+
+  /* ---------- Quién sube: familia recordada o nombre ---------- */
+  const FAM_LS = 'bautizo-familia', NO_LS = 'bautizo-familia-no', AUTOR_LS = 'bautizo-autor';
+  const leerLS = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (_) { return null; } };
+  const famRecordada = () => {
+    const f = leerLS(FAM_LS);
+    return f && f.id && f.grupo && localStorage.getItem(NO_LS) !== f.id ? f : null;
+  };
+  try { $('f-nombre').value = localStorage.getItem(AUTOR_LS) || ''; } catch (_) {}
+  $('f-nombre').addEventListener('change', () => { try { localStorage.setItem(AUTOR_LS, $('f-nombre').value.trim()); } catch (_) {} });
+  function pintarIdentidad() {
+    const f = famRecordada();
+    $('f-como').hidden = !f; $('f-campo-nombre').hidden = !!f;
+    if (f) $('f-como-nombre').textContent = f.grupo;
+    const inv = document.getElementById('ver-invitacion');   // en /fotos/: liga a SU invitación si la conocemos
+    const g = leerLS(FAM_LS);
+    if (inv) inv.href = f && g.slug ? `${RAIZ || './'}?f=${encodeURIComponent(g.slug)}` : (RAIZ || './');
+  }
+  $('f-no-soy').addEventListener('click', () => {
+    const f = leerLS(FAM_LS); if (f) try { localStorage.setItem(NO_LS, f.id); } catch (_) {}
+    pintarIdentidad(); $('f-nombre').focus();
+  });
+  const quien = () => {
+    const f = famRecordada();
+    if (f) return { nombre: f.grupo, familia: f.grupo, id: f.id };
+    return { nombre: $('f-nombre').value.trim() || 'Invitado', familia: '', id: '' };
+  };
+  pintarIdentidad();
+  // en la página general, la familia se guarda al abrir su liga (?f=…): volver a pintar cuando termine
+  if (typeof familiaPromesa !== 'undefined') familiaPromesa.then(pintarIdentidad).catch(() => {});
   $('f-ayuda').textContent = `Hasta ${CONFIG.FOTOS_POR_LOTE} fotos por vez. Las hacemos más ligeras y les quitamos la ubicación antes de subirlas.`;
 
   /* ---------- URLs de Drive ---------- */
@@ -57,7 +88,7 @@
     img.onload = () => li.classList.add('cargada');
     b.append(img);
     if (mias.has(p.f)) { const t = document.createElement('span'); t.className = 'galeria__tuya'; t.textContent = 'Tuya'; b.append(t); }
-    if (p.n) { const c = document.createElement('span'); c.className = 'galeria__autor'; c.textContent = p.n; b.append(c); }
+    if (p.n && p.n !== 'Invitado') { const c = document.createElement('span'); c.className = 'galeria__autor'; c.textContent = p.n; b.append(c); }
     b.addEventListener('click', () => abrirVisor(p.f));
     li.append(b);
     return li;
@@ -77,7 +108,7 @@
   }
 
   /* ---------- Lectura (polling solo con la pestaña visible) ---------- */
-  const demoBase = () => [1, 2, 3, 4, 5, 6, 7, 8].map(i => ({ f: `demo-${i}`, n: ['EJEMPLO Tía Lupita', 'EJEMPLO Carlos', '', 'EJEMPLO Ana', 'EJEMPLO Juan', '', 'EJEMPLO Marta', 'EJEMPLO Luis'][i - 1], fa: '', t: '', src: `assets/demo-fotos/ejemplo-${i}.jpg` }));
+  const demoBase = () => [1, 2, 3, 4, 5, 6, 7, 8].map(i => ({ f: `demo-${i}`, n: ['EJEMPLO Tía Lupita', 'EJEMPLO Carlos', '', 'EJEMPLO Ana', 'EJEMPLO Juan', '', 'EJEMPLO Marta', 'EJEMPLO Luis'][i - 1], fa: '', t: '', src: `${RAIZ}assets/demo-fotos/ejemplo-${i}.jpg` }));
   let demoMias = [];
   let version = '';
   async function leer(animar) {
@@ -197,7 +228,8 @@
       actualizar(t, 'Preparando…', 0.02);
       if (!t.blob) t.blob = await comprimir(t.file);
       const kb = Math.round(t.blob.size / 1024);
-      const fam = await familiaPromesa;
+      const yo = quien();
+      try { if (!famRecordada()) localStorage.setItem(AUTOR_LS, $('f-nombre').value.trim()); } catch (_) {}
       for (t.intento = 1; t.intento <= 4; t.intento++) {
         await esperarConexion();
         const etiqueta = t.intento > 1 ? `Reintentando (${t.intento - 1}) · ${kb} KB` : `Subiendo · ${kb} KB`;
@@ -207,11 +239,11 @@
           if (DEMO) r = await enviarDemo(p => actualizar(t, etiqueta, 0.05 + p * 0.9, 'subiendo'), t.intento, t);
           else {
             const data = await aBase64(t.blob);
-            r = await enviarXHR(JSON.stringify({ action: 'uploadFoto', data, nombre: $('f-nombre').value.trim(), familia: fam ? fam.grupo : '', id: fam ? fam.id : '', cliente }),
+            r = await enviarXHR(JSON.stringify({ action: 'uploadFoto', data, nombre: yo.nombre, familia: yo.familia, id: yo.id, cliente }),
               p => actualizar(t, etiqueta, 0.05 + p * 0.9, 'subiendo'));
           }
           mias.add(r.fileId); guardarMias();
-          if (DEMO) { const url = URL.createObjectURL(t.blob); demoMias.unshift({ f: r.fileId, n: $('f-nombre').value.trim(), src: url, full: url }); }
+          if (DEMO) { const url = URL.createObjectURL(t.blob); demoMias.unshift({ f: r.fileId, n: yo.nombre, src: url, full: url }); }
           actualizar(t, '¡Lista! Ya está en el álbum', 1, 'lista');
           setTimeout(() => { t.li.classList.add('se-va'); setTimeout(() => t.li.remove(), 600); }, 9000);
           leer(true);
