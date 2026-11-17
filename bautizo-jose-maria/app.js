@@ -218,7 +218,7 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
       $('ya-titulo').textContent = 'Gracias por avisarnos';
       $('ya-texto').textContent = plural('¡Te vamos a extrañar!', '¡Los vamos a extrañar!');
     } else {
-      $('ya-titulo').textContent = plural('¡Ya confirmaste! Gracias', '¡Ya confirmaron! Gracias');
+      $('ya-titulo').textContent = '¡Gracias por confirmar!';
       $('ya-texto').textContent = `${plural('Te', 'Los')} esperamos el sábado 28 de noviembre. Recuerda llegar a las 11:45 h.`;
     }
     const conMesa = !nadie && verMesa && !!mesa;
@@ -247,8 +247,14 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
     } else {
       $('ya-ayuda').hidden = true;
     }
-    $('hero-cta').textContent = conMesa ? plural('Ver mi mesa', 'Ver su mesa') : 'Ver mi invitación';
-    $('hero-cta').href = '#rsvp';
+    if (conMesa) {
+      $('hero-cta').textContent = plural('Ver mi mesa', 'Ver su mesa');
+      $('hero-cta').href = '#rsvp';
+    } else {
+      $('hero-cta').textContent = 'Ver detalles';
+      $('hero-cta').href = '#evento';
+    }
+    $('rsvp').classList.add('rsvp--listo');
     mostrar('rsvp-ya');
   }
 
@@ -319,6 +325,7 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
   function mostrarFormulario(prev) {
     $('rsvp-t').textContent = 'Confirma tu asistencia';
     $('rsvp-plazo').hidden = false;
+    $('rsvp').classList.remove('rsvp--listo');
     $('hero-cta').textContent = uno ? 'Confirmar mi asistencia' : 'Confirmar asistencia';
     $('hero-cta').href = '#rsvp';
     intencion = 'si';

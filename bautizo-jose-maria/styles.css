@@ -350,6 +350,12 @@ input::placeholder,textarea::placeholder{color:#a9ab95}
 .rsvp-listo .mesa--en-tarjeta{margin:6px auto 2px;width:100%;max-width:260px}
 .rsvp-listo__pronto{font-style:italic;color:var(--olivo);background:var(--crema);border-radius:12px;padding:10px 14px}
 .rsvp-listo__ayuda{font-size:.82rem;color:var(--olivo-suave);margin-top:4px}
+/* Tarjeta de gracias compacta, arriba del detalle del evento */
+#rsvp.rsvp--listo .encabezado,
+#rsvp.rsvp--listo #rsvp-plazo{display:none}
+#rsvp.rsvp--listo .separador{padding:22px 0 6px}
+#rsvp{scroll-margin-top:8px}
+
 .rsvp-listo #ya-cambiar{margin-top:8px;max-width:320px}
 .rsvp-listo__plazo{font-size:.82rem;color:var(--olivo-suave);margin-top:-2px;text-align:center;line-height:1.4}
 
