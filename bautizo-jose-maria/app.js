@@ -169,7 +169,7 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
   const $ = id => document.getElementById(id);
   const fam = await familiaPromesa;
   // Sin liga personal (o liga inválida): solo información general; la sección de confirmación no existe.
-  if (!fam) return;
+  if (!fam) { $('hero-cta').classList.remove('cta-espera'); return; }
 
   const estados = ['rsvp-cargando', 'rsvp-form', 'rsvp-ya'];
   const mostrar = id => estados.forEach(e => { $(e).hidden = e !== id; });
@@ -187,6 +187,10 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
 
   const KEY = 'bautizo-rsvp-' + fam.id;
   const guardada = () => { try { return JSON.parse(localStorage.getItem(KEY)); } catch (_) { return null; } };
+  // Texto del botón de portada desde el primer momento (sin parpadeo de "Ver detalles")
+  if (guardada()) { $('hero-cta').textContent = 'Ver detalles'; $('hero-cta').href = '#evento'; }
+  else { $('hero-cta').textContent = uno ? 'Confirmar mi asistencia' : 'Confirmar asistencia'; $('hero-cta').href = '#rsvp'; $('hero-cta').classList.add('btn--barro'); }
+  $('hero-cta').classList.remove('cta-espera');
 
   // Estado en el servidor (también ve lo registrado desde el panel). Máximo 6 s; si falla, se usa lo de este teléfono.
   let servidor = null;
@@ -254,6 +258,7 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
       $('hero-cta').textContent = 'Ver detalles';
       $('hero-cta').href = '#evento';
     }
+    $('hero-cta').classList.remove('btn--barro');
     $('rsvp').classList.add('rsvp--listo');
     mostrar('rsvp-ya');
   }
@@ -328,6 +333,7 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
     $('rsvp').classList.remove('rsvp--listo');
     $('hero-cta').textContent = uno ? 'Confirmar mi asistencia' : 'Confirmar asistencia';
     $('hero-cta').href = '#rsvp';
+    $('hero-cta').classList.add('btn--barro');
     intencion = 'si';
     rellenar(prev);
     mostrar('rsvp-form');

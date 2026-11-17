@@ -504,3 +504,8 @@ input::placeholder,textarea::placeholder{color:#a9ab95}
 .acceso,.barra__item{color:var(--olivo)}
 .barra__item{color:var(--olivo-suave)}
 .barra__item.activo{color:var(--olivo)}
+
+.hero__cta.cta-espera{visibility:hidden}
+.hero__cta.btn--barro{background:#b4582f;border-color:#b4582f;color:#fff}
+.hero__cta.btn--barro:hover,.hero__cta.btn--barro:focus-visible{background:#9c4a26;border-color:#9c4a26}
+.hero__cta{transition:background-color .4s,border-color .4s}

@@ -14,7 +14,7 @@
 <link rel="preload" href="assets/fonts/PinyonScript-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css?v=13">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-<link rel="stylesheet" href="styles.css?v=13">
+<link rel="stylesheet" href="styles.css?v=14">
 </head>
 <body>
 <a class="skip" id="skip" href="#evento">Ir a los detalles del evento</a>
@@ -40,6 +40,7 @@
     <p class="hero__para" id="hero-para" hidden></p>
     <p class="hero__fecha">Sábado 28 de noviembre de 2026<br>12:00 h · San Martín Texmelucan</p>
     <a class="btn btn--solido hero__cta" id="hero-cta" href="#evento">Ver detalles</a>
+    <script>(function(){var f=(new URLSearchParams(location.search).get('f')||'').trim();if(/^[a-zA-Z0-9-]{6,60}$/.test(f)){var b=document.getElementById('hero-cta');b.classList.add('cta-espera');setTimeout(function(){b.classList.remove('cta-espera');},7000);}})();</script>
   </div>
 </header>
 
@@ -476,7 +477,7 @@
 <script src="assets/vendor/qrcode.js" defer></script>
 <script src="assets/invitados.js" defer></script>
 <script src="config.js?v=13" defer></script>
-<script src="app.js?v=13" defer></script>
+<script src="app.js?v=14" defer></script>
 <script src="fotos.js" defer></script>
 </body>
 </html>
