@@ -14,7 +14,7 @@
 <link rel="preload" href="assets/fonts/PinyonScript-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css?v=13">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
 <a class="skip" id="skip" href="#evento">Ir a los detalles del evento</a>
@@ -82,6 +82,35 @@
         <p class="mesa__nota">en la recepción, Jardín Casa Pelayo</p>
       </div>
       <p class="rsvp-listo__pronto" id="mesa-pronto" hidden></p>
+      <div class="rsvp-mas" id="ya-mas" hidden>
+        <p class="rsvp-mas__intro">Si quieres, también puedes dejar un pedacito de este día:</p>
+        <ul class="rsvp-mas__lista">
+          <li>
+            <a class="rsvp-mas__item rsvp-mas__item--salvia" href="#deseos">
+              <span class="rsvp-mas__icono" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.3-7-9.4A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.1c0 5.1-7 9.4-7 9.4z"/></svg></span>
+              <span class="rsvp-mas__nom">Buenos deseos</span>
+              <span class="rsvp-mas__det">Un pensamiento para José María</span>
+              <span class="rsvp-mas__flecha" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5 11 8 6 12.5"/></svg></span>
+            </a>
+          </li>
+          <li>
+            <a class="rsvp-mas__item rsvp-mas__item--salvia" href="#capsula">
+              <span class="rsvp-mas__icono" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="6" width="17" height="12.5" rx="1.5"/><path d="M4 7l8 6 8-6"/></svg></span>
+              <span class="rsvp-mas__nom">Carta para José María</span>
+              <span class="rsvp-mas__det">La leerá cuando cumpla 18 años</span>
+              <span class="rsvp-mas__flecha" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5 11 8 6 12.5"/></svg></span>
+            </a>
+          </li>
+          <li>
+            <a class="rsvp-mas__item rsvp-mas__item--salvia" href="#fotos">
+              <span class="rsvp-mas__icono" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2.2l1.4-2h5.8l1.4 2h2.2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z"/><circle cx="12" cy="12.8" r="3.4"/></svg></span>
+              <span class="rsvp-mas__nom">Fotos</span>
+              <span class="rsvp-mas__det">El sábado 28, súbelas y mira las de todos en vivo</span>
+              <span class="rsvp-mas__flecha" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5 11 8 6 12.5"/></svg></span>
+            </a>
+          </li>
+        </ul>
+      </div>
       <button class="btn btn--solido btn--ancho" type="button" id="ya-cambiar" hidden aria-label="Modificar mis invitados">Modificar mis invitados</button>
       <p class="rsvp-listo__plazo" id="ya-cambiar-plazo" hidden>Puedes modificarlos hasta el viernes 20 de noviembre.</p>
       <p class="rsvp-listo__ayuda" id="ya-ayuda">¿Necesitas cambiar algo? Escríbenos por WhatsApp.</p>
@@ -477,7 +506,7 @@
 <script src="assets/vendor/qrcode.js" defer></script>
 <script src="assets/invitados.js" defer></script>
 <script src="config.js?v=13" defer></script>
-<script src="app.js?v=14" defer></script>
+<script src="app.js?v=15" defer></script>
 <script src="fotos.js" defer></script>
 </body>
 </html>

@@ -243,6 +243,7 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
       : 'Puedes modificarlos hasta el viernes 20 de noviembre.';
     $('ya-cambiar').hidden = !puedeCambiar;
     $('ya-cambiar-plazo').hidden = !puedeCambiar;
+    $('ya-mas').hidden = tipo !== 'confirmado';
     if (puedeCambiar) {
       $('ya-ayuda').hidden = true;
     } else if (tipo === 'confirmado') {
@@ -504,7 +505,7 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
   items.forEach(i => { const s = document.getElementById(i.dataset.sec); if (s) io.observe(s); });
 
   // Al tocar un acceso: bajar a la sección y corregir si las fotos (que cargan al pasar) movieron la página
-  document.querySelectorAll('.accesos a, .barra a').forEach(a => a.addEventListener('click', ev => {
+  document.querySelectorAll('.accesos a, .barra a, .rsvp-mas a').forEach(a => a.addEventListener('click', ev => {
     const id = a.getAttribute('href').slice(1), dest = document.getElementById(id);
     if (!dest) return;
     ev.preventDefault();
