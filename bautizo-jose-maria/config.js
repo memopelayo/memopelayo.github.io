@@ -29,8 +29,8 @@ window.CONFIG = {
   // Mesa: se muestra solo si la familia tiene mesa en guests.txt y a partir de esta fecha ('' = siempre)
   MOSTRAR_MESA_DESDE: '2026-11-27',
   // Cierre de confirmaciones: desde este día (00:00 h CDMX) ya no se muestra el formulario.
-  // '2026-11-19' = se puede confirmar hasta el final del miércoles 18 de noviembre.
-  CIERRE_CONFIRMACION: '2026-11-19',
+  // '2026-11-21' = se puede confirmar hasta el final del viernes 20 de noviembre.
+  CIERRE_CONFIRMACION: '2026-11-21',
   // Dirección pública del sitio (para las ligas de WhatsApp del panel)
   SITIO_URL: 'https://memopelayo.github.io/bautizo-jose-maria/',
   // Fecha del evento (America/Mexico_City es UTC-6 todo el año desde 2022)

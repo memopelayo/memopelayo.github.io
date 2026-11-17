@@ -342,6 +342,8 @@ input::placeholder,textarea::placeholder{color:#a9ab95}
 .rsvp-listo .mesa--en-tarjeta{margin:6px auto 2px;width:100%;max-width:260px}
 .rsvp-listo__pronto{font-style:italic;color:var(--olivo);background:var(--crema);border-radius:12px;padding:10px 14px}
 .rsvp-listo__ayuda{font-size:.82rem;color:var(--olivo-suave);margin-top:4px}
+.rsvp-listo #ya-cambiar{margin-top:8px;max-width:320px}
+.rsvp-listo__plazo{font-size:.82rem;color:var(--olivo-suave);margin-top:-2px;text-align:center;line-height:1.4}
 
 /* ---------- Quién sube ---------- */
 .subir__como{text-align:center;font-size:.85rem;color:var(--olivo-suave)}

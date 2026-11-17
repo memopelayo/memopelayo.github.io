@@ -201,7 +201,7 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
   }
   const mesa = servidor && servidor.mesa != null && servidor.mesa !== '' ? String(servidor.mesa) : (fam.mesa || '');
 
-  function pintarListo(tipo, asistenN) {
+  function pintarListo(tipo, asistenN, opts = {}) {
     // tipo: 'confirmado' | 'cerrado'
     const nadie = tipo === 'confirmado' && asistenN === 0;
     $('rsvp-t').textContent = tipo === 'cerrado' ? 'Confirmación' : plural('Tu confirmación', 'Su confirmación');
@@ -209,6 +209,11 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
     if (tipo === 'cerrado') {
       $('ya-titulo').textContent = '¡Hola!';
       $('ya-texto').textContent = 'La confirmación ya cerró. Si tienes dudas, escríbenos por WhatsApp.';
+    } else if (opts.actualizado) {
+      $('ya-titulo').textContent = plural('¡Listo! Actualizamos tu confirmación', '¡Listo! Actualizamos su confirmación');
+      $('ya-texto').textContent = nadie
+        ? plural('Te vamos a extrañar.', 'Los vamos a extrañar.')
+        : `${plural('Te', 'Los')} esperamos el sábado 28 de noviembre. Recuerda llegar a las 11:45 h.`;
     } else if (nadie) {
       $('ya-titulo').textContent = 'Gracias por avisarnos';
       $('ya-texto').textContent = plural('Te vamos a extrañar.', 'Los vamos a extrañar.');
@@ -225,22 +230,29 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
       ? plural('Tu número de mesa aparecerá aquí muy pronto.', 'Su número de mesa aparecerá aquí muy pronto.')
       : plural('Tu número de mesa aparecerá aquí a partir del viernes 27 de noviembre.', 'Su número de mesa aparecerá aquí a partir del viernes 27 de noviembre.');
     $('mesa-pronto').hidden = !pronto;
-    $('ya-ayuda').hidden = tipo === 'cerrado';
+    const puedeCambiar = tipo === 'confirmado' && !cerrado;
+    const btnTxt = uno ? 'Modificar mi confirmación' : 'Modificar mis invitados';
+    $('ya-cambiar').textContent = btnTxt;
+    $('ya-cambiar').setAttribute('aria-label', btnTxt);
+    $('ya-cambiar-plazo').textContent = uno
+      ? 'Puedes modificarla hasta el viernes 20 de noviembre.'
+      : 'Puedes modificarlos hasta el viernes 20 de noviembre.';
+    $('ya-cambiar').hidden = !puedeCambiar;
+    $('ya-cambiar-plazo').hidden = !puedeCambiar;
+    if (puedeCambiar) {
+      $('ya-ayuda').hidden = true;
+    } else if (tipo === 'confirmado') {
+      $('ya-ayuda').textContent = 'Si necesitas cambiar algo, escríbenos por WhatsApp.';
+      $('ya-ayuda').hidden = false;
+    } else {
+      $('ya-ayuda').hidden = true;
+    }
     $('hero-cta').textContent = conMesa ? plural('Ver mi mesa', 'Ver su mesa') : 'Ver mi invitación';
     $('hero-cta').href = '#rsvp';
     mostrar('rsvp-ya');
   }
 
-  const local = guardada();
-  if ((servidor && servidor.confirmado) || local) {
-    const n = servidor && servidor.confirmado ? Number(servidor.confirmados) : local.asisten.length;
-    pintarListo('confirmado', isNaN(n) ? 1 : n);
-    return;
-  }
-  if (cerrado) { pintarListo('cerrado'); return; }
-
-  // Formulario
-  $('hero-cta').textContent = 'Confirmar asistencia'; $('hero-cta').href = '#rsvp';
+  // El formulario se arma siempre, por si quieren cambiar su respuesta después de confirmar.
   $('rsvp-hola').textContent = `${fam.grupo}!`;
   $('rsvp-lugares').textContent = uno ? 'Te reservamos 1 lugar' : `Les reservamos ${fam.personas.length} lugares`;
   $('rsvp-instr').textContent = uno ? 'Si no podrás venir, desmarca tu nombre:' : 'Todos aparecen como “asiste”. Solo desmarca a quien no podrá ir:';
@@ -270,7 +282,31 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
       : plural('Nos avisas que no podrás venir', 'Nos avisan que nadie podrá venir');
     $('rsvp-enviar').textContent = asisten.length ? 'Confirmar' : plural('Confirmar que no podré ir', 'Confirmar que no podremos ir');
   }
-  form.addEventListener('change', actualizar); actualizar();
+  form.addEventListener('change', actualizar);
+
+  function rellenar(prev) {
+    fam.personas.forEach((n, i) => {
+      // Lista guardada en este teléfono: se respeta quién asiste. Si solo hay estado del servidor, todos quedan marcados.
+      form[`p${i}`].checked = !(prev && Array.isArray(prev.asisten)) || prev.asisten.includes(n);
+    });
+    form.mensaje.value = (prev && typeof prev.mensaje === 'string') ? prev.mensaje : '';
+    const btn = $('rsvp-enviar'); btn.disabled = false;
+    actualizar();
+  }
+
+  function mostrarFormulario(prev) {
+    $('rsvp-t').textContent = 'Confirma tu asistencia';
+    $('rsvp-plazo').hidden = false;
+    $('hero-cta').textContent = 'Confirmar asistencia'; $('hero-cta').href = '#rsvp';
+    rellenar(prev);
+    mostrar('rsvp-form');
+  }
+
+  let yaConfirmado = !!(guardada() || (servidor && servidor.confirmado));
+  $('ya-cambiar').addEventListener('click', () => {
+    mostrarFormulario(guardada());
+    $('rsvp-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
@@ -286,13 +322,23 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
       const res = await enviar(CONFIG.RSVP_ENDPOINT, datos);
       if (!res.ok) throw new Error('envío');
       try { localStorage.setItem(KEY, JSON.stringify(r)); } catch (_) {}
-      pintarListo('confirmado', asisten.length); $('rsvp-ya').focus();
+      const actualizado = yaConfirmado;
+      yaConfirmado = true;
+      pintarListo('confirmado', asisten.length, { actualizado }); $('rsvp-ya').focus();
     } catch (_) {
       alert('No pudimos enviar tu confirmación. Revisa tu conexión e inténtalo de nuevo.');
       btn.disabled = false; actualizar();
     }
   });
-  mostrar('rsvp-form');
+
+  const local = guardada();
+  if ((servidor && servidor.confirmado) || local) {
+    const n = servidor && servidor.confirmado ? Number(servidor.confirmados) : local.asisten.length;
+    pintarListo('confirmado', isNaN(n) ? 1 : n);
+    return;
+  }
+  if (cerrado) { pintarListo('cerrado'); return; }
+  mostrarFormulario(null);
 })();
 
 /* ---------- Buenos deseos ---------- */
