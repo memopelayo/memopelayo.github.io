@@ -119,7 +119,9 @@ async function abrirFamilia(slug) {
     for (let j = 0; j < 32 && i < ct.length; j++, i++) plano[i] = ct[i] ^ flujo[j];
   }
   const d = JSON.parse(new TextDecoder().decode(plano));
-  return { id, slug, grupo: d.f, personas: d.p, mesa: d.m };
+  const personas = d.p || [];
+  const roles = Array.isArray(d.r) && d.r.length === personas.length ? d.r : personas.map(() => '');
+  return { id, slug, grupo: d.f, personas, mesa: d.m, roles };
 }
 
 const desdeFecha = f => (f ? Date.now() >= new Date(f + 'T00:00:00-06:00').getTime() : false);
@@ -176,6 +178,14 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
   $('rsvp').hidden = false; mostrar('rsvp-cargando');
   const uno = fam.personas.length === 1;
   const plural = (s, p) => (uno ? s : p);
+  const rolDe = i => String((fam.roles && fam.roles[i]) || '').toLowerCase();
+  const esFijo = i => rolDe(i) === 'padrino' || rolDe(i) === 'madrina';
+  const etiquetaRol = rol => rol === 'padrino' ? 'Padrino' : rol === 'madrina' ? 'Madrina' : '';
+  function conFijos(lista) {
+    const set = new Set(Array.isArray(lista) ? lista : []);
+    fam.personas.forEach((n, i) => { if (esFijo(i)) set.add(n); });
+    return fam.personas.filter(n => set.has(n));
+  }
   $('rsvp-demo').hidden = !!CONFIG.RSVP_ENDPOINT;
   $('hero-para').textContent = `Invitación para ${fam.grupo}`; $('hero-para').hidden = false;
   $('skip').href = '#rsvp'; $('skip').textContent = 'Ir a tu invitación';
@@ -273,8 +283,15 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
   if (!uno) {
     fam.personas.forEach((n, i) => {
       const li = document.createElement('li');
-      li.innerHTML = `<label class="persona"><input type="checkbox" checked name="p${i}"><span class="persona__nombre"></span><span class="persona__estado" aria-hidden="true"></span></label>`;
+      const fijo = esFijo(i);
+      const rol = rolDe(i);
+      li.innerHTML = `<label class="persona${fijo ? ' persona--fijo' : ''}"><input type="checkbox" checked name="p${i}"${fijo ? ' disabled' : ''}><span class="persona__nombre"></span><span class="persona__estado" aria-hidden="true"></span></label>`;
       li.querySelector('.persona__nombre').textContent = n;
+      if (fijo) {
+        const input = li.querySelector('input');
+        input.setAttribute('aria-disabled', 'true');
+        input.setAttribute('aria-label', `${n}, ${etiquetaRol(rol)}, confirmado`);
+      }
       lista.append(li);
     });
   }
@@ -291,7 +308,7 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
       return intencion === 'si' ? { asisten: [n], no: [] } : { asisten: [], no: [n] };
     }
     const asisten = [], no = [];
-    fam.personas.forEach((n, i) => (form[`p${i}`].checked ? asisten : no).push(n));
+    fam.personas.forEach((n, i) => ((esFijo(i) || form[`p${i}`].checked) ? asisten : no).push(n));
     return { asisten, no };
   };
   function actualizar() {
@@ -304,10 +321,11 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
       return;
     }
     const { asisten } = leer();
-    form.querySelectorAll('.persona').forEach(l => {
-      const ok = l.querySelector('input').checked;
+    form.querySelectorAll('.persona').forEach((l, i) => {
+      const rol = rolDe(i);
+      const ok = esFijo(i) || l.querySelector('input').checked;
       l.classList.toggle('no', !ok);
-      l.querySelector('.persona__estado').textContent = ok ? 'Asiste' : 'No podrá ir';
+      l.querySelector('.persona__estado').textContent = etiquetaRol(rol) || (ok ? 'Asiste' : 'No podrá ir');
     });
     $('rsvp-conteo').textContent = asisten.length
       ? `Confirman ${asisten.length} de ${fam.personas.length} ${fam.personas.length === 1 ? 'lugar' : 'lugares'}`
@@ -320,7 +338,8 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
     if (!uno) {
       fam.personas.forEach((n, i) => {
         // Lista guardada en este teléfono: se respeta quién asiste. Si solo hay estado del servidor, todos quedan marcados.
-        form[`p${i}`].checked = !(prev && Array.isArray(prev.asisten)) || prev.asisten.includes(n);
+        // Padrino/madrina siempre asisten, aunque una respuesta anterior no los traiga.
+        form[`p${i}`].checked = esFijo(i) || !(prev && Array.isArray(prev.asisten)) || prev.asisten.includes(n);
       });
     }
     form.mensaje.value = (prev && typeof prev.mensaje === 'string') ? prev.mensaje : '';
@@ -379,8 +398,11 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
 
   const local = guardada();
   if ((servidor && servidor.confirmado) || local) {
-    const n = servidor && servidor.confirmado ? Number(servidor.confirmados) : local.asisten.length;
-    pintarListo('confirmado', isNaN(n) ? 1 : n);
+    let n;
+    if (local && Array.isArray(local.asisten)) n = conFijos(local.asisten).length;
+    else if (servidor && servidor.confirmado) n = Number(servidor.confirmados);
+    if (n == null || isNaN(n)) n = Math.max(fam.personas.filter((_, i) => esFijo(i)).length, 1);
+    pintarListo('confirmado', n);
     return;
   }
   if (cerrado) { pintarListo('cerrado'); return; }
