@@ -212,11 +212,11 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
     } else if (opts.actualizado) {
       $('ya-titulo').textContent = plural('¡Listo! Actualizamos tu confirmación', '¡Listo! Actualizamos su confirmación');
       $('ya-texto').textContent = nadie
-        ? plural('Te vamos a extrañar.', 'Los vamos a extrañar.')
+        ? plural('¡Te vamos a extrañar!', '¡Los vamos a extrañar!')
         : `${plural('Te', 'Los')} esperamos el sábado 28 de noviembre. Recuerda llegar a las 11:45 h.`;
     } else if (nadie) {
       $('ya-titulo').textContent = 'Gracias por avisarnos';
-      $('ya-texto').textContent = plural('Te vamos a extrañar.', 'Los vamos a extrañar.');
+      $('ya-texto').textContent = plural('¡Te vamos a extrañar!', '¡Los vamos a extrañar!');
     } else {
       $('ya-titulo').textContent = plural('¡Ya confirmaste! Gracias', '¡Ya confirmaron! Gracias');
       $('ya-texto').textContent = `${plural('Te', 'Los')} esperamos el sábado 28 de noviembre. Recuerda llegar a las 11:45 h.`;
@@ -254,41 +254,63 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
 
   // El formulario se arma siempre, por si quieren cambiar su respuesta después de confirmar.
   $('rsvp-hola').textContent = `${fam.grupo}!`;
-  $('rsvp-lugares').textContent = uno ? 'Te reservamos 1 lugar' : `Les reservamos ${fam.personas.length} lugares`;
-  $('rsvp-instr').textContent = uno ? 'Si no podrás venir, desmarca tu nombre:' : 'Todos aparecen como “asiste”. Solo desmarca a quien no podrá ir:';
+  $('rsvp-lugares').hidden = uno;
+  $('rsvp-lugares').textContent = uno ? '' : `Les reservamos ${fam.personas.length} lugares`;
+  $('rsvp-instr').textContent = uno ? '' : 'Todos aparecen como “asiste”. Solo desmarca a quien no podrá ir:';
   const lista = $('rsvp-personas');
-  fam.personas.forEach((n, i) => {
-    const li = document.createElement('li');
-    li.innerHTML = `<label class="persona"><input type="checkbox" checked name="p${i}"><span class="persona__nombre"></span><span class="persona__estado" aria-hidden="true"></span></label>`;
-    li.querySelector('.persona__nombre').textContent = n;
-    lista.append(li);
-  });
+  if (!uno) {
+    fam.personas.forEach((n, i) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<label class="persona"><input type="checkbox" checked name="p${i}"><span class="persona__nombre"></span><span class="persona__estado" aria-hidden="true"></span></label>`;
+      li.querySelector('.persona__nombre').textContent = n;
+      lista.append(li);
+    });
+  }
   const form = $('rsvp-form');
+  form.classList.toggle('rsvp-form--uno', uno);
+  $('rsvp-grupo').hidden = uno;
+  $('rsvp-conteo').hidden = uno;
+  $('rsvp-no').hidden = !uno;
+  // Para una sola persona: el botón principal confirma asistencia; "No podré asistir" manda asisten=[].
+  let intencion = 'si';
   const leer = () => {
+    if (uno) {
+      const n = fam.personas[0];
+      return intencion === 'si' ? { asisten: [n], no: [] } : { asisten: [], no: [n] };
+    }
     const asisten = [], no = [];
     fam.personas.forEach((n, i) => (form[`p${i}`].checked ? asisten : no).push(n));
     return { asisten, no };
   };
   function actualizar() {
+    if (uno) {
+      $('rsvp-conteo').textContent = '';
+      $('rsvp-enviar').textContent = 'Confirmar mi asistencia';
+      $('rsvp-enviar').setAttribute('aria-label', 'Confirmar mi asistencia');
+      $('rsvp-no').disabled = false;
+      $('rsvp-no').textContent = 'No podré asistir';
+      return;
+    }
     const { asisten } = leer();
     form.querySelectorAll('.persona').forEach(l => {
       const ok = l.querySelector('input').checked;
       l.classList.toggle('no', !ok);
       l.querySelector('.persona__estado').textContent = ok ? 'Asiste' : 'No podrá ir';
     });
-    $('rsvp-conteo').textContent = asisten.length && uno ? 'Confirmas tu lugar'
-      : asisten.length
+    $('rsvp-conteo').textContent = asisten.length
       ? `Confirman ${asisten.length} de ${fam.personas.length} ${fam.personas.length === 1 ? 'lugar' : 'lugares'}`
-      : plural('Nos avisas que no podrás venir', 'Nos avisan que nadie podrá venir');
-    $('rsvp-enviar').textContent = asisten.length ? 'Confirmar' : plural('Confirmar que no podré ir', 'Confirmar que no podremos ir');
+      : 'Nos avisan que nadie podrá venir';
+    $('rsvp-enviar').textContent = asisten.length ? 'Confirmar' : 'Confirmar que no podremos ir';
   }
   form.addEventListener('change', actualizar);
 
   function rellenar(prev) {
-    fam.personas.forEach((n, i) => {
-      // Lista guardada en este teléfono: se respeta quién asiste. Si solo hay estado del servidor, todos quedan marcados.
-      form[`p${i}`].checked = !(prev && Array.isArray(prev.asisten)) || prev.asisten.includes(n);
-    });
+    if (!uno) {
+      fam.personas.forEach((n, i) => {
+        // Lista guardada en este teléfono: se respeta quién asiste. Si solo hay estado del servidor, todos quedan marcados.
+        form[`p${i}`].checked = !(prev && Array.isArray(prev.asisten)) || prev.asisten.includes(n);
+      });
+    }
     form.mensaje.value = (prev && typeof prev.mensaje === 'string') ? prev.mensaje : '';
     const btn = $('rsvp-enviar'); btn.disabled = false;
     actualizar();
@@ -297,7 +319,9 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
   function mostrarFormulario(prev) {
     $('rsvp-t').textContent = 'Confirma tu asistencia';
     $('rsvp-plazo').hidden = false;
-    $('hero-cta').textContent = 'Confirmar asistencia'; $('hero-cta').href = '#rsvp';
+    $('hero-cta').textContent = uno ? 'Confirmar mi asistencia' : 'Confirmar asistencia';
+    $('hero-cta').href = '#rsvp';
+    intencion = 'si';
     rellenar(prev);
     mostrar('rsvp-form');
   }
@@ -306,6 +330,12 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
   $('ya-cambiar').addEventListener('click', () => {
     mostrarFormulario(guardada());
     $('rsvp-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  $('rsvp-enviar').addEventListener('click', () => { intencion = 'si'; });
+  $('rsvp-no').addEventListener('click', () => {
+    intencion = 'no';
+    form.requestSubmit();
   });
 
   form.addEventListener('submit', async e => {
@@ -317,7 +347,9 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
       confirmados: asisten.length, no_asisten_total: no.length,
       asisten: asisten.join(', '), no_asisten: no.join(', '), mensaje: r.mensaje, enviado: r.fecha,
     };
-    const btn = $('rsvp-enviar'); btn.disabled = true; btn.textContent = 'Enviando…';
+    const btn = $('rsvp-enviar'); const btnNo = $('rsvp-no');
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    if (uno) { btnNo.disabled = true; }
     try {
       const res = await enviar(CONFIG.RSVP_ENDPOINT, datos);
       if (!res.ok) throw new Error('envío');

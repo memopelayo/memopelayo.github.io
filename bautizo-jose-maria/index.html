@@ -12,9 +12,9 @@
 <meta property="og:type" content="website">
 <link rel="preload" href="assets/cruz-sm.webp" as="image" media="(max-width: 767px)">
 <link rel="preload" href="assets/fonts/PinyonScript-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/fonts.css?v=10">
+<link rel="stylesheet" href="assets/fonts.css?v=11">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-<link rel="stylesheet" href="styles.css?v=10">
+<link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
 <a class="skip" id="skip" href="#evento">Ir a los detalles del evento</a>
@@ -336,7 +336,7 @@
         <p class="rsvp-saludo__hola"><span class="script">¡Hola,</span><span class="rsvp-saludo__familia" id="rsvp-hola"></span></p>
         <p class="rsvp-saludo__lugares" id="rsvp-lugares"></p>
       </div>
-      <fieldset class="campo">
+      <fieldset class="campo" id="rsvp-grupo">
         <legend id="rsvp-instr">Desmarca a quien no podrá asistir:</legend>
         <ul class="personas" id="rsvp-personas"></ul>
       </fieldset>
@@ -346,6 +346,7 @@
         <textarea id="r-mensaje" name="mensaje" rows="3" placeholder="Alergias, algún aviso o unas palabras para José María"></textarea>
       </div>
       <button class="btn btn--solido btn--ancho" type="submit" id="rsvp-enviar">Confirmar</button>
+      <button class="rsvp-no" type="button" id="rsvp-no" hidden aria-label="No podré asistir">No podré asistir</button>
       <p class="aviso-demo" id="rsvp-demo">Vista previa: por ahora las respuestas no se envían a ningún lado.</p>
     </form>
 
@@ -474,8 +475,8 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
 <script src="assets/vendor/qrcode.js" defer></script>
 <script src="assets/invitados.js" defer></script>
-<script src="config.js?v=10" defer></script>
-<script src="app.js?v=10" defer></script>
+<script src="config.js?v=11" defer></script>
+<script src="app.js?v=11" defer></script>
 <script src="fotos.js" defer></script>
 </body>
 </html>

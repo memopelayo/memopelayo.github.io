@@ -7,10 +7,10 @@ window.CONFIG = {
   // Deja vacío ('') para modo vista previa (simulado, no envía nada).
   // Google Apps Script: pega la URL del "Web app" (termina en /exec).
   // Web3Forms: usa 'https://api.web3forms.com/submit' y llena WEB3FORMS_KEY.
-  RSVP_ENDPOINT: '',
+  RSVP_ENDPOINT: 'https://script.google.com/macros/s/AKfycbz4jcUcJIH_uPGHx0D_66YQ4onI-tWfEA128PT1sEtSuGJL7-JQXABpN_cL0jq2MYkX/exec',
   RSVP_PROVIDER: 'apps-script',      // 'apps-script' | 'web3forms'
   WEB3FORMS_KEY: '',                 // access key de Web3Forms (si se usa)
-  DESEOS_ENDPOINT: '',               // opcional: mismo esquema para los buenos deseos
+  DESEOS_ENDPOINT: 'https://script.google.com/macros/s/AKfycbz4jcUcJIH_uPGHx0D_66YQ4onI-tWfEA128PT1sEtSuGJL7-JQXABpN_cL0jq2MYkX/exec',               // opcional: mismo esquema para los buenos deseos
   // Álbum de fotos: 'integrado' = fotos en tu Google Drive vía el Apps Script, con galería en vivo (por defecto)
   //                 'externo'   = botón + QR hacia otro servicio (EventPics, Google Fotos…) usando ALBUM_URL
   ALBUM_MODO: 'integrado',
