@@ -249,8 +249,8 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
     $('ya-cambiar').textContent = btnTxt;
     $('ya-cambiar').setAttribute('aria-label', btnTxt);
     $('ya-cambiar-plazo').textContent = uno
-      ? 'Puedes modificarla hasta el viernes 20 de noviembre.'
-      : 'Puedes modificarlos hasta el viernes 20 de noviembre.';
+      ? 'Puedes modificarla hasta el martes 24 de noviembre.'
+      : 'Puedes modificarlos hasta el martes 24 de noviembre.';
     $('ya-cambiar').hidden = !puedeCambiar;
     $('ya-cambiar-plazo').hidden = !puedeCambiar;
     $('ya-mas').hidden = tipo !== 'confirmado';
