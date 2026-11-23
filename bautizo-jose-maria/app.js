@@ -193,7 +193,8 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
   // Parámetros de prueba (solo sin Apps Script): &demo=confirmado, &demo=mesa, &demo=cerrado (se pueden combinar con comas)
   const demo = CONFIG.RSVP_ENDPOINT ? [] : (new URLSearchParams(location.search).get('demo') || '').split(',').map(s => s.trim());
   const verMesa = demo.includes('mesa') || desdeFecha(CONFIG.MOSTRAR_MESA_DESDE) || !CONFIG.MOSTRAR_MESA_DESDE;
-  const cerrado = demo.includes('cerrado') || desdeFecha(CONFIG.CIERRE_CONFIRMACION);
+  const cierreFam = (CONFIG.CIERRE_EXCEPCIONES || {})[fam.slug] || CONFIG.CIERRE_CONFIRMACION;
+  const cerrado = demo.includes('cerrado') || desdeFecha(cierreFam);
 
   const KEY = 'bautizo-rsvp-' + fam.id;
   const guardada = () => { try { return JSON.parse(localStorage.getItem(KEY)); } catch (_) { return null; } };
