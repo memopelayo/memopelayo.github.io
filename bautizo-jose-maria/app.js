@@ -544,3 +544,47 @@ familiaPromesa.then(f => { if (f) pintarCalendario(`${CONFIG.SITIO_URL}?f=${f.sl
     }, ms));
   }));
 })();
+
+/* ---------- Clima del sábado (Open-Meteo, sin clave). Si falla o aún no hay pronóstico, no se muestra ---------- */
+(function clima() {
+  const caja = document.getElementById('clima');
+  if (!caja || !window.fetch) return;
+  const DIA = '2026-11-28';
+  const hoy = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Mexico_City' }).format(new Date());
+  if (hoy > DIA) return;                       // después del evento: nada
+  const url = 'https://api.open-meteo.com/v1/forecast?latitude=19.2829&longitude=-98.4376'
+    + '&hourly=temperature_2m,precipitation_probability,weather_code&timezone=America%2FMexico_City'
+    + `&start_date=${DIA}&end_date=${DIA}`;
+  const ICONOS = {
+    sol: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>',
+    nubes: '<path d="M7 18h10a4 4 0 0 0 .4-8 5.5 5.5 0 0 0-10.6 1.2A3.4 3.4 0 0 0 7 18z"/>',
+    lluvia: '<path d="M7 14.5h10a3.6 3.6 0 0 0 .4-7.2 5 5 0 0 0-9.6 1.1A3.1 3.1 0 0 0 7 14.5z"/><path d="M8.5 17.5l-1 2.5M12.5 17.5l-1 2.5M16.5 17.5l-1 2.5"/>',
+  };
+  const svg = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">${ICONOS[k]}</svg>`;
+  const ctl = new AbortController(); setTimeout(() => ctl.abort(), 8000);
+  fetch(url, { signal: ctl.signal }).then(r => r.ok ? r.json() : null).then(d => {
+    const h = d && d.hourly; if (!h || !h.time) return;
+    const fila = hr => { const i = h.time.indexOf(`${DIA}T${hr}:00`); return i < 0 ? null : { t: h.temperature_2m[i], p: h.precipitation_probability[i], c: h.weather_code[i] }; };
+    const evento = ['12', '13', '14', '15', '16', '17', '18', '19', '20', '21'].map(fila).filter(x => x && x.t != null);
+    const medio = fila('12');
+    if (!medio || medio.t == null || evento.length < 6) return;
+    const r = n => Math.round(n);
+    const tarde = ['17', '18', '19', '20', '21'].map(fila).filter(x => x && x.t != null);
+    const minTarde = Math.min(...(tarde.length ? tarde : evento).map(x => x.t));
+    const lluvia = Math.max(...evento.map(x => x.p || 0));
+    const llueve = evento.some(x => x.c >= 51);
+    const icono = (lluvia >= 50 || llueve) ? 'lluvia' : (medio.c <= 1 ? 'sol' : 'nubes');
+    let tip;
+    const frio = minTarde <= 12, fresco = minTarde <= 16;
+    if (lluvia >= 50) tip = frio ? 'Lleva chamarra y paraguas: se espera lluvia y hará frío.' : 'Lleva paraguas y un suéter ligero.';
+    else if (frio) tip = lluvia >= 25 ? 'Lleva chamarra para la tarde y, por si acaso, un paraguas.' : 'Lleva chamarra: en la tarde hace frío.';
+    else if (fresco) tip = 'Lleva un suéter para la tarde.';
+    else tip = 'Ropa ligera está bien; un suéter delgado para la noche no sobra.';
+    document.getElementById('clima-icono').innerHTML = svg(icono);
+    document.getElementById('clima-mediodia').textContent = `${r(medio.t)} °C`;
+    document.getElementById('clima-tarde').textContent = `${r(minTarde)} °C`;
+    document.getElementById('clima-lluvia').textContent = `${r(lluvia)} %`;
+    document.getElementById('clima-tip').innerHTML = `${tip}<small class="clima__fuente">San Martín Texmelucan · Open-Meteo, puede cambiar</small>`;
+    caja.hidden = false;
+  }).catch(() => {});
+})();
